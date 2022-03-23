@@ -6,11 +6,12 @@ CC		=	clang
 INC_DIR		=	../../includes
 LIB_NAME	=	Libft
 LIB_DIR		=	../../includes/Libft
+RL_DIR		=	./readline-master
 
 AR			= 	ar rc
 CFLAGS		=	-Wall -Wextra -Werror
 DEBUGFLAG	= -fsanitize=address -g3
-LDFLAGS		=	-lc
+LDFLAGS		=	-lc -lreadline
 
 SRCS		=	./main.c\
 				./pipe.c\
@@ -36,7 +37,6 @@ $(TARGET)	:	$(OBJS)
 	$(CC) $(CFLAGS) $(LDFLAGS) $(ARFS) -o $@ $^
 
 .c.o	:
-	brew install readline
 	$(CC) $(CFLAGS) -I $(LIB_DIR) -I $(INC_DIR) -c $< -o $@
 
 

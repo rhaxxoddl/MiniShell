@@ -6,12 +6,13 @@
 /*   By: sanjeon <sanjeon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/14 13:59:13 by sanjeon           #+#    #+#             */
-/*   Updated: 2022/03/23 11:04:22 by sanjeon          ###   ########.fr       */
+/*   Updated: 2022/03/23 20:22:10 by sanjeon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipe.h"
 #include <fcntl.h>
+#include <readline/readline.h>
 #include <readline/history.h>
 
 int	redir_in(const char *filename)
@@ -53,8 +54,9 @@ int	redir_app(const char *filename)
 	return (1);
 }
 
-int	here_doc(char *limitor)
+int	redir_here_doc(const char *limitor)
 {
+	int		fd;
 	char	*str;
 	char	*temp;
 	char	*rl;
@@ -64,22 +66,69 @@ int	here_doc(char *limitor)
 	str = 0;
 	rl = 0;
 	i = 0;
+	fd = open("temp", O_WRONLY | O_CREAT, 0755);
+	// grep에 fd를 넘겨줘야 함.
+	if (fd < 0)
+		return (-1);
 	while (1)
 	{
-		rl = is_limitor(readline("heredoc"), limitor);
+
+		rl = is_limitor(readline("heredoc> "), limitor);
 		if (rl == 0)
-			
+		{
+		if (dup2(fd, STDOUT_FILENO) == -1)
+			return (-1);
+			close(fd);
+		// if (unlink("temp") == -1)
+		// 	return (-1);
+			write(STDOUT_FILENO, str, ft_strlen(str));
+			close(STDOUT_FILENO);
+			break;
+		}
+		else
+			rl = add_str(rl, "\n");
+		if (rl == 0 && str != 0)
+		{
+			free(str);
+			return (0);
+		}
+		if (str == 0)
+			str = ft_strdup(rl);
+		else
+		{
+			temp = ft_strjoin(str, rl);
+			if (temp == 0)
+			{
+				if (str != 0)
+					free(str);
+				return (0);
+			}
+			free(str);
+			str = temp;
+			rl = 0;
+		}
 	}
+	return (1);
 }
 
-char	*is_limitor(char *str, char *limitor)
+char	*is_limitor(char *str, const char *limitor)
 {
-	if ((ft_strlen(str) == ft_strlen(limitor)) && ft_strncmp(str, limitor, ft_strlen(str)))
-		return (str);
-	return (0);
+	if ((ft_strlen(str) == ft_strlen(limitor)) && !ft_strncmp(str, limitor, ft_strlen(str)))
+		return (0);
+	return (str);
 }
 
-char	*trans_env_in_str(char *str, char **envp)
+char	*add_str(char *str, char *add)
 {
+	char	*temp;
 	
+	temp = ft_strjoin(str, add);
+	if (temp == 0)
+		return (0);
+	return (temp);
 }
+
+// char	*trans_env_in_str(const char *str, char **envp)
+// {
+	
+// }

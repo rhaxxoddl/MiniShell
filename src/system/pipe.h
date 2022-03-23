@@ -6,7 +6,7 @@
 /*   By: sanjeon <sanjeon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/11 18:51:05 by sanjeon           #+#    #+#             */
-/*   Updated: 2022/03/22 20:46:30 by sanjeon          ###   ########.fr       */
+/*   Updated: 2022/03/23 16:58:27 by sanjeon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,6 @@
 
 # define R 0
 # define W 1
-
-/*
-To do list
-1. create free_arg()
-2. create here_doc()
-3. If argv[1] is "here_doc" create_cmd_list starts with argv[3]
-*/
 
 // cmd.c
 t_cmd_list	*create_cmd_list(int argc, char *argv[], t_arg *arg);
@@ -59,4 +52,7 @@ void		connect_pipe(int cmd_idx, t_arg *arg);
 int			redir_in(const char *filename);
 int			redir_out(const char *filename);
 int			redir_app(const char *filename);
+int			redir_here_doc(const char *limitor);
+char		*is_limitor(char *str, const char *limitor);
+char		*add_str(char *str, char *add);
 #endif

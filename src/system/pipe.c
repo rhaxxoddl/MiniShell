@@ -6,7 +6,7 @@
 /*   By: sanjeon <sanjeon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/14 16:26:10 by sanjeon           #+#    #+#             */
-/*   Updated: 2022/03/22 20:56:24 by sanjeon          ###   ########.fr       */
+/*   Updated: 2022/03/23 20:21:55 by sanjeon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ int	ft_pipe(t_arg *arg, t_cmd_list *cmd_list)
 		close(arg->fds[cmd_list->cmd_idx][W]);
 		close(arg->fds[cmd_list->cmd_idx][R]);
 		waitpid(pid, &(arg->status), 0);
+
+		write(1, "hihi\n", 5);
 	}
 	return (0);
 }
@@ -42,8 +44,9 @@ void	connect_pipe(int cmd_idx, t_arg *arg)
 {
 	if (cmd_idx == 0)
 	{
-		if (redir_in(arg->infile) == -1)
-			p_a_error(arg);
+		redir_here_doc(arg->infile);
+		// if (redir_in(arg->infile) == -1)
+		// 	p_a_error(arg);
 	}
 	if (cmd_idx == arg->cmd_count - 1)
 	{
