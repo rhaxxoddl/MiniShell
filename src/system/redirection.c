@@ -6,7 +6,7 @@
 /*   By: sanjeon <sanjeon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/14 13:59:13 by sanjeon           #+#    #+#             */
-/*   Updated: 2022/03/23 20:22:10 by sanjeon          ###   ########.fr       */
+/*   Updated: 2022/03/24 20:11:06 by sanjeon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ int	redir_in(const char *filename)
 
 int	redir_out(const char *filename)
 {
+	printf("redir_out\n");
 	int	fd;
 
 	fd = open(filename,
@@ -127,8 +128,3 @@ char	*add_str(char *str, char *add)
 		return (0);
 	return (temp);
 }
-
-// char	*trans_env_in_str(const char *str, char **envp)
-// {
-	
-// }

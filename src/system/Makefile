@@ -16,13 +16,8 @@ LDFLAGS		=	-lc -lreadline
 SRCS		=	./main.c\
 				./pipe.c\
 				./error.c\
-				./cmd.c\
 				./parsing.c\
-				./ft_split_p.c\
-				./path.c\
-				./redirection.c\
-				./free_array.c\
-				./free_struct.c
+				./redirection.c
 SRCS_DIR	=	./
 OBJS		=	$(SRCS:.c=.o)
 ARFS		=	$(LIB_DIR)/Libft.a
