@@ -6,7 +6,7 @@
 /*   By: sanjeon <sanjeon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/14 16:26:10 by sanjeon           #+#    #+#             */
-/*   Updated: 2022/03/24 20:04:32 by sanjeon          ###   ########.fr       */
+/*   Updated: 2022/03/24 20:44:12 by sanjeon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 int	ft_pipe(t_arg *arg, int cmd_idx)
 {
-	printf("%d : %s\n", arg->cmd_idx, arg->c_t[arg->cmd_idx].cmd[0]);
 	pid_t	pid;
 
 	if (pipe(arg->fds[cmd_idx]) == -1)
@@ -50,32 +49,40 @@ void	connect_pipe(int cmd_idx, t_arg *arg)
 	}
 }
 
-void	connect_redir(t_redir redir, t_arg *arg)
+void	connect_redir(t_redir *redir, t_arg *arg)
 {
-	// printf("redir_type : %d\n", redir.redir_type);
-	if (redir.redir_type == HERE_DOC)
+	t_redir	*temp;
+
+	temp = redir;
+	while (temp->next != 0)
 	{
-		if (redir_here_doc(redir.filename) == -1)
+		if (sellect_redir(temp) == 0)
 			p_a_error(arg);
+		temp = temp->next;
 	}
-	else if (redir.redir_type == REDIR_IN)
+}
+
+int	sellect_redir(t_redir *redir)
+{
+	if (redir->redir_type == HERE_DOC)
 	{
-		if (redir_in(redir.filename) == -1)
-			p_a_error(arg);
+		if (redir_here_doc(redir->filename) == -1)
+			return (0);
 	}
-	else if (redir.redir_type == REDIR_OUT)
+	else if (redir->redir_type == REDIR_IN)
 	{
-		if (redir_out(redir.filename) == -1)
-			p_a_error(arg);
+		if (redir_in(redir->filename) == -1)
+			return (0);
 	}
-	else if (redir.redir_type == REDIR_APP)
+	else if (redir->redir_type == REDIR_OUT)
 	{
-		if (redir_app(redir.filename) == -1)
-			p_a_error(arg);
+		if (redir_out(redir->filename) == -1)
+			return (0);
 	}
-	// else
-	// {
-	// 	if (dup2(arg->std_out, STDOUT_FILENO) == -1)
-	// 		p_a_error(arg);
-	// }
+	else if (redir->redir_type == REDIR_APP)
+	{
+		if (redir_app(redir->filename) == -1)
+			return (0);
+	}
+	return (1);
 }

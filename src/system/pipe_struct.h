@@ -6,7 +6,7 @@
 /*   By: sanjeon <sanjeon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/14 11:35:32 by sanjeon           #+#    #+#             */
-/*   Updated: 2022/03/24 17:56:45 by sanjeon          ###   ########.fr       */
+/*   Updated: 2022/03/24 20:36:11 by sanjeon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,11 +45,12 @@ enum redir_type{
 typedef struct s_redir{
 	int		redir_type; // enum으로 here_doc = 0, redir_in = 1, redir_out = 2, redir_app = 3으로 지정
 	char	*filename; // redirection에 들어갈 filename
+	t_redir	*next;
 }				t_redir;
 
 typedef struct s_cmd{
 	char	**cmd; // [0]은 적절한 path가 연결된 cmd, [1]부터 cmd에 들어갈 인자
-	t_redir	redir;
+	t_redir	*redir;
 }				t_cmd;
 
 typedef struct s_arg{
