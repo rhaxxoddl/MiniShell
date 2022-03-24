@@ -6,7 +6,7 @@
 /*   By: sanjeon <sanjeon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/11 18:51:05 by sanjeon           #+#    #+#             */
-/*   Updated: 2022/03/24 19:38:00 by sanjeon          ###   ########.fr       */
+/*   Updated: 2022/03/24 21:03:56 by sanjeon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,8 @@ int			add_slash(char **path);
 // pipe.c
 int			ft_pipe(t_arg *arg, int i);
 void		connect_pipe(int cmd_idx, t_arg *arg);
-void		connect_redir(t_redir redir, t_arg *arg);
+void		connect_redir(t_redir *redir, t_arg *arg);
+int			sellect_redir(t_redir *redir);
 // redirection.c
 int			redir_in(const char *filename);
 int			redir_out(const char *filename);

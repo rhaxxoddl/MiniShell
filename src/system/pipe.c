@@ -6,7 +6,7 @@
 /*   By: sanjeon <sanjeon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/14 16:26:10 by sanjeon           #+#    #+#             */
-/*   Updated: 2022/03/24 20:44:12 by sanjeon          ###   ########.fr       */
+/*   Updated: 2022/03/24 21:32:20 by sanjeon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	connect_redir(t_redir *redir, t_arg *arg)
 	t_redir	*temp;
 
 	temp = redir;
-	while (temp->next != 0)
+	while (temp != 0)
 	{
 		if (sellect_redir(temp) == 0)
 			p_a_error(arg);
