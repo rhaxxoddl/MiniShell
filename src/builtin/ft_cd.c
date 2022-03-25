@@ -1,43 +1,45 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_echo.c                                          :+:      :+:    :+:   */
+/*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sanjeon <sanjeon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/25 17:12:47 by sanjeon           #+#    #+#             */
-/*   Updated: 2022/03/25 20:24:43 by sanjeon          ###   ########.fr       */
+/*   Created: 2022/03/25 19:41:36 by sanjeon           #+#    #+#             */
+/*   Updated: 2022/03/25 20:35:44 by sanjeon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "run_cmd.h"
 #include <limits.h>
 
-int	ft_echo(char *argv[])
+int	ft_pwd()
 {
-	int	i;
-	int	n;
+	char	*buf;
 
-	i = 0;
-	n = 0;
-	if (!ft_strncmp(argv[i + 1], "-n", 2))
+	buf = (char *)ft_calloc(PATH_MAX, sizeof(char));
+	if (buf == 0)
+		return (0);
+	buf =  *getcwd(buf, PATH_MAX);
+	if (buf == 0)
 	{
-		n = 1;
-		i++;
+		free(buf);
+		buf = 0;
+		return (0);
 	}
-	while (argv[++i] != 0)
-	{
-		write(STDOUT_FILENO, argv[i], ft_strlen(argv[i]));
-		if (argv[i + 1] != 0)
-			write(STDOUT_FILENO, " ", 1);
-	}
-	if (n == 0)
-		write(STDOUT_FILENO, "\n", 1);
+	write(STDOUT_FILENO, buf, ft_strlen(buf));
+	free(buf);
 	return (1);
 }
 
-void	ft_exit(int	status)
+int	ft_cd(char *path)
 {
-	write(1, "exit\n", 5);
-	exit(status);
+	char	**split;
+
+	split = ft_split(path, '/');
+}
+
+char	update_path(char *path)
+{
+	
 }
