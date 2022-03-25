@@ -6,7 +6,7 @@
 /*   By: sanjeon <sanjeon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/14 13:59:13 by sanjeon           #+#    #+#             */
-/*   Updated: 2022/03/24 21:37:23 by sanjeon          ###   ########.fr       */
+/*   Updated: 2022/03/25 11:25:13 by sanjeon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ int	redir_in(const char *filename)
 
 int	redir_out(const char *filename)
 {
-	printf("redir_out\n");
 	int	fd;
 
 	fd = open(filename,
@@ -47,7 +46,7 @@ int	redir_app(const char *filename)
 {
 	int	fd;
 
-	fd = open(filename, O_WRONLY | O_CREAT | O_APPEND);
+	fd = open(filename, O_WRONLY | O_CREAT | O_APPEND, S_IRWXU | S_IRWXG | S_IRWXO);
 	if (fd < 0)
 		return (-1);
 	if (dup2(fd, STDIN_FILENO) == -1)
@@ -67,10 +66,9 @@ int	redir_here_doc(const char *limitor)
 	str = 0;
 	rl = 0;
 	i = 0;
-	fd = open("temp", O_WRONLY | O_CREAT, 0755);
+	fd = open("temp", O_WRONLY | O_CREAT | O_TRUNC, S_IRWXU | S_IRWXG | S_IRWXO);
 	if (fd < 0)
 		return (-1);
-	// grep에 fd를 넘겨줘야 함.
 	while (1)
 	{
 
@@ -80,10 +78,12 @@ int	redir_here_doc(const char *limitor)
 			if (dup2(fd, STDIN_FILENO) == -1)
 				return (-1);
 			close(fd);
-		// if (unlink("temp") == -1)
-		// 	return (-1);
 			write(STDIN_FILENO, str, ft_strlen(str));
-			close(STDIN_FILENO);
+			fd = open("temp", O_RDONLY);
+			if (dup2(fd, STDIN_FILENO) == -1)
+				return (-1);
+			if (unlink("temp") == -1)
+				return (-1);
 			break;
 		}
 		else

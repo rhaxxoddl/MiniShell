@@ -6,7 +6,7 @@
 /*   By: sanjeon <sanjeon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/11 18:56:51 by sanjeon           #+#    #+#             */
-/*   Updated: 2022/03/24 21:33:08 by sanjeon          ###   ########.fr       */
+/*   Updated: 2022/03/25 11:25:38 by sanjeon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,13 @@ static void 	parsing(t_arg *arg, char *envp[])
 	arg->c_t[0].redir->redir_type = HERE_DOC;
 	arg->c_t[0].redir->filename = ft_strdup("a");
 	arg->c_t[0].redir->next = 0;
-	arg->c_t[1].cmd = ft_calloc(2, sizeof(char *));
-	arg->c_t[1].cmd[0] = ft_strdup("/bin/cat");
+	// arg->c_t[1].cmd = ft_calloc(2, sizeof(char *));
+	// arg->c_t[1].cmd[0] = ft_strdup("/bin/cat");
+	// arg->c_t[1].redir = ft_calloc(1, sizeof(t_redir));
+	// arg->c_t[1].redir->redir_type = REDIR_OUT;
+	// arg->c_t[1].redir->filename = ft_strdup("b");
 	
-	arg->cmd_count = 2;
+	arg->cmd_count = 1;
 	arg->cmd_idx = 0;
 	arg->fds = malloc_fds(arg->cmd_count);
 	arg->envp = envp;

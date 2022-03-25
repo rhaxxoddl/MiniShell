@@ -6,7 +6,7 @@
 /*   By: sanjeon <sanjeon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/14 16:26:10 by sanjeon           #+#    #+#             */
-/*   Updated: 2022/03/24 21:32:20 by sanjeon          ###   ########.fr       */
+/*   Updated: 2022/03/25 11:26:01 by sanjeon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,9 @@ int	ft_pipe(t_arg *arg, int cmd_idx)
 	else if (pid == 0)
 	{
 		connect_pipe(cmd_idx, arg);
+		int i = 0;
+		while (arg->c_t[cmd_idx].cmd[i])
+			i++;
 		if (execve(arg->c_t[cmd_idx].cmd[0], arg->c_t[arg->cmd_idx].cmd, arg->envp) == -1)
 			p_a_error(arg);
 	}
