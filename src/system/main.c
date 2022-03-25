@@ -6,11 +6,11 @@
 /*   By: sanjeon <sanjeon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/11 18:56:51 by sanjeon           #+#    #+#             */
-/*   Updated: 2022/03/25 11:25:38 by sanjeon          ###   ########.fr       */
+/*   Updated: 2022/03/25 16:55:42 by sanjeon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipe.h"
+#include "run_cmd.h"
 
 static void 	parsing(t_arg *arg, char *envp[])
 {
@@ -34,6 +34,7 @@ static void 	parsing(t_arg *arg, char *envp[])
 	arg->envp = envp;
 	arg->std_in = dup(STDIN_FILENO);
 	arg->std_out = dup(STDOUT_FILENO);
+	arg->status = 100;
 }
 
 int	main(int argc, char *argv[], char *envp[])
@@ -46,7 +47,7 @@ int	main(int argc, char *argv[], char *envp[])
 	parsing(arg, envp);
 	while (arg->cmd_idx < arg->cmd_count)
 	{
-		ft_pipe(arg, arg->cmd_idx);
+		run_cmd(arg, arg->cmd_idx);
 		arg->cmd_idx++;
 	}
 	return (0);

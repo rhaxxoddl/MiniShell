@@ -14,10 +14,11 @@ DEBUGFLAG	= -fsanitize=address -g3
 LDFLAGS		=	-lc -lreadline
 
 SRCS		=	./main.c\
-				./pipe.c\
+				./run_cmd.c\
 				./error.c\
 				./parsing.c\
-				./redirection.c
+				./redirection.c\
+				./here_doc_util.c
 SRCS_DIR	=	./
 OBJS		=	$(SRCS:.c=.o)
 ARFS		=	$(LIB_DIR)/Libft.a

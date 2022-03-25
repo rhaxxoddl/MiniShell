@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipe.c                                             :+:      :+:    :+:   */
+/*   run_cmd.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sanjeon <sanjeon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/14 16:26:10 by sanjeon           #+#    #+#             */
-/*   Updated: 2022/03/25 11:26:01 by sanjeon          ###   ########.fr       */
+/*   Updated: 2022/03/25 17:01:43 by sanjeon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipe.h"
+#include "run_cmd.h"
 
-int	ft_pipe(t_arg *arg, int cmd_idx)
+int	run_cmd(t_arg *arg, int cmd_idx)
 {
 	pid_t	pid;
 
@@ -25,10 +25,8 @@ int	ft_pipe(t_arg *arg, int cmd_idx)
 	else if (pid == 0)
 	{
 		connect_pipe(cmd_idx, arg);
-		int i = 0;
-		while (arg->c_t[cmd_idx].cmd[i])
-			i++;
-		if (execve(arg->c_t[cmd_idx].cmd[0], arg->c_t[arg->cmd_idx].cmd, arg->envp) == -1)
+		if (execve(arg->c_t[cmd_idx].cmd[0], arg->c_t[arg->cmd_idx].cmd,
+				arg->envp) == -1)
 			p_a_error(arg);
 	}
 	if (pid)
@@ -36,7 +34,7 @@ int	ft_pipe(t_arg *arg, int cmd_idx)
 		close(arg->fds[cmd_idx][W]);
 		dup2(arg->fds[cmd_idx][R], STDIN_FILENO);
 		close(arg->fds[cmd_idx][R]);
-		waitpid(pid, &(arg->status), 0);
+		waitpid(pid, &(arg->status), WNOHANG);
 	}
 	return (0);
 }
@@ -69,7 +67,7 @@ int	sellect_redir(t_redir *redir)
 {
 	if (redir->redir_type == HERE_DOC)
 	{
-		if (redir_here_doc(redir->filename) == -1)
+		if (redir_here(redir->filename) == -1)
 			return (0);
 	}
 	else if (redir->redir_type == REDIR_IN)

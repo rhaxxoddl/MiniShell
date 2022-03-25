@@ -1,0 +1,6 @@
+{
+	"files.associations": {
+		"run_cmd.h": "c",
+		"errno.h": "c"
+	}
+}
