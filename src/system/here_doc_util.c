@@ -6,7 +6,7 @@
 /*   By: sanjeon <sanjeon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/25 16:56:43 by sanjeon           #+#    #+#             */
-/*   Updated: 2022/03/25 16:58:29 by sanjeon          ###   ########.fr       */
+/*   Updated: 2022/03/26 12:51:47 by sanjeon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,15 +72,15 @@ int	comein_limitor(int fd, char **str, char **rl)
 	return (free_return(str, rl, 1));
 }
 
-char	*is_limitor(char *str, const char *limitor)
+char	*is_limitor(char *rl, const char *limitor)
 {
-	if ((ft_strlen(str) == ft_strlen(limitor))
-		&& !ft_strncmp(str, limitor, ft_strlen(str)))
+	if ((ft_strlen(rl) == ft_strlen(limitor))
+		&& !ft_strncmp(rl, limitor, ft_strlen(rl)))
 	{
-		free(str);
+		free(rl);
 		return (0);
 	}
-	return (str);
+	return (rl);
 }
 
 char	*add_str(char **str, char **rl)

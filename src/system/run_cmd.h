@@ -6,7 +6,7 @@
 /*   By: sanjeon <sanjeon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/11 18:51:05 by sanjeon           #+#    #+#             */
-/*   Updated: 2022/03/25 18:01:07 by sanjeon          ###   ########.fr       */
+/*   Updated: 2022/03/26 12:58:49 by sanjeon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,34 +23,74 @@
 # define R 0
 # define W 1
 
-// error.c
+// error.c-------------------------------------
+/*
+[p_a_error()]
+Before printing the error about errno,
+the allocated structure 'arg' is free.
+*/
 void		p_a_error(t_arg *arg);
-// ft_split.c
-char		**ft_split_p(char const *s, char c);
 // main.c
-//parsing.c
+//parsing.c-----------------------------------
 t_arg		*init_arg(void);
 int			**malloc_fds(int cmd_count);
-int			dup_file(char *argv[], t_arg *arg);
-// path.c
-char		**get_path(char *envp[]);
-char		*add_pwd(char *envp[]);
-int			add_slash(char **path);
-// pipe.c
+// run_cmd.c-----------------------------------
+/*
+[run_cmd()]
+Creates child processes and executes command.
+*/
 int			run_cmd(t_arg *arg, int i);
+/*
+[connect_pipe()]
+Pipe connection with the following command.
+*/
 void		connect_pipe(int cmd_idx, t_arg *arg);
+/*
+[connect_redir()]
+Apply redirection.
+*/
 void		connect_redir(t_redir *redir, t_arg *arg);
+/*
+[sellect_redir()]
+Choose the proper redirection function and execute it.
+In the connect_redir()
+*/
 int			sellect_redir(t_redir *redir);
-// redirection.c
+// redirection.c-----------------------------------
 int			redir_in(const char *filename);
 int			redir_out(const char *filename);
 int			redir_app(const char *filename);
 int			redir_here(const char *limitor);
-// here_doc_util.c
+// here_doc_util.c-----------------------------------
+/*
+[until_comein_limitor()]
+Read on the readline() and connect to str until the limiter comes in.
+When the limiter comes in, call the comein_limitor().
+*/
 int			until_comein_limitor(char **str, char **rl,
 				const char *limitor, int fd);
+/*
+[free_return()]
+Check if the strings str and rl are null or return status after deallocation.
+If allocation fails, use it in return.
+*/
 int			free_return(char **str, char **rl, int status);
+/*
+[comein_limitor()]
+Create a temporary file named temp, write a str, attach temp to STDIN, and temp is unlink.
+*/
 int			comein_limitor(int fd, char **str, char **rl);
-char		*is_limitor(char *str, const char *limitor);
+/*
+[is_limitor()]
+Checked if the limiter was met.
+If you have met the limiter return 0,
+else returns the string read by readline().
+*/
+char		*is_limitor(char *rl, const char *limitor);
+/*
+[add_str()]
+Added rl and newline to str.
+null return on failure.
+*/
 char		*add_str(char **str, char **rl);
 #endif

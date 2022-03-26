@@ -6,7 +6,7 @@
 /*   By: sanjeon <sanjeon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/14 11:42:15 by sanjeon           #+#    #+#             */
-/*   Updated: 2022/03/25 13:00:39 by sanjeon          ###   ########.fr       */
+/*   Updated: 2022/03/26 10:30:35 by sanjeon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,10 @@
 #include <errno.h>
 #include <stdio.h>
 
+/*
+A temporary function of the function
+that releases the arg you created.
+*/
 void	free_arg(t_arg *arg)
 {
 	(void)arg;
