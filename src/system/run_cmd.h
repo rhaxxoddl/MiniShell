@@ -93,4 +93,10 @@ Added rl and newline to str.
 null return on failure.
 */
 char		*add_str(char **str, char **rl);
+// signal_handler.c-----------------------------------
+/*
+[sig_init()]
+Set a signal_handler function to SIGINT, SIGQUIT, SIGTERM.
+ */
+void	    sig_init(void);
 #endif
