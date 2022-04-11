@@ -1,21 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing.c                                          :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sanjeon <sanjeon@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/04 16:38:13 by sanjeon           #+#    #+#             */
-/*   Updated: 2022/04/11 17:16:42 by sanjeon          ###   ########.fr       */
+/*   Created: 2022/04/04 16:44:48 by sanjeon           #+#    #+#             */
+/*   Updated: 2022/04/11 19:34:19 by sanjeon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipe_struct.h"
-#include <readline/readline.h>
-#include <unistd.h>
-#include <stdio.h>
+#include "parsing.h"
 
-t_arg	*parsing(char *line)
+int	main(void)
 {
-	
+	char	*str;
+
+	str = 0;
+	while (1)
+	{
+		// str = app_str(str, readline("minishell$ "));
+	}
 }

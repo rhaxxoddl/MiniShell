@@ -1,21 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing.c                                          :+:      :+:    :+:   */
+/*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sanjeon <sanjeon@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/04 16:38:13 by sanjeon           #+#    #+#             */
-/*   Updated: 2022/04/11 17:16:42 by sanjeon          ###   ########.fr       */
+/*   Created: 2022/03/22 11:38:46 by sanjeon           #+#    #+#             */
+/*   Updated: 2022/04/11 19:57:34 by sanjeon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipe_struct.h"
-#include <readline/readline.h>
-#include <unistd.h>
-#include <stdio.h>
+#ifndef PARSING_H
+# define PARSING_H
 
-t_arg	*parsing(char *line)
-{
-	
-}
+# include "libft.h"
+# include "pipe_struct.h"
+# include <stdio.h>
+# include <readline/readline.h>
+
+// quotes.c
+char	*pro_quotes(char *line);
+
+/*
+[check_quotes()]
+Check the quotes are correct.
+If quotes is correct return 1.
+else return 0.
+*/
+int		check_quotes(char *line);
+char	*s_quotes(char *line);
+char	*d_quotes(char *line);
+char	*pro_env(char *line);
+
+#endif
