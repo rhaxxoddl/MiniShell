@@ -6,7 +6,7 @@
 /*   By: sanjeon <sanjeon@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 16:38:13 by sanjeon           #+#    #+#             */
-/*   Updated: 2022/04/13 19:14:40 by sanjeon          ###   ########.fr       */
+/*   Updated: 2022/04/13 20:57:08 by sanjeon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,6 @@ t_cmd	*parsing_split(char **line, char **envp)
 	{
 		if ((*line)[i] == '$')
 		{
-			printf("i : %d\n", i);
 			if (temp == 0)
 				temp = ft_substr((*line), 0, i);
 			else
@@ -60,8 +59,13 @@ t_cmd	*parsing_split(char **line, char **envp)
 		}
 		else if ((*line)[i] == '\'')
 		{
-			// *line[i] 전까지 temp에 담기 
-			// temp = app_str(temp, s_quotes(*line));
+			if (temp == 0)
+				temp = ft_substr((*line), 0, i);
+			else
+				temp = app_str(temp, ft_substr((*line), 0, i));
+			(*line) = (*line) + i + 1;
+			i = 0;
+			temp = app_str(temp, s_quotes(line));
 		}
 		else if ((*line)[i] == '\"')
 		{
@@ -69,15 +73,21 @@ t_cmd	*parsing_split(char **line, char **envp)
 			// temp = app_str(temp, d_quotes(*line));
 
 		}
-		i++;
+		else
+			i++;
 	}
 	temp = app_str(temp, ft_substr((*line), 0, i - 1));
+	printf("temp : %s\n", temp);
 	// cmd = add_cmd(temp);
 	cmd = 0;
 	free(temp);
 	return (cmd);
 }
 
+/*
+$다음에 오는 문자들과 일치하는 env를 찾아야 하는데 포함되는 env까지 찾음.
+key
+*/
 char	*pro_env(char **line, char **envp)
 {
 	char	*output;
@@ -90,9 +100,16 @@ char	*pro_env(char **line, char **envp)
 	if (i == 0)
 		return (0);
 	j = 0;
-	while (ft_strncmp((*line), envp[j], i) != 0)
+	while (envp[j] != 0 && ft_strncmp((*line), envp[j], i) != 0)
 		j++;
-	output = ft_strdup((envp[j] + i + 1));
+	while (envp[j] != 0)
+	{
+		j++;
+	}
+	if (envp[j] != 0)
+		output = ft_strdup((envp[j] + i + 1));
+	else
+		output = 0;
 	*line = &(*line)[i];
 	return (output);
 }
@@ -103,7 +120,12 @@ char	*app_str(char *dest, char *src)
 
 	output = 0;
 	if (dest != 0)
-		output = ft_strjoin(dest, src);
+	{
+		if (src != 0)
+			output = ft_strjoin(dest, src);
+		else
+			return (dest);
+	}
 	else
 		output = ft_strdup(src);
 	if (output != 0)
