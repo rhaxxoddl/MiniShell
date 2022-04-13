@@ -1,7 +1,0 @@
-{
-	"files.associations": {
-		"run_cmd.h": "c",
-		"errno.h": "c",
-		"pipe_struct.h": "c"
-	}
-}

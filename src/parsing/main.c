@@ -6,19 +6,21 @@
 /*   By: sanjeon <sanjeon@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 16:44:48 by sanjeon           #+#    #+#             */
-/*   Updated: 2022/04/11 19:34:19 by sanjeon          ###   ########.fr       */
+/*   Updated: 2022/04/13 19:09:35 by sanjeon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
 
-int	main(void)
+int	main(int argc, char **argv, char **envp)
 {
-	char	*str;
+	(void)argc;
+	(void)argv;
+	char	*str = ft_strdup("abcd$PATH pad$PATH");
 
-	str = 0;
-	while (1)
-	{
-		// str = app_str(str, readline("minishell$ "));
-	}
+	parsing_split(&str, envp);
+	// while (1)
+	// {
+	// }
+	return (0);
 }

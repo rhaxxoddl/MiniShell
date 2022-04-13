@@ -6,7 +6,7 @@
 /*   By: sanjeon <sanjeon@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 11:38:46 by sanjeon           #+#    #+#             */
-/*   Updated: 2022/04/11 19:57:34 by sanjeon          ###   ########.fr       */
+/*   Updated: 2022/04/13 17:28:14 by sanjeon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,10 @@ else return 0.
 int		check_quotes(char *line);
 char	*s_quotes(char *line);
 char	*d_quotes(char *line);
-char	*pro_env(char *line);
 
+// parsing.c
+char	*pro_env(char **line, char **envp);
+char	*app_str(char *dest, char *src);
+t_cmd	*add_cmd(char *cmd_line);
+t_cmd	*parsing_split(char **line, char **envp);
 #endif
