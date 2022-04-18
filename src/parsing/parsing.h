@@ -6,7 +6,7 @@
 /*   By: sanjeon <sanjeon@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 11:38:46 by sanjeon           #+#    #+#             */
-/*   Updated: 2022/04/18 15:34:31 by sanjeon          ###   ########.fr       */
+/*   Updated: 2022/04/18 17:37:02 by sanjeon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,11 @@ char	*d_quotes(char **line, char **envp);
 int		valid_dol(char *line);
 
 // parsing.c
-char	*pro_env(char **line, char **envp);
+char	*trans_env(char **line, char **envp);
 char	*app_str(char *dest, char *src);
 t_cmd	*add_cmd(char *cmd_line);
 t_cmd	*parsing_split(char **line, char **envp);
+int		pro_d_quotes(char **temp, char **line, char **envp, int *i);
+int		pro_s_quotes(char **temp, char **line, int *i);
+int		pro_env(char **temp, char **line, char **envp, int *i);
 #endif

@@ -6,7 +6,7 @@
 /*   By: sanjeon <sanjeon@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 15:33:57 by sanjeon           #+#    #+#             */
-/*   Updated: 2022/04/18 15:58:39 by sanjeon          ###   ########.fr       */
+/*   Updated: 2022/04/18 17:36:54 by sanjeon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ char	*d_quotes(char **line, char **envp)
 				return ("error");
 			*line = (*line) + i + 1;
 			i = 0;
-			output = app_str(output, pro_env(line, envp));
+			output = app_str(output, trans_env(line, envp));
 			if (output == 0)
 				return ("error");
 		}
