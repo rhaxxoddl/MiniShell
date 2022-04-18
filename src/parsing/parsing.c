@@ -6,7 +6,7 @@
 /*   By: sanjeon <sanjeon@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 16:38:13 by sanjeon           #+#    #+#             */
-/*   Updated: 2022/04/13 20:57:08 by sanjeon          ###   ########.fr       */
+/*   Updated: 2022/04/18 13:42:05 by sanjeon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,21 +62,28 @@ t_cmd	*parsing_split(char **line, char **envp)
 			if (temp == 0)
 				temp = ft_substr((*line), 0, i);
 			else
-				temp = app_str(temp, ft_substr((*line), 0, i));
+				temp = app_str(temp, ft_substr(*line, 0, i));
 			(*line) = (*line) + i + 1;
 			i = 0;
 			temp = app_str(temp, s_quotes(line));
 		}
 		else if ((*line)[i] == '\"')
 		{
-			// *line[i] 전까지 temp에 담기 
-			// temp = app_str(temp, d_quotes(*line));
-
+			if (temp == 0)
+				temp = ft_substr((*line), 0, i);
+			else
+			{
+				temp = app_str(temp, ft_substr(*line, 0, i));
+			}
+			(*line) = (*line) + i + 1;
+			i = 0;
+			temp = app_str(temp, d_quotes(line, envp));
 		}
 		else
 			i++;
 	}
-	temp = app_str(temp, ft_substr((*line), 0, i - 1));
+	// 앞에서 '나 " $ 처리한 후부터 | 이나 NULL전까지 남은 문자열 붙이기 (처리한 후 바로 |이나 NULL이 오는 경우도 처리)
+	temp = app_str(temp, ft_substr(*line, 0, i));
 	printf("temp : %s\n", temp);
 	// cmd = add_cmd(temp);
 	cmd = 0;
@@ -86,7 +93,7 @@ t_cmd	*parsing_split(char **line, char **envp)
 
 /*
 $다음에 오는 문자들과 일치하는 env를 찾아야 하는데 포함되는 env까지 찾음.
-key
+env를 key값과 value값으로 나눠서 가지고 있고, ft_strcmp를 따로 만들어야 할듯
 */
 char	*pro_env(char **line, char **envp)
 {
@@ -98,14 +105,13 @@ char	*pro_env(char **line, char **envp)
 	while (ft_isalnum((*line)[i]) && ft_isalpha((*line)[i]))
 		i++;
 	if (i == 0)
-		return (0);
+	{
+		output = ft_strdup("$");
+		return (output);
+	}
 	j = 0;
 	while (envp[j] != 0 && ft_strncmp((*line), envp[j], i) != 0)
 		j++;
-	while (envp[j] != 0)
-	{
-		j++;
-	}
 	if (envp[j] != 0)
 		output = ft_strdup((envp[j] + i + 1));
 	else
@@ -128,12 +134,9 @@ char	*app_str(char *dest, char *src)
 	}
 	else
 		output = ft_strdup(src);
-	if (output != 0)
-	{
-		if (dest != 0)
-			free(dest);
-		if (src != 0)
-			free(src);
-	}
+	if (dest != 0)
+		free(dest);
+	if (src != 0)
+		free(src);
 	return (output);
 }

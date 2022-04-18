@@ -6,7 +6,7 @@
 /*   By: sanjeon <sanjeon@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 15:33:57 by sanjeon           #+#    #+#             */
-/*   Updated: 2022/04/13 20:04:44 by sanjeon          ###   ########.fr       */
+/*   Updated: 2022/04/18 13:41:52 by sanjeon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,22 +24,41 @@ char	*s_quotes(char **line)
 	if (i == 0)
 		return (0);
 	output = ft_substr((*line), 0, i);
+	if (output == 0)
+		return ("error");
 	*line = (*line) + i + 1;
 	return (output);
 }
 
-// char	*pro_quotes(char *line)
-// {
-// 	int		i;
+char	*d_quotes(char **line, char **envp)
+{
+	int		i;
+	char	*output;
 
-// 	i = 0;
-// 	if (check_quotes(line) == 0)
-// 		return (0);
-// 	while (line[i] != 0)
-// 	{
-		
-// 	}
-// }
+	i = 0;
+	output = 0;
+	while ((*line)[i] != '\"' && (*line)[i] != 0)
+	{
+		if ((*line)[i] == '$')
+		{
+			output = app_str(output, ft_substr(*line, 0, i));
+			if (output == 0)
+				return ("error");
+			*line = (*line) + i + 1;
+			i = 0;
+			output = app_str(output, pro_env(line, envp));
+		}
+		else
+			i++;
+	}
+	if ((*line)[i] == 0)
+		return ("error");
+	output = app_str(output, ft_substr(*line, 0, i));
+	if (output == 0)
+		return ("error");
+	*line = (*line) + i + 1;
+	return (output);
+}
 
 int		check_quotes(char *line)
 {
@@ -68,8 +87,3 @@ int		check_quotes(char *line)
 	}
 	return (1);
 }
-
-// char	*double_quote(char *str, int *c_flag)
-// {
-// 	// ft_strchr(str, )
-// }
