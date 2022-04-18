@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sanjeon <sanjeon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sanjeon <sanjeon@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/24 01:02:59 by sanjeon           #+#    #+#             */
-/*   Updated: 2021/10/25 14:22:13 by sanjeon          ###   ########.fr       */
+/*   Updated: 2022/04/18 21:40:03 by sanjeon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ char				*ft_strchr(const char *d, int c);
 char				*ft_strrchr(const char *d, int c);
 char				*ft_strnstr(const char *dest, const char *src, size_t len);
 int					ft_strncmp(const char *s1, const char *s2, size_t n);
+int					ft_strcmp(const char *s1, const char *s2);
 int					ft_atoi(const char *nptr);
 long long			ft_atol(const char *nptr);
 int					ft_isalpha(int c);

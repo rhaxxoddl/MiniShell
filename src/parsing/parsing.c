@@ -6,7 +6,7 @@
 /*   By: sanjeon <sanjeon@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 16:38:13 by sanjeon           #+#    #+#             */
-/*   Updated: 2022/04/18 17:49:18 by sanjeon          ###   ########.fr       */
+/*   Updated: 2022/04/18 21:39:26 by sanjeon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ t_arg	*parsing(char *line)
 	return (0);
 }
 
-t_cmd	*parsing_split(char **line, char **envp)
+t_cmd	*parsing_split(char **line, t_env *env_head)
 {
 	t_cmd	*cmd;
 	char	*temp;
@@ -49,7 +49,7 @@ t_cmd	*parsing_split(char **line, char **envp)
 	{
 		if (valid_dol(&(*line)[i]))
 		{
-			if (!pro_env(&temp, line, envp, &i))
+			if (!pro_env(&temp, line, env_head, &i))
 				return (0);
 		}
 		else if ((*line)[i] == '\'')
@@ -59,7 +59,7 @@ t_cmd	*parsing_split(char **line, char **envp)
 		}
 		else if ((*line)[i] == '\"')
 		{
-			if (!pro_d_quotes(&temp, line, envp, &i))
+			if (!pro_d_quotes(&temp, line, env_head, &i))
 				return (0);
 		}
 		else
@@ -78,7 +78,7 @@ t_cmd	*parsing_split(char **line, char **envp)
 $다음에 오는 문자들과 일치하는 env를 찾아야 하는데 포함되는 env까지 찾음.
 env를 key값과 value값으로 나눠서 가지고 있고, ft_strcmp를 따로 만들어야 할듯
 */
-char	*trans_env(char **line, char **envp)
+char	*trans_env(char **line, t_env *env_head)
 {
 	char	*output;
 	int		i;
@@ -93,10 +93,10 @@ char	*trans_env(char **line, char **envp)
 		return (output);
 	}
 	j = 0;
-	while (envp[j] != 0 && ft_strncmp((*line), envp[j], i) != 0)
-		j++;
-	if (envp[j] != 0)
-		output = ft_strdup((envp[j] + i + 1));
+	while (env_head != 0 && ft_strcmp((*line), env_head->key) != 0)
+		env_head = env_head->next;
+	if (env_head != 0)
+		output = ft_strdup((env_head->value));
 	else
 		output = 0;
 	*line = &(*line)[i];
@@ -124,7 +124,7 @@ char	*app_str(char *dest, char *src)
 	return (output);
 }
 
-int	pro_d_quotes(char **temp, char **line, char **envp, int *i)
+int	pro_d_quotes(char **temp, char **line, t_env *env_head, int *i)
 {
 	if (*temp == 0)
 		*temp = ft_substr((*line), 0, *i);
@@ -134,7 +134,7 @@ int	pro_d_quotes(char **temp, char **line, char **envp, int *i)
 		return (0);
 	(*line) = (*line) + (*i) + 1;
 	*i = 0;
-	*temp = app_str(*temp, d_quotes(line, envp));
+	*temp = app_str(*temp, d_quotes(line, env_head));
 	if ((*temp) == 0)
 		return (0);
 	return (1);
@@ -156,7 +156,7 @@ int	pro_s_quotes(char **temp, char **line, int *i)
 	return (1);
 }
 
-int	pro_env(char **temp, char **line, char **envp, int *i)
+int	pro_env(char **temp, char **line, t_env *env_head, int *i)
 {
 	if (*temp == 0)
 		*temp = ft_substr((*line), 0, *i);
@@ -166,7 +166,7 @@ int	pro_env(char **temp, char **line, char **envp, int *i)
 		return (0);
 	(*line) = (*line) + (*i) + 1;
 	*i = 0;
-	*temp = app_str(*temp, trans_env(line, envp));
+	*temp = app_str(*temp, trans_env(line, env_head));
 	if ((*temp) == 0)
 		return (0);
 	return (1);

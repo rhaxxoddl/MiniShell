@@ -6,7 +6,7 @@
 /*   By: sanjeon <sanjeon@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 16:44:48 by sanjeon           #+#    #+#             */
-/*   Updated: 2022/04/18 20:21:38 by sanjeon          ###   ########.fr       */
+/*   Updated: 2022/04/18 21:39:49 by sanjeon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ int	main(int argc, char **argv, char **envp)
 	}
 	// 	printf("key : %s, value : %s\n", env->key, env->value);
 	printf("str : %s\n", str);
-	parsing_split(&str, envp);
+	parsing_split(&str, env);
 	// while (1)
 	// {
 	// }
