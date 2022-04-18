@@ -6,12 +6,13 @@
 /*   By: sanjeon <sanjeon@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/14 11:35:32 by sanjeon           #+#    #+#             */
-/*   Updated: 2022/04/13 17:24:26 by sanjeon          ###   ########.fr       */
+/*   Updated: 2022/04/18 13:50:05 by sanjeon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PIPE_STRUCT_H
 # define PIPE_STRUCT_H
+
 enum e_redir_type{
 	HERE_DOC = 1,
 	REDIR_IN = 2,

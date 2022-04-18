@@ -6,7 +6,7 @@
 /*   By: sanjeon <sanjeon@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 16:38:13 by sanjeon           #+#    #+#             */
-/*   Updated: 2022/04/18 13:42:05 by sanjeon          ###   ########.fr       */
+/*   Updated: 2022/04/18 15:59:09 by sanjeon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,13 +41,14 @@ t_cmd	*parsing_split(char **line, char **envp)
 {
 	t_cmd	*cmd;
 	char	*temp;
-	int	i;
+	int		i;
 
 	i = 0;
 	temp = 0;
 	while ((*line)[i] != 0 && (*line)[i] != '|')
 	{
-		if ((*line)[i] == '$')
+		// if ((*line)[i] == '$')
+		if (valid_dol(*line))
 		{
 			if (temp == 0)
 				temp = ft_substr((*line), 0, i);
@@ -102,7 +103,7 @@ char	*pro_env(char **line, char **envp)
 	int		j;
 
 	i = 0;
-	while (ft_isalnum((*line)[i]) && ft_isalpha((*line)[i]))
+	while (ft_isalnum((*line)[i]) || (*line)[i] == '_')
 		i++;
 	if (i == 0)
 	{

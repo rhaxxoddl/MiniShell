@@ -14,8 +14,7 @@ DEBUGFLAG	= -fsanitize=address -g3
 LDFLAGS		=	-lc -lreadline
 
 SRCS		=	./main.c\
-				./parsing.c\
-				./quotes.c\
+				./parsing_util.c\
 				./parsing.c
 SRCS_DIR	=	./
 OBJS		=	$(SRCS:.c=.o)

@@ -6,7 +6,7 @@
 /*   By: sanjeon <sanjeon@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 11:38:46 by sanjeon           #+#    #+#             */
-/*   Updated: 2022/04/18 09:22:09 by sanjeon          ###   ########.fr       */
+/*   Updated: 2022/04/18 15:34:31 by sanjeon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,18 +18,10 @@
 # include <stdio.h>
 # include <readline/readline.h>
 
-// quotes.c
-char	*pro_quotes(char *line);
-
-/*
-[check_quotes()]
-Check the quotes are correct.
-If quotes is correct return 1.
-else return 0.
-*/
-int		check_quotes(char *line);
+// parsing_util.c
 char	*s_quotes(char **line);
 char	*d_quotes(char **line, char **envp);
+int		valid_dol(char *line);
 
 // parsing.c
 char	*pro_env(char **line, char **envp);
