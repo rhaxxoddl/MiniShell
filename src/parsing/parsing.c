@@ -6,7 +6,7 @@
 /*   By: sanjeon <sanjeon@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 16:38:13 by sanjeon           #+#    #+#             */
-/*   Updated: 2022/04/18 21:39:26 by sanjeon          ###   ########.fr       */
+/*   Updated: 2022/04/19 08:59:57 by sanjeon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,10 +74,6 @@ t_cmd	*parsing_split(char **line, t_env *env_head)
 	return (cmd);
 }
 
-/*
-$다음에 오는 문자들과 일치하는 env를 찾아야 하는데 포함되는 env까지 찾음.
-env를 key값과 value값으로 나눠서 가지고 있고, ft_strcmp를 따로 만들어야 할듯
-*/
 char	*trans_env(char **line, t_env *env_head)
 {
 	char	*output;
