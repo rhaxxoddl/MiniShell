@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sanjeon <sanjeon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sanjeon <sanjeon@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/11 18:56:51 by sanjeon           #+#    #+#             */
-/*   Updated: 2022/03/25 16:55:42 by sanjeon          ###   ########.fr       */
+/*   Updated: 2022/04/19 10:27:26 by sanjeon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 static void 	parsing(t_arg *arg, char *envp[])
 {
 	arg->c_t = ft_calloc(2, sizeof(t_cmd));
-	arg->c_t[0].cmd = ft_calloc(3, sizeof(char *));
-	arg->c_t[0].cmd[0] = ft_strdup("/usr/bin/grep");
-	arg->c_t[0].cmd[1] = ft_strdup("d");
+	arg->c_t[0].cmd_param = ft_calloc(3, sizeof(char *));
+	arg->c_t[0].cmd_param[0] = ft_strdup("/usr/bin/grep");
+	arg->c_t[0].cmd_param[1] = ft_strdup("d");
 	arg->c_t[0].redir = ft_calloc(1, sizeof(t_redir));
 	arg->c_t[0].redir->redir_type = HERE_DOC;
 	arg->c_t[0].redir->filename = ft_strdup("a");

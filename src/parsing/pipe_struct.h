@@ -6,7 +6,7 @@
 /*   By: sanjeon <sanjeon@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/14 11:35:32 by sanjeon           #+#    #+#             */
-/*   Updated: 2022/04/18 17:55:54 by sanjeon          ###   ########.fr       */
+/*   Updated: 2022/04/19 10:27:26 by sanjeon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ typedef struct s_redir{
 }				t_redir;
 
 typedef struct s_cmd{
-	char			**cmd;
+	char			**cmd_param;
 	t_redir			*redir;
 	struct s_cmd	*next;
 }				t_cmd;

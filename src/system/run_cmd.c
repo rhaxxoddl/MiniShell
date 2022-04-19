@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   run_cmd.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sanjeon <sanjeon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sanjeon <sanjeon@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/14 16:26:10 by sanjeon           #+#    #+#             */
-/*   Updated: 2022/03/25 17:01:43 by sanjeon          ###   ########.fr       */
+/*   Updated: 2022/04/19 10:27:26 by sanjeon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	run_cmd(t_arg *arg, int cmd_idx)
 	else if (pid == 0)
 	{
 		connect_pipe(cmd_idx, arg);
-		if (execve(arg->c_t[cmd_idx].cmd[0], arg->c_t[arg->cmd_idx].cmd,
+		if (execve(arg->c_t[cmd_idx].cmd_param[0], arg->c_t[arg->cmd_idx].cmd_param,
 				arg->envp) == -1)
 			p_a_error(arg);
 	}

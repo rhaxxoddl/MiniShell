@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe_struct.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sanjeon <sanjeon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sanjeon <sanjeon@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/14 11:35:32 by sanjeon           #+#    #+#             */
-/*   Updated: 2022/03/25 17:04:26 by sanjeon          ###   ########.fr       */
+/*   Updated: 2022/04/19 10:27:26 by sanjeon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ typedef struct s_redir{
 }				t_redir;
 
 typedef struct s_cmd{
-	char	**cmd;
+	char	**cmd_param;
 	t_redir	*redir;
 }				t_cmd;
 

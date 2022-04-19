@@ -6,7 +6,7 @@
 /*   By: sanjeon <sanjeon@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 16:44:48 by sanjeon           #+#    #+#             */
-/*   Updated: 2022/04/19 08:59:24 by sanjeon          ###   ########.fr       */
+/*   Updated: 2022/04/19 20:21:49 by sanjeon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ t_env	*get_env(char **envp)
 	i = 0;
 	while (envp[i] != 0)
 	{
-		printf("hihi\n");
 		temp = ft_split(envp[i], '=');
 		if (temp == 0)
 		{
@@ -75,10 +74,12 @@ int	main(int argc, char **argv, char **envp)
 	(void)argc;
 	(void)argv;
 	t_env	*env;
-	char	*str = ft_strdup("\'abcd$PATH\' pad$PATH");
+	t_arg	*arg;
+	char	*str = ft_strdup("\'abcd$PATH\' pad$PATH | ls -al");
 
 	env = get_env(envp);
-	printf("str : %s\n", str);
-	parsing_split(&str, env);
+	arg = parsing(str, env);
+	// printf("str : %s\n", str);
+	// parsing_split(&str, env);
 	return (0);
 }
