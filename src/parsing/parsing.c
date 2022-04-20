@@ -6,7 +6,7 @@
 /*   By: sanjeon <sanjeon@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 10:37:54 by sanjeon           #+#    #+#             */
-/*   Updated: 2022/04/19 21:05:16 by sanjeon          ###   ########.fr       */
+/*   Updated: 2022/04/20 20:25:42 by sanjeon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,20 +27,27 @@ t_arg	*parsing(char *line, t_env *env_head)
 	arg = (t_arg *)ft_calloc(1, sizeof(t_arg));
 	if (arg == 0)
 		return (0);
-	i = -1;
 	pointer_line = line;
-	while (ft_isspace(line[++i]))
-		pointer_line = &line[i];
-	temp_cmd = arg->c_t;
-	while (line[++i] != 0)
+	while (ft_isspace(*pointer_line))
+		pointer_line++;
+	i = -1;
+	while (pointer_line[++i] != 0)
 	{
-		temp_cmd = parsing_split(&line, env_head);
-		temp_cmd = temp_cmd->next;
+		if (i == 0)
+		{
+			temp_cmd = parsing_split(&pointer_line, env_head);
+			arg->c_t = temp_cmd;
+		}
+		else
+		{
+			temp_cmd->next = parsing_split(&pointer_line, env_head);
+			temp_cmd = temp_cmd->next;
+		}
 	}
 	while (arg->c_t != 0)
 	{
-		for (int i = 0; temp_cmd->cmd_param[i] != 0; i++)
-			printf("temp_cmd->cmd_param[%d] : %s\n", i, temp_cmd->cmd_param[i]);
+		for (int i = 0; arg->c_t->cmd_param[i] != 0; i++)
+			printf("cmd->cmd_param[%d] : %s\n", i, arg->c_t->cmd_param[i]);
 		arg->c_t = arg->c_t->next;
 	}
 	return (0);
@@ -54,6 +61,7 @@ t_cmd	*parsing_split(char **line, t_env *env_head)
 
 	i = 0;
 	temp = 0;
+	printf("be line : \"%s\"\n", (*line));
 	// 여기부터
 	cmd = (t_cmd *)ft_calloc(1, sizeof(t_cmd));
 	if (cmd == 0)
@@ -71,42 +79,47 @@ t_cmd	*parsing_split(char **line, t_env *env_head)
 		{
 			if (!pro_env(&temp, line, env_head, &i))
 				return (0);
-			printf("env temp : %s\n", temp);
+			// printf("env temp : %s\n", temp);
 		}
 		else if ((*line)[i] == '\'')
 		{
 			if (!pro_s_quotes(&temp, line, &i))
 				return (0);
-			printf("s_q temp : %s\n", temp);
+			// printf("s_q temp : %s\n", temp);
 		}
 		else if ((*line)[i] == '\"')
 		{
 			if (!pro_d_quotes(&temp, line, env_head, &i))
 				return (0);
-			printf("d_q temp : %s\n", temp);
+			// printf("d_q temp : %s\n", temp);
 		}
 		else if (ft_isspace((*line)[i]))
 		{
+			temp = app_str(temp, ft_substr(*line, 0, i));
 			cmd->cmd_param = add_col(cmd->cmd_param, temp);
 			printf("space temp : %s\n", temp);
+			printf("before line[%d] : %s\n", i, (*line));
 			temp = 0;
 			while (ft_isspace((*line)[i]))
 				i++;
 			(*line) = (*line) + i;
+			i = 0;
+			printf("after line[%d] : %s\n", i, (*line));
 		}
 		else
+		{
+			printf("line : %s\n", *line);
 			i++;
-		// printf("[%d]line : \"%s\"\n", i, &(*line)[i]);
+		}
 	}
 	// 앞에서 '나 " $ 처리한 후부터 | 이나 NULL전까지 남은 문자열 붙이기 (처리한 후 바로 |이나 NULL이 오는 경우도 처리)
-	printf("temp : %s\n", temp);
-	temp = app_str(temp, &(*line)[i]);
-	printf("2temp : %s\n", temp);
+	printf("[%d]line : \"%s\"\n", i, (*line));
+	// if (temp != 0)
+	temp = app_str(temp, ft_substr(*line, 0, i));
+	if (*line[i] != 0)
+	(*line) = (*line) + i + 1;
 	cmd->cmd_param = add_col(cmd->cmd_param, temp);
-	printf("cmd->cmd_param : %s\n", cmd->cmd_param[0]);
 	temp = 0;
-	while (ft_isspace(*(*line)), *(*line) == '|')
-		(*line)++;
 	// for (int i = 0; cmd->cmd_param[i] != 0; i++)
 	// 	printf("cmd->cmd_param[%d] : %s\n", i, cmd->cmd_param[i]);
 	return (cmd);
@@ -130,16 +143,12 @@ char	*trans_env(char **line, t_env *env_head)
 	temp = ft_substr(*line, 0, i);
 	j = 0;
 	while (env_head != 0 && ft_strcmp(temp, env_head->key) != 0)
-	{
-		printf("temp : %s\nenv : %s\n", temp, env_head->key);
 		env_head = env_head->next;
-	}
 	if (env_head != 0)
 		output = ft_strdup((env_head->value));
 	else
 		output = 0;
 	*line = &(*line)[i];
-	printf("output : %s\n", output);
 	return (output);
 }
 
