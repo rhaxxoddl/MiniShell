@@ -6,71 +6,62 @@
 /*   By: sanjeon <sanjeon@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 15:33:57 by sanjeon           #+#    #+#             */
-/*   Updated: 2022/04/18 21:37:44 by sanjeon          ###   ########.fr       */
+/*   Updated: 2022/04/21 20:04:31 by sanjeon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <readline/readline.h>
 #include "parsing.h"
 
-char	*s_quotes(char **line)
+void	print_arg(t_arg *arg)
 {
-	int		i;
-	char	*output;
+	t_cmd	*temp_cmd;
 
-	i = 0;
-	while ((*line)[i] != '\'')
-		i++;
-	if (i == 0)
-		return (0);
-	output = ft_substr((*line), 0, i);
-	if (output == 0)
-		return ("error");
-	*line = (*line) + i + 1;
-	return (output);
+	temp_cmd = arg->c_t;
+	while (temp_cmd != 0)
+	{
+		for (int i = 0; temp_cmd->cmd_param[i] != 0; i++)
+			printf("cmd->cmd_param[%d] : \"%s\"\n", i, temp_cmd->cmd_param[i]);
+		temp_cmd = temp_cmd->next;
+	}
 }
 
-char	*d_quotes(char **line, t_env *env_head)
+char	*app_str(char *dest, char *src)
 {
-	int		i;
 	char	*output;
 
-	i = 0;
 	output = 0;
-	while ((*line)[i] != '\"' && (*line)[i] != 0)
+	if (dest != 0)
 	{
-		if (valid_dol(&(*line)[i]))
-		{
-			output = app_str(output, ft_substr(*line, 0, i));
-			if (output == 0)
-				return ("error");
-			*line = (*line) + i + 1;
-			i = 0;
-			output = app_str(output, trans_env(line, env_head));
-			if (output == 0)
-				return ("error");
-		}
+		if (src != 0)
+			output = ft_strjoin(dest, src);
 		else
-			i++;
+			return (dest);
 	}
-	if ((*line)[i] == 0)
-		return ("error");
-	output = app_str(output, ft_substr(*line, 0, i));
-	if (output == 0)
-		return ("error");
-	*line = (*line) + i + 1;
+	else
+		output = ft_strdup(src);
+	if (dest != 0)
+		free(dest);
+	if (src != 0)
+		free(src);
 	return (output);
 }
 
-int	valid_dol(char *line)
+char	**add_col(char **cmd, char *add)
 {
-	if (*line == '$')
-	{
-		line++;
-		if (ft_isalnum(*line) || (*line) == '_')
-			return (1);
-		else if ((*line) == '?')
-			return (2); // 나중에 $? 이거 부르는 함수로 변환
-	}
-	return (0);
+	int		l;
+	int		i;
+	char	**temp;
+
+	l = 0;
+	while (cmd[l] != 0)
+		l++;
+	temp = (char **)ft_calloc(l + 2, sizeof(char *));
+	if (temp == 0)
+		return (0);
+	i = -1;
+	while (++i < l)
+		temp[i] = cmd[i];
+	temp[i] = add;
+	free(cmd);
+	return (temp);
 }

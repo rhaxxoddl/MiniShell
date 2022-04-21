@@ -6,7 +6,7 @@
 /*   By: sanjeon <sanjeon@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 11:38:46 by sanjeon           #+#    #+#             */
-/*   Updated: 2022/04/20 21:01:15 by sanjeon          ###   ########.fr       */
+/*   Updated: 2022/04/21 20:02:22 by sanjeon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,23 +15,37 @@
 
 # include "libft.h"
 # include "pipe_struct.h"
+# include <unistd.h>
 # include <stdio.h>
 # include <readline/readline.h>
 
 // parsing_util.c
-char	*s_quotes(char **line);
-char	*d_quotes(char **line, t_env *env_head);
-int		valid_dol(char *line);
+void	print_arg(t_arg *arg);
+void	skip_space(char **line, int *i);
+char	*app_str(char *dest, char *src);
+char	**add_col(char **cmd, char *add);
 
 // parsing.c
 t_arg	*parsing(char *line, t_env *env_head);
-t_cmd	*parsing_split(char **line, t_env *env_head);
-void	skip_space(char **line, int *i);
-char	*trans_env(char **line, t_env *env_head);
-char	*app_str(char *dest, char *src);
+t_cmd	*parsing_cmd(char **line, t_env *env_head);
 t_cmd	*add_cmd(char *cmd_line);
+
+// init.c
+t_env	*get_env(char **envp);
+int		add_env(t_env **head, t_env **current, int *i);
+char	*trans_env(char **line, t_env *env_head);
+
+// parsing_quotes.c
 int		pro_d_quotes(char **temp, char **line, t_env *env_head, int *i);
 int		pro_s_quotes(char **temp, char **line, int *i);
+char	*s_quotes(char **line);
+char	*d_quotes(char **line, t_env *env_head);
+
+// parsing_env.c
+int		valid_dol(char *line);
 int		pro_env(char **temp, char **line, t_env *env_head, int *i);
-char	**add_col(char **cmd, char *add);
+
+// free.c
+void	free_env(t_env *head);
+
 #endif

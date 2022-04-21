@@ -6,16 +6,11 @@
 /*   By: sanjeon <sanjeon@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 10:37:54 by sanjeon           #+#    #+#             */
-/*   Updated: 2022/04/21 09:51:05 by sanjeon          ###   ########.fr       */
+/*   Updated: 2022/04/21 18:47:23 by sanjeon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
-#include "pipe_struct.h"
-#include "libft.h"
-#include <readline/readline.h>
-#include <unistd.h>
-#include <stdio.h>
 
 t_arg	*parsing(char *line, t_env *env_head)
 {
@@ -33,25 +28,19 @@ t_arg	*parsing(char *line, t_env *env_head)
 	{
 		if (i == 0)
 		{
-			temp_cmd = parsing_split(&line, env_head);
+			temp_cmd = parsing_cmd(&line, env_head);
 			arg->c_t = temp_cmd;
 		}
 		else
 		{
-			temp_cmd->next = parsing_split(&line, env_head);
+			temp_cmd->next = parsing_cmd(&line, env_head);
 			temp_cmd = temp_cmd->next;
 		}
 	}
-	while (arg->c_t != 0)
-	{
-		for (int i = 0; arg->c_t->cmd_param[i] != 0; i++)
-			printf("cmd->cmd_param[%d] : \"%s\"\n", i, arg->c_t->cmd_param[i]);
-		arg->c_t = arg->c_t->next;
-	}
-	return (0);
+	return (arg);
 }
 
-t_cmd	*parsing_split(char **line, t_env *env_head)
+t_cmd	*parsing_cmd(char **line, t_env *env_head)
 {
 	t_cmd	*cmd;
 	char	*temp;
@@ -59,10 +48,8 @@ t_cmd	*parsing_split(char **line, t_env *env_head)
 
 	i = 0;
 	temp = 0;
-	printf("be line : \"%s\"\n", (*line));
 	if (ft_isspace(**line))
 		(*line)++;
-	printf("last c : \"%c\"\n", **line);
 	// 여기부터
 	cmd = (t_cmd *)ft_calloc(1, sizeof(t_cmd));
 	if (cmd == 0)
@@ -80,42 +67,30 @@ t_cmd	*parsing_split(char **line, t_env *env_head)
 		{
 			if (!pro_env(&temp, line, env_head, &i))
 				return (0);
-			// printf("env temp : %s\n", temp);
 		}
 		else if ((*line)[i] == '\'')
 		{
 			if (!pro_s_quotes(&temp, line, &i))
 				return (0);
-			// printf("s_q temp : %s\n", temp);
 		}
 		else if ((*line)[i] == '\"')
 		{
 			if (!pro_d_quotes(&temp, line, env_head, &i))
 				return (0);
-			// printf("d_q temp : %s\n", temp);
 		}
 		else if (ft_isspace((*line)[i]))
 		{
 			temp = app_str(temp, ft_substr(*line, 0, i));
 			cmd->cmd_param = add_col(cmd->cmd_param, temp);
-			printf("space temp : %s\n", temp);
-			printf("before line[%d] : %s\n", i, (*line));
 			temp = 0;
-			while (ft_isspace((*line)[i]))
-				i++;
 			(*line) = (*line) + i;
+			while (ft_isspace(**line))
+				(*line)++;
 			i = 0;
-			printf("after line[%d] : %s\n", i, (*line));
 		}
 		else
-		{
-			printf("line : \"%s\"\n", *line);
 			i++;
-		}
 	}
-	// 앞에서 '나 " $ 처리한 후부터 | 이나 NULL전까지 남은 문자열 붙이기 (처리한 후 바로 |이나 NULL이 오는 경우도 처리)
-	printf("[%d]line : \"%s\"\n", i, (*line));
-		printf("hihi : %c\n", (*line)[i - 1]);
 	if (i > 0 && !ft_isspace((*line)[i - 1]))
 	{
 		temp = app_str(temp, ft_substr(*line, 0, i));
@@ -124,124 +99,5 @@ t_cmd	*parsing_split(char **line, t_env *env_head)
 	}
 	if (*line[i] != 0)
 		(*line) = (*line) + i + 1;
-	// for (int i = 0; cmd->cmd_param[i] != 0; i++)
-	// 	printf("cmd->cmd_param[%d] : %s\n", i, cmd->cmd_param[i]);
 	return (cmd);
-}
-
-char	*trans_env(char **line, t_env *env_head)
-{
-	char	*output;
-	char	*temp;
-	int		i;
-	int		j;
-
-	i = 0;
-	while (ft_isalnum((*line)[i]) || (*line)[i] == '_')
-		i++;
-	if (i == 0)
-	{
-		output = ft_strdup("$");
-		return (output);
-	}
-	temp = ft_substr(*line, 0, i);
-	j = 0;
-	while (env_head != 0 && ft_strcmp(temp, env_head->key) != 0)
-		env_head = env_head->next;
-	if (env_head != 0)
-		output = ft_strdup((env_head->value));
-	else
-		output = 0;
-	*line = &(*line)[i];
-	return (output);
-}
-
-char	*app_str(char *dest, char *src)
-{
-	char	*output;
-
-	output = 0;
-	if (dest != 0)
-	{
-		if (src != 0)
-			output = ft_strjoin(dest, src);
-		else
-			return (dest);
-	}
-	else
-		output = ft_strdup(src);
-	if (dest != 0)
-		free(dest);
-	if (src != 0)
-		free(src);
-	return (output);
-}
-
-int	pro_d_quotes(char **temp, char **line, t_env *env_head, int *i)
-{
-	if (*temp == 0)
-		*temp = ft_substr((*line), 0, *i);
-	else
-		*temp = app_str(*temp, ft_substr(*line, 0, *i));
-	if (*temp == 0)
-		return (0);
-	(*line) = (*line) + (*i) + 1;
-	*i = 0;
-	*temp = app_str(*temp, d_quotes(line, env_head));
-	if ((*temp) == 0)
-		return (0);
-	return (1);
-}
-
-int	pro_s_quotes(char **temp, char **line, int *i)
-{
-	if (*temp == 0)
-		*temp = ft_substr((*line), 0, *i);
-	else
-		*temp = app_str(*temp, ft_substr(*line, 0, *i));
-	if (*temp == 0)
-		return (0);
-	(*line) = (*line) + (*i) + 1;
-	*i = 0;
-	*temp = app_str(*temp, s_quotes(line));
-	if ((*temp) == 0)
-		return (0);
-	return (1);
-}
-
-int	pro_env(char **temp, char **line, t_env *env_head, int *i)
-{
-	if (*temp == 0)
-		*temp = ft_substr((*line), 0, *i);
-	else
-		*temp = app_str(*temp, ft_substr(*line, 0, *i));
-	if (*temp == 0)
-		return (0);
-	(*line) = (*line) + (*i) + 1;
-	*i = 0;
-	// printf("*line : %s\ntrans_env : %s\n", *line, trans_env(line, env_head));
-	*temp = app_str(*temp, trans_env(line, env_head));
-	if ((*temp) == 0)
-		return (0);
-	return (1);
-}
-
-char	**add_col(char **cmd, char *add)
-{
-	int		l;
-	int		i;
-	char	**temp;
-
-	l = 0;
-	while (cmd[l] != 0)
-		l++;
-	temp = (char **)ft_calloc(l + 2, sizeof(char *));
-	if (temp == 0)
-		return (0);
-	i = -1;
-	while (++i < l)
-		temp[i] = cmd[i];
-	temp[i] = add;
-	free(cmd);
-	return (temp);
 }
