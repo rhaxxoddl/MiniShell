@@ -6,7 +6,7 @@
 /*   By: sanjeon <sanjeon@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 10:37:54 by sanjeon           #+#    #+#             */
-/*   Updated: 2022/04/20 20:25:42 by sanjeon          ###   ########.fr       */
+/*   Updated: 2022/04/21 09:51:05 by sanjeon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,33 +21,31 @@ t_arg	*parsing(char *line, t_env *env_head)
 {
 	t_arg	*arg;
 	t_cmd	*temp_cmd;
-	char	*pointer_line;
 	int		i;
 
 	arg = (t_arg *)ft_calloc(1, sizeof(t_arg));
 	if (arg == 0)
 		return (0);
-	pointer_line = line;
-	while (ft_isspace(*pointer_line))
-		pointer_line++;
+	while (ft_isspace(*line))
+		line++;
 	i = -1;
-	while (pointer_line[++i] != 0)
+	while (line[++i] != 0)
 	{
 		if (i == 0)
 		{
-			temp_cmd = parsing_split(&pointer_line, env_head);
+			temp_cmd = parsing_split(&line, env_head);
 			arg->c_t = temp_cmd;
 		}
 		else
 		{
-			temp_cmd->next = parsing_split(&pointer_line, env_head);
+			temp_cmd->next = parsing_split(&line, env_head);
 			temp_cmd = temp_cmd->next;
 		}
 	}
 	while (arg->c_t != 0)
 	{
 		for (int i = 0; arg->c_t->cmd_param[i] != 0; i++)
-			printf("cmd->cmd_param[%d] : %s\n", i, arg->c_t->cmd_param[i]);
+			printf("cmd->cmd_param[%d] : \"%s\"\n", i, arg->c_t->cmd_param[i]);
 		arg->c_t = arg->c_t->next;
 	}
 	return (0);
@@ -62,6 +60,9 @@ t_cmd	*parsing_split(char **line, t_env *env_head)
 	i = 0;
 	temp = 0;
 	printf("be line : \"%s\"\n", (*line));
+	if (ft_isspace(**line))
+		(*line)++;
+	printf("last c : \"%c\"\n", **line);
 	// 여기부터
 	cmd = (t_cmd *)ft_calloc(1, sizeof(t_cmd));
 	if (cmd == 0)
@@ -108,18 +109,21 @@ t_cmd	*parsing_split(char **line, t_env *env_head)
 		}
 		else
 		{
-			printf("line : %s\n", *line);
+			printf("line : \"%s\"\n", *line);
 			i++;
 		}
 	}
 	// 앞에서 '나 " $ 처리한 후부터 | 이나 NULL전까지 남은 문자열 붙이기 (처리한 후 바로 |이나 NULL이 오는 경우도 처리)
 	printf("[%d]line : \"%s\"\n", i, (*line));
-	// if (temp != 0)
-	temp = app_str(temp, ft_substr(*line, 0, i));
+		printf("hihi : %c\n", (*line)[i - 1]);
+	if (i > 0 && !ft_isspace((*line)[i - 1]))
+	{
+		temp = app_str(temp, ft_substr(*line, 0, i));
+		cmd->cmd_param = add_col(cmd->cmd_param, temp);
+		temp = 0;
+	}
 	if (*line[i] != 0)
-	(*line) = (*line) + i + 1;
-	cmd->cmd_param = add_col(cmd->cmd_param, temp);
-	temp = 0;
+		(*line) = (*line) + i + 1;
 	// for (int i = 0; cmd->cmd_param[i] != 0; i++)
 	// 	printf("cmd->cmd_param[%d] : %s\n", i, cmd->cmd_param[i]);
 	return (cmd);
