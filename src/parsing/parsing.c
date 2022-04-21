@@ -6,7 +6,7 @@
 /*   By: sanjeon <sanjeon@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 10:37:54 by sanjeon           #+#    #+#             */
-/*   Updated: 2022/04/21 18:47:23 by sanjeon          ###   ########.fr       */
+/*   Updated: 2022/04/21 20:42:20 by sanjeon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ t_cmd	*parsing_cmd(char **line, t_env *env_head)
 
 	i = 0;
 	temp = 0;
-	if (ft_isspace(**line))
+	while (ft_isspace(**line))
 		(*line)++;
 	// 여기부터
 	cmd = (t_cmd *)ft_calloc(1, sizeof(t_cmd));

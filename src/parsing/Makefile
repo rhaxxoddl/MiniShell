@@ -19,7 +19,8 @@ SRCS		=	./main.c\
 				./parsing_env.c\
 				./parsing_quotes.c\
 				./parsing_util.c\
-				./parsing.c
+				./parsing.c\
+				./parsing_redir.c
 SRCS_DIR	=	./
 OBJS		=	$(SRCS:.c=.o)
 ARFS		=	$(LIB_DIR)/Libft.a

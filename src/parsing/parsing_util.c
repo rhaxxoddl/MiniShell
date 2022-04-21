@@ -6,7 +6,7 @@
 /*   By: sanjeon <sanjeon@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 15:33:57 by sanjeon           #+#    #+#             */
-/*   Updated: 2022/04/21 20:04:31 by sanjeon          ###   ########.fr       */
+/*   Updated: 2022/04/21 21:30:28 by sanjeon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,11 @@ void	print_arg(t_arg *arg)
 	{
 		for (int i = 0; temp_cmd->cmd_param[i] != 0; i++)
 			printf("cmd->cmd_param[%d] : \"%s\"\n", i, temp_cmd->cmd_param[i]);
+		while (temp_cmd->redir != 0)
+		{
+			printf("file : %s, type : %d\n", temp_cmd->redir->filename, temp_cmd->redir->redir_type);
+			temp_cmd->redir = temp_cmd->redir->next;
+		}
 		temp_cmd = temp_cmd->next;
 	}
 }
