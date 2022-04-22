@@ -10,15 +10,17 @@ RL_DIR		=	./readline-master
 
 AR			= 	ar rc
 CFLAGS		=	-Wall -Wextra -Werror
+RLFLAGS		=	-I${HOME}/.brew/opt/readline/include
 DEBUGFLAG	= -fsanitize=address -g3
-LDFLAGS		=	-lc -lreadline
+LDFLAGS		=	-lc -lreadline -L${HOME}/.brew/opt/readline/lib
 
 SRCS		=	./main.c\
 				./run_cmd.c\
 				./error.c\
 				./parsing.c\
 				./redirection.c\
-				./here_doc_util.c
+				./here_doc_util.c\
+				./signal_handler.c
 SRCS_DIR	=	./
 OBJS		=	$(SRCS:.c=.o)
 ARFS		=	$(LIB_DIR)/Libft.a
@@ -33,7 +35,7 @@ $(TARGET)	:	$(OBJS)
 	$(CC) $(CFLAGS) $(LDFLAGS) $(ARFS) -o $@ $^
 
 .c.o	:
-	$(CC) $(CFLAGS) -I $(LIB_DIR) -I $(INC_DIR) -c $< -o $@
+	$(CC) $(CFLAGS) -I $(LIB_DIR) $(RLFLAGS) -I $(INC_DIR) -c $< -o $@
 
 
 $(DEBUG)	:	$(OBJS)

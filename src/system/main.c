@@ -6,11 +6,13 @@
 /*   By: sanjeon <sanjeon@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/11 18:56:51 by sanjeon           #+#    #+#             */
-/*   Updated: 2022/04/19 10:27:26 by sanjeon          ###   ########.fr       */
+/*   Updated: 2022/04/22 20:57:59 by sanjeon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "run_cmd.h"
+#include <readline/readline.h>
+#include <readline/history.h>
 
 static void 	parsing(t_arg *arg, char *envp[])
 {
@@ -42,7 +44,18 @@ int	main(int argc, char *argv[], char *envp[])
 	(void)argv;
 	(void)argc;
 	t_arg	*arg;
+	char    *line;
 
+	sig_init();
+	while(1)
+	{
+		line = readline("minishell$ ");
+		add_history(line);
+		if (line == NULL)
+			return (1);
+		printf("str: %s\n", line);
+		free(line);
+	}
 	arg = init_arg();
 	parsing(arg, envp);
 	while (arg->cmd_idx < arg->cmd_count)
