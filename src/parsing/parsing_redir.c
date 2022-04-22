@@ -6,7 +6,7 @@
 /*   By: sanjeon <sanjeon@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 20:25:32 by sanjeon           #+#    #+#             */
-/*   Updated: 2022/04/22 17:05:30 by sanjeon          ###   ########.fr       */
+/*   Updated: 2022/04/22 17:55:57 by sanjeon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@ int	parsing_redir(t_cmd *cmd, char **line, t_env *env_head, int *i)
 		cmd->redir = pro_redir(line, env_head, get_redir_type((*line)++), i);
 	else
 	{
-		cmd->redir->next = pro_redir(line, env_head, get_redir_type((*line)++), i);
+		cmd->redir->next = pro_redir(line, env_head,
+				get_redir_type((*line)++), i);
 	}
 	if (cmd->redir == 0)
 		return (0);
@@ -56,7 +57,8 @@ t_redir	*pro_redir(char **line, t_env *env_head, int redir_type, int *i)
 	redir = (t_redir *)ft_calloc(1, sizeof(t_redir));
 	if (redir == 0)
 		return (0);
-	while (&(*line)[*i] != 0 && !ft_isspace((*line)[*i]))
+	while (&(*line)[*i] != 0 && !ft_isspace((*line)[*i])
+			&& !get_redir_type(&(*line)[*i]))
 	{
 		if (valid_dol(&(*line)[*i]))
 		{
