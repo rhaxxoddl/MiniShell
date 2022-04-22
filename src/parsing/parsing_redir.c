@@ -6,7 +6,7 @@
 /*   By: sanjeon <sanjeon@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 20:25:32 by sanjeon           #+#    #+#             */
-/*   Updated: 2022/04/22 13:22:40 by sanjeon          ###   ########.fr       */
+/*   Updated: 2022/04/22 16:09:04 by sanjeon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ t_redir	*parsing_redir(char **line, t_env *env_head)
 		{
 			if (redir_head == 0)
 			{
-				redir_head = pro_redir(line, env_head, get_redir_type((*line) + i));
+				redir_head = pro_redir(line, env_head, get_redir_type((*line) + i), &i);
 				printf("if\n");
 				if (redir_head == 0)
 					return (0);
@@ -34,7 +34,7 @@ t_redir	*parsing_redir(char **line, t_env *env_head)
 			}
 			else
 			{
-				current->next = pro_redir(line, env_head, get_redir_type((*line) + i));
+				current->next = pro_redir(line, env_head, get_redir_type((*line) + i), &i);
 				current = current->next;
 			}
 		}
@@ -62,40 +62,42 @@ int	get_redir_type(char *c)
 		return (0);
 }
 
-t_redir	*pro_redir(char **line, t_env *env_head, int redir_type)
+t_redir	*pro_redir(char **line, t_env *env_head, int redir_type, int *i)
 {
 	t_redir	*redir;
 	char	*temp;
-	int		l;
 
-	l = 1;
 	temp = 0;
 	while (ft_isspace(**line))
 		(*line)++;
-	printf("in redir : %s\n", *line);
 	redir = (t_redir *)ft_calloc(1, sizeof(t_redir));
 	if (redir == 0)
 		return (0);
-	if (valid_dol(&(*line)[l]))
+	while (&(*line)[*i] != 0 && !ft_isspace((*line)[*i]))
 	{
-		if (!pro_env(&temp, line, env_head, &l))
-			return (0);
+		if (valid_dol(&(*line)[*i]))
+		{
+			if (!pro_env(&temp, line, env_head, i))
+				return (0);
+		}
+		else if ((*line)[*i] == '\'')
+		{
+			if (!pro_s_quotes(&temp, line, i))
+				return (0);
+		}
+		else if ((*line)[*i] == '\"')
+		{
+			if (!pro_d_quotes(&temp, line, env_head, i))
+				return (0);
+		}
+		else
+			(*i)++;
 	}
-	else if ((*line)[l] == '\'')
-	{
-		if (!pro_s_quotes(&temp, line, &l))
-			return (0);
-	}
-	else if ((*line)[l] == '\"')
-	{
-		if (!pro_d_quotes(&temp, line, env_head, &l))
-			return (0);
-	}
-	ft_memset(*line, ' ', l);
-	printf("temp : \"%s\"\n", *line);
+	temp = app_str(temp, ft_substr(*line, 0, *i));
 	redir->filename = temp;
 	redir->redir_type = redir_type;
-	if (*line[l] != 0)
-		(*line) = (*line) + l + 1;
+	if (*line[*i] != 0)
+		(*line) = (*line) + *i + 1;
+	*i = 0;
 	return (redir);
 }

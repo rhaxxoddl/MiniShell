@@ -6,7 +6,7 @@
 /*   By: sanjeon <sanjeon@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 10:37:54 by sanjeon           #+#    #+#             */
-/*   Updated: 2022/04/22 13:16:35 by sanjeon          ###   ########.fr       */
+/*   Updated: 2022/04/22 16:25:30 by sanjeon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,6 @@ t_cmd	*parsing_cmd(char **line, t_env *env_head)
 	if (cmd->cmd_param == 0)
 		return (0); // 전에 할당한 거 해제해야 함.
 	cmd->redir = 0;
-	// if (cmd->redir == 0)
-	// 	return (0); // 전에 할당한 거 해제해야 함.
 	// 여기까지 함수로 빼기
 	while ((*line)[i] != 0 && (*line)[i] != '|')
 	{
@@ -80,8 +78,20 @@ t_cmd	*parsing_cmd(char **line, t_env *env_head)
 		}
 		else if (get_redir_type(&(*line)[i]))
 		{
-			// printf("get+tupe : %d\n", get_redir_type(&(*line)[i]));
-			cmd->redir = pro_redir(line, env_head, get_redir_type(&(*line)[i]));
+			if (temp == 0)
+				temp = ft_substr((*line), 0, i);
+			else
+				temp = app_str(temp, ft_substr(*line, 0,i));
+			if (temp == 0)
+				return (0);
+			(*line) = (*line) + i;
+			i = 0;
+			if (cmd->redir == 0)
+				cmd->redir = pro_redir(line, env_head, get_redir_type((*line)++), &i);
+			else
+			{
+				cmd->redir->next = pro_redir(line, env_head, get_redir_type((*line)++), &i);
+			}
 			if (cmd->redir == 0)
 				return (0);
 		}
@@ -101,7 +111,11 @@ t_cmd	*parsing_cmd(char **line, t_env *env_head)
 	if (i > 0 && !ft_isspace((*line)[i - 1]))
 	{
 		temp = app_str(temp, ft_substr(*line, 0, i));
+		if (temp == 0)
+			return (0);
 		cmd->cmd_param = add_col(cmd->cmd_param, temp);
+		if (cmd->cmd_param == 0)
+			return (0);
 		temp = 0;
 	}
 	if (*line[i] != 0)

@@ -6,7 +6,7 @@
 /*   By: sanjeon <sanjeon@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 16:44:48 by sanjeon           #+#    #+#             */
-/*   Updated: 2022/04/21 21:28:14 by sanjeon          ###   ########.fr       */
+/*   Updated: 2022/04/22 16:04:45 by sanjeon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	main(int argc, char **argv, char **envp)
 	(void)argv;
 	t_env	*env;
 	t_arg	*arg;
-	char	*str = ft_strdup("\'abcd$PATH\' pad$PATH > abcd asf | <hihi ls -al");
+	char	*str = ft_strdup("\'abcd$PATH\' pad$PATH > abcd  <   asf | <hihi ls -al");
 
 	env = get_env(envp);
 	arg = parsing(str, env);
