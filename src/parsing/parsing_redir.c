@@ -6,7 +6,7 @@
 /*   By: sanjeon <sanjeon@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 20:25:32 by sanjeon           #+#    #+#             */
-/*   Updated: 2022/04/21 21:37:05 by sanjeon          ###   ########.fr       */
+/*   Updated: 2022/04/22 13:22:40 by sanjeon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,15 @@ t_redir	*parsing_redir(char **line, t_env *env_head)
 	int		i;
 
 	i = 0;
+	redir_head = 0;
 	while ((*line)[i] != 0 && (*line)[i] != '|')
 	{
 		if (get_redir_type((*line) + i))
 		{
 			if (redir_head == 0)
 			{
-				redir_head = (t_redir *)ft_calloc(1, sizeof(t_redir));
+				redir_head = pro_redir(line, env_head, get_redir_type((*line) + i));
+				printf("if\n");
 				if (redir_head == 0)
 					return (0);
 				current = redir_head;
@@ -70,6 +72,7 @@ t_redir	*pro_redir(char **line, t_env *env_head, int redir_type)
 	temp = 0;
 	while (ft_isspace(**line))
 		(*line)++;
+	printf("in redir : %s\n", *line);
 	redir = (t_redir *)ft_calloc(1, sizeof(t_redir));
 	if (redir == 0)
 		return (0);
@@ -89,7 +92,7 @@ t_redir	*pro_redir(char **line, t_env *env_head, int redir_type)
 			return (0);
 	}
 	ft_memset(*line, ' ', l);
-	printf("line : \"%s\"\n", *line);
+	printf("temp : \"%s\"\n", *line);
 	redir->filename = temp;
 	redir->redir_type = redir_type;
 	if (*line[l] != 0)

@@ -6,7 +6,7 @@
 /*   By: sanjeon <sanjeon@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 10:37:54 by sanjeon           #+#    #+#             */
-/*   Updated: 2022/04/21 20:42:20 by sanjeon          ###   ########.fr       */
+/*   Updated: 2022/04/22 13:16:35 by sanjeon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,9 +57,9 @@ t_cmd	*parsing_cmd(char **line, t_env *env_head)
 	cmd->cmd_param = (char **)ft_calloc(1, sizeof(char *));
 	if (cmd->cmd_param == 0)
 		return (0); // 전에 할당한 거 해제해야 함.
-	cmd->redir = (t_redir *)ft_calloc(1, sizeof(t_redir));
-	if (cmd->redir == 0)
-		return (0); // 전에 할당한 거 해제해야 함.
+	cmd->redir = 0;
+	// if (cmd->redir == 0)
+	// 	return (0); // 전에 할당한 거 해제해야 함.
 	// 여기까지 함수로 빼기
 	while ((*line)[i] != 0 && (*line)[i] != '|')
 	{
@@ -76,6 +76,13 @@ t_cmd	*parsing_cmd(char **line, t_env *env_head)
 		else if ((*line)[i] == '\"')
 		{
 			if (!pro_d_quotes(&temp, line, env_head, &i))
+				return (0);
+		}
+		else if (get_redir_type(&(*line)[i]))
+		{
+			// printf("get+tupe : %d\n", get_redir_type(&(*line)[i]));
+			cmd->redir = pro_redir(line, env_head, get_redir_type(&(*line)[i]));
+			if (cmd->redir == 0)
 				return (0);
 		}
 		else if (ft_isspace((*line)[i]))
