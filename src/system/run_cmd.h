@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   run_cmd.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sanjeon <sanjeon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sanjeon <sanjeon@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/11 18:51:05 by sanjeon           #+#    #+#             */
-/*   Updated: 2022/03/26 12:58:49 by sanjeon          ###   ########.fr       */
+/*   Updated: 2022/04/22 21:40:36 by sanjeon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define RUN_CMD_H
 
 # include "libft.h"
-# include "pipe_struct.h"
+# include "../parsing/parsing.h"
 # include <stdio.h>
 # include <sys/types.h>
 # include <sys/stat.h>
@@ -39,7 +39,7 @@ int			**malloc_fds(int cmd_count);
 [run_cmd()]
 Creates child processes and executes command.
 */
-int			run_cmd(t_arg *arg, int i);
+int			run_cmd(t_arg *arg, int i, t_env *env);
 /*
 [connect_pipe()]
 Pipe connection with the following command.

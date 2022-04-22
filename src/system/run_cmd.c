@@ -6,13 +6,13 @@
 /*   By: sanjeon <sanjeon@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/14 16:26:10 by sanjeon           #+#    #+#             */
-/*   Updated: 2022/04/19 10:27:26 by sanjeon          ###   ########.fr       */
+/*   Updated: 2022/04/22 21:40:26 by sanjeon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "run_cmd.h"
 
-int	run_cmd(t_arg *arg, int cmd_idx)
+int	run_cmd(t_arg *arg, int cmd_idx, t_env *env)
 {
 	pid_t	pid;
 
@@ -26,7 +26,7 @@ int	run_cmd(t_arg *arg, int cmd_idx)
 	{
 		connect_pipe(cmd_idx, arg);
 		if (execve(arg->c_t[cmd_idx].cmd_param[0], arg->c_t[arg->cmd_idx].cmd_param,
-				arg->envp) == -1)
+				env) == -1)
 			p_a_error(arg);
 	}
 	if (pid)
