@@ -6,7 +6,7 @@
 /*   By: sanjeon <sanjeon@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 17:09:45 by sanjeon           #+#    #+#             */
-/*   Updated: 2022/04/21 18:48:13 by sanjeon          ###   ########.fr       */
+/*   Updated: 2022/04/22 16:51:49 by sanjeon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,9 @@
 
 int	pro_d_quotes(char **temp, char **line, t_env *env_head, int *i)
 {
-	if (*temp == 0)
-		*temp = ft_substr((*line), 0, *i);
-	else
-		*temp = app_str(*temp, ft_substr(*line, 0, *i));
-	if (*temp == 0)
+	if (!pro_before_str(temp, line, i))
 		return (0);
-	(*line) = (*line) + (*i) + 1;
-	*i = 0;
+	(*line)++;
 	*temp = app_str(*temp, d_quotes(line, env_head));
 	if ((*temp) == 0)
 		return (0);
@@ -30,14 +25,9 @@ int	pro_d_quotes(char **temp, char **line, t_env *env_head, int *i)
 
 int	pro_s_quotes(char **temp, char **line, int *i)
 {
-	if (*temp == 0)
-		*temp = ft_substr((*line), 0, *i);
-	else
-		*temp = app_str(*temp, ft_substr(*line, 0, *i));
-	if (*temp == 0)
+	if (!pro_before_str(temp, line, i))
 		return (0);
-	(*line) = (*line) + (*i) + 1;
-	*i = 0;
+	(*line)++;
 	*temp = app_str(*temp, s_quotes(line));
 	if ((*temp) == 0)
 		return (0);

@@ -6,7 +6,7 @@
 /*   By: sanjeon <sanjeon@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 17:10:02 by sanjeon           #+#    #+#             */
-/*   Updated: 2022/04/21 17:37:47 by sanjeon          ###   ########.fr       */
+/*   Updated: 2022/04/22 16:51:56 by sanjeon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,14 +27,9 @@ int	valid_dol(char *line)
 
 int	pro_env(char **temp, char **line, t_env *env_head, int *i)
 {
-	if (*temp == 0)
-		*temp = ft_substr((*line), 0, *i);
-	else
-		*temp = app_str(*temp, ft_substr(*line, 0, *i));
-	if (*temp == 0)
+	if (!pro_before_str(temp, line, i))
 		return (0);
-	(*line) = (*line) + (*i) + 1;
-	*i = 0;
+	(*line)++;
 	*temp = app_str(*temp, trans_env(line, env_head));
 	if ((*temp) == 0)
 		return (0);

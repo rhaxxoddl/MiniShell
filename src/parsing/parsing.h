@@ -6,7 +6,7 @@
 /*   By: sanjeon <sanjeon@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 11:38:46 by sanjeon           #+#    #+#             */
-/*   Updated: 2022/04/22 15:27:29 by sanjeon          ###   ########.fr       */
+/*   Updated: 2022/04/22 17:06:00 by sanjeon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ void	print_arg(t_arg *arg);
 void	skip_space(char **line, int *i);
 char	*app_str(char *dest, char *src);
 char	**add_col(char **cmd, char *add);
+int		pro_before_str(char **temp, char **line, int *i);
 
 // parsing.c
 t_arg	*parsing(char *line, t_env *env_head);
@@ -36,7 +37,7 @@ int		add_env(t_env **head, t_env **current, int *i);
 char	*trans_env(char **line, t_env *env_head);
 
 // parsing_redir.c
-t_redir	*parsing_redir(char **line, t_env *env_head);
+int		parsing_redir(t_cmd *cmd, char **line, t_env *env_head, int *i);
 int		get_redir_type(char *c);
 t_redir	*pro_redir(char **line, t_env *env_head, int redir_type, int *i);
 

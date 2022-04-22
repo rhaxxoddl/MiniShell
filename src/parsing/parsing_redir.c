@@ -6,42 +6,25 @@
 /*   By: sanjeon <sanjeon@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 20:25:32 by sanjeon           #+#    #+#             */
-/*   Updated: 2022/04/22 16:09:04 by sanjeon          ###   ########.fr       */
+/*   Updated: 2022/04/22 17:05:30 by sanjeon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
 
-t_redir	*parsing_redir(char **line, t_env *env_head)
+int	parsing_redir(t_cmd *cmd, char **line, t_env *env_head, int *i)
 {
-	t_redir	*redir_head;
-	t_redir	*current;
-	int		i;
-
-	i = 0;
-	redir_head = 0;
-	while ((*line)[i] != 0 && (*line)[i] != '|')
+	if (cmd->redir == 0)
+		cmd->redir = pro_redir(line, env_head, get_redir_type((*line)++), i);
+	else
 	{
-		if (get_redir_type((*line) + i))
-		{
-			if (redir_head == 0)
-			{
-				redir_head = pro_redir(line, env_head, get_redir_type((*line) + i), &i);
-				printf("if\n");
-				if (redir_head == 0)
-					return (0);
-				current = redir_head;
-			}
-			else
-			{
-				current->next = pro_redir(line, env_head, get_redir_type((*line) + i), &i);
-				current = current->next;
-			}
-		}
-		else
-			i++;
+		cmd->redir->next = pro_redir(line, env_head, get_redir_type((*line)++), i);
 	}
-	return (redir_head);
+	if (cmd->redir == 0)
+		return (0);
+	while (ft_isspace(**line))
+		(*line)++;
+	return (1);
 }
 
 int	get_redir_type(char *c)

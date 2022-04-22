@@ -6,7 +6,7 @@
 /*   By: sanjeon <sanjeon@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 15:33:57 by sanjeon           #+#    #+#             */
-/*   Updated: 2022/04/21 21:30:28 by sanjeon          ###   ########.fr       */
+/*   Updated: 2022/04/22 17:27:46 by sanjeon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,4 +69,15 @@ char	**add_col(char **cmd, char *add)
 	temp[i] = add;
 	free(cmd);
 	return (temp);
+}
+
+
+int	pro_before_str(char **temp, char **line, int *i)
+{
+	*temp = app_str(*temp, ft_substr(*line, 0, *i));
+	if (*temp == 0)
+		return (0);
+	(*line) = (*line) + *i;
+	*i = 0;
+	return (1);
 }
