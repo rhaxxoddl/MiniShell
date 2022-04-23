@@ -6,17 +6,17 @@
 /*   By: sanjeon <sanjeon@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 15:33:57 by sanjeon           #+#    #+#             */
-/*   Updated: 2022/04/22 17:27:46 by sanjeon          ###   ########.fr       */
+/*   Updated: 2022/04/23 14:23:43 by sanjeon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
 
-void	print_arg(t_arg *arg)
+void	print_arg(t_cmd_arg *arg)
 {
 	t_cmd	*temp_cmd;
 
-	temp_cmd = arg->c_t;
+	temp_cmd = arg->cmd_head;
 	while (temp_cmd != 0)
 	{
 		for (int i = 0; temp_cmd->cmd_param[i] != 0; i++)

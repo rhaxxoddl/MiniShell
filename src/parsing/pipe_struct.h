@@ -6,7 +6,7 @@
 /*   By: sanjeon <sanjeon@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/14 11:35:32 by sanjeon           #+#    #+#             */
-/*   Updated: 2022/04/22 21:29:39 by sanjeon          ###   ########.fr       */
+/*   Updated: 2022/04/23 15:55:17 by sanjeon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ typedef struct s_redir{
 }				t_redir;
 
 typedef struct s_cmd{
+	int				cmd_idx;
 	char			**cmd_param;
 	t_redir			*redir;
 	struct s_cmd	*next;
@@ -38,15 +39,17 @@ typedef struct s_env{
 	struct s_env	*next;
 }				t_env;
 
-typedef struct s_arg{
-	t_cmd	*c_t;
+typedef struct s_cmd_arg{
+	t_cmd	*cmd_head;
+	char	**path;
 	int		cmd_count;
-	int		cmd_idx;
 	int		**fds;
-	int		status;
-	t_env	*envp;
-	int		std_out;
-	int		std_in;
+}				t_cmd_arg;
+
+typedef struct s_arg{
+	t_cmd_arg	*cmd_arg;
+	int			status;
+	char		**envp;
 }				t_arg;
 
 #endif

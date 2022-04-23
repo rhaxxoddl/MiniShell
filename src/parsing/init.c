@@ -6,11 +6,22 @@
 /*   By: sanjeon <sanjeon@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 17:09:20 by sanjeon           #+#    #+#             */
-/*   Updated: 2022/04/21 20:04:06 by sanjeon          ###   ########.fr       */
+/*   Updated: 2022/04/23 13:45:28 by sanjeon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
+
+t_arg	*init_arg(char **envp)
+{
+	t_arg	*arg;
+
+	arg = (t_arg *)ft_calloc(1, sizeof(t_arg));
+	if (arg == 0)
+		return (0);
+	arg->envp = envp;
+	return (arg);
+}
 
 t_env	*get_env(char **envp)
 {

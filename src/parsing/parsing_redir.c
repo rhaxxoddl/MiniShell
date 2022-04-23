@@ -6,20 +6,19 @@
 /*   By: sanjeon <sanjeon@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 20:25:32 by sanjeon           #+#    #+#             */
-/*   Updated: 2022/04/22 17:55:57 by sanjeon          ###   ########.fr       */
+/*   Updated: 2022/04/23 16:11:00 by sanjeon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
 
-int	parsing_redir(t_cmd *cmd, char **line, t_env *env_head, int *i)
+int	parsing_redir(t_cmd *cmd, char **line, int *i)
 {
 	if (cmd->redir == 0)
-		cmd->redir = pro_redir(line, env_head, get_redir_type((*line)++), i);
+		cmd->redir = pro_redir(line, get_redir_type((*line)++), i);
 	else
 	{
-		cmd->redir->next = pro_redir(line, env_head,
-				get_redir_type((*line)++), i);
+		cmd->redir->next = pro_redir(line, get_redir_type((*line)++), i);
 	}
 	if (cmd->redir == 0)
 		return (0);
@@ -46,7 +45,7 @@ int	get_redir_type(char *c)
 		return (0);
 }
 
-t_redir	*pro_redir(char **line, t_env *env_head, int redir_type, int *i)
+t_redir	*pro_redir(char **line, int redir_type, int *i)
 {
 	t_redir	*redir;
 	char	*temp;
@@ -62,7 +61,7 @@ t_redir	*pro_redir(char **line, t_env *env_head, int redir_type, int *i)
 	{
 		if (valid_dol(&(*line)[*i]))
 		{
-			if (!pro_env(&temp, line, env_head, i))
+			if (!pro_env(&temp, line, i))
 				return (0);
 		}
 		else if ((*line)[*i] == '\'')
@@ -72,7 +71,7 @@ t_redir	*pro_redir(char **line, t_env *env_head, int redir_type, int *i)
 		}
 		else if ((*line)[*i] == '\"')
 		{
-			if (!pro_d_quotes(&temp, line, env_head, i))
+			if (!pro_d_quotes(&temp, line, i))
 				return (0);
 		}
 		else

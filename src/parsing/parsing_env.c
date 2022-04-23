@@ -6,7 +6,7 @@
 /*   By: sanjeon <sanjeon@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 17:10:02 by sanjeon           #+#    #+#             */
-/*   Updated: 2022/04/22 16:51:56 by sanjeon          ###   ########.fr       */
+/*   Updated: 2022/04/23 16:08:08 by sanjeon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,18 +25,18 @@ int	valid_dol(char *line)
 	return (0);
 }
 
-int	pro_env(char **temp, char **line, t_env *env_head, int *i)
+int	pro_env(char **temp, char **line, int *i)
 {
 	if (!pro_before_str(temp, line, i))
 		return (0);
 	(*line)++;
-	*temp = app_str(*temp, trans_env(line, env_head));
+	*temp = app_str(*temp, trans_env(line));
 	if ((*temp) == 0)
 		return (0);
 	return (1);
 }
 
-char	*trans_env(char **line, t_env *env_head)
+char	*trans_env(char **line)
 {
 	char	*output;
 	char	*temp;
@@ -52,13 +52,13 @@ char	*trans_env(char **line, t_env *env_head)
 		return (output);
 	}
 	temp = ft_substr(*line, 0, i);
+	if (temp == 0)
+		return (0);
 	j = 0;
-	while (env_head != 0 && ft_strcmp(temp, env_head->key) != 0)
-		env_head = env_head->next;
-	if (env_head != 0)
-		output = ft_strdup((env_head->value));
-	else
-		output = 0;
+	output = getenv(temp);
+	free(temp);
+	if (output == 0)
+		return (0);
 	*line = &(*line)[i];
 	return (output);
 }

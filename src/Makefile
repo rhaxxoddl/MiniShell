@@ -20,15 +20,15 @@ SRCS		=	$(SYSTEM_DIR)/main.c\
 				$(SYSTEM_DIR)/parsing.c\
 				$(SYSTEM_DIR)/redirection.c\
 				$(SYSTEM_DIR)/here_doc_util.c\
-				$(SYSTEM_DIR)/signal_handler.c\
+				$(SYSTEM_DIR)/connect_cmd.c\
 				$(PARSING_DIR)/free.c\
 				$(PARSING_DIR)/init.c\
 				$(PARSING_DIR)/parsing.c\
 				$(PARSING_DIR)/parsing_env.c\
 				$(PARSING_DIR)/parsing_quotes.c\
-				$(PARSING_DIR)/parsing_redir_util.c\
 				$(PARSING_DIR)/parsing_redir.c\
 				$(PARSING_DIR)/parsing_util.c
+				# $(SYSTEM_DIR)/signal_handler.c
 PARSING_DIR	=	./parsing
 SYSTEM_DIR	=	./system
 OBJS		=	$(SRCS:.c=.o)

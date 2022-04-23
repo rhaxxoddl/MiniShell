@@ -6,7 +6,7 @@
 /*   By: sanjeon <sanjeon@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/11 18:56:51 by sanjeon           #+#    #+#             */
-/*   Updated: 2022/04/22 21:41:13 by sanjeon          ###   ########.fr       */
+/*   Updated: 2022/04/23 16:06:34 by sanjeon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,12 @@ int	main(int argc, char *argv[], char *envp[])
 	(void)argv;
 	(void)argc;
 	t_arg	*arg;
-	t_env	*env;
 	char    *line;
 
-	env = 0;
 	arg = 0;
-	sig_init();
-	env = get_env(envp);
-	if (env == 0)
+	// sig_init();
+	arg = init_arg(envp);
+	if (arg == 0)
 		return (0);
 	while(1)
 	{
@@ -34,8 +32,8 @@ int	main(int argc, char *argv[], char *envp[])
 		add_history(line);
 		if (line == NULL)
 			return (1);
-		arg = parsing(line, env);
-		run_cmd(arg, arg->cmd_idx, env);
+		arg->cmd_arg = parsing(line, envp);
+		run_cmd(arg, arg->cmd_arg);
 		// printf("str: %s\n", line);
 		free(line);
 	}

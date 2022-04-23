@@ -3,31 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sanjeon <sanjeon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sanjeon <sanjeon@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/13 18:40:49 by sanjeon           #+#    #+#             */
-/*   Updated: 2022/03/25 12:59:28 by sanjeon          ###   ########.fr       */
+/*   Updated: 2022/04/23 13:44:47 by sanjeon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "run_cmd.h"
-
-t_arg	*init_arg(void)
-{
-	t_arg	*arg;
-
-	arg = 0;
-	arg = ft_calloc(1, sizeof(t_arg));
-	if (arg == 0)
-		p_a_error(arg);
-	arg->c_t = 0;
-	arg->cmd_count = 0;
-	arg->cmd_idx = 0;
-	arg->fds = 0;
-	arg->status = 0;
-	arg->envp = 0;
-	return (arg);
-}
 
 int	**malloc_fds(int cmd_count)
 {

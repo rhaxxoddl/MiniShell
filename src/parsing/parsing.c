@@ -6,20 +6,20 @@
 /*   By: sanjeon <sanjeon@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 10:37:54 by sanjeon           #+#    #+#             */
-/*   Updated: 2022/04/22 17:07:09 by sanjeon          ###   ########.fr       */
+/*   Updated: 2022/04/23 16:23:41 by sanjeon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
 
-t_arg	*parsing(char *line, t_env *env_head)
+t_cmd_arg	*parsing(char *line, char **envp)
 {
-	t_arg	*arg;
-	t_cmd	*temp_cmd;
+	t_cmd_arg	*cmd_arg;
+	t_cmd		*temp_cmd;
 	int		i;
 
-	arg = (t_arg *)ft_calloc(1, sizeof(t_arg));
-	if (arg == 0)
+	cmd_arg = (t_cmd_arg *)ft_calloc(1, sizeof(t_cmd_arg));
+	if (cmd_arg == 0)
 		return (0);
 	while (ft_isspace(*line))
 		line++;
@@ -28,19 +28,27 @@ t_arg	*parsing(char *line, t_env *env_head)
 	{
 		if (i == 0)
 		{
-			temp_cmd = parsing_cmd(&line, env_head);
-			arg->c_t = temp_cmd;
+			temp_cmd = parsing_cmd(&line);
+			cmd_arg->cmd_head = temp_cmd;
+			cmd_arg->cmd_count = 1;
+			temp_cmd->cmd_idx = 0;
 		}
 		else
 		{
-			temp_cmd->next = parsing_cmd(&line, env_head);
+			temp_cmd->next = parsing_cmd(&line);
 			temp_cmd = temp_cmd->next;
+			cmd_arg->cmd_count++;
+			temp_cmd->cmd_idx = cmd_arg->cmd_count - 1;
 		}
 	}
-	return (arg);
+	cmd_arg->fds = malloc_fds(cmd_arg->cmd_count);
+	if (cmd_arg->fds == 0)
+		return (0);
+	cmd_arg->path = get_path(envp);
+	return (cmd_arg);
 }
 
-t_cmd	*parsing_cmd(char **line, t_env *env_head)
+t_cmd	*parsing_cmd(char **line)
 {
 	t_cmd	*cmd;
 	char	*temp;
@@ -63,7 +71,7 @@ t_cmd	*parsing_cmd(char **line, t_env *env_head)
 	{
 		if (valid_dol(&(*line)[i]))
 		{
-			if (!pro_env(&temp, line, env_head, &i))
+			if (!pro_env(&temp, line, &i))
 				return (0);
 		}
 		else if ((*line)[i] == '\'')
@@ -73,13 +81,13 @@ t_cmd	*parsing_cmd(char **line, t_env *env_head)
 		}
 		else if ((*line)[i] == '\"')
 		{
-			if (!pro_d_quotes(&temp, line, env_head, &i))
+			if (!pro_d_quotes(&temp, line, &i))
 				return (0);
 		}
 		else if (get_redir_type(&(*line)[i]))
 		{
 			if (!pro_before_str(&temp, line, &i) ||
-				!parsing_redir(cmd, line, env_head, &i))
+				!parsing_redir(cmd, line, &i))
 				return (0);
 		}
 		else if (ft_isspace((*line)[i]))

@@ -6,7 +6,7 @@
 /*   By: sanjeon <sanjeon@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/11 18:51:05 by sanjeon           #+#    #+#             */
-/*   Updated: 2022/04/22 21:40:36 by sanjeon          ###   ########.fr       */
+/*   Updated: 2022/04/23 16:14:21 by sanjeon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include "libft.h"
 # include "../parsing/parsing.h"
+# include <stdlib.h>
 # include <stdio.h>
 # include <sys/types.h>
 # include <sys/stat.h>
@@ -32,14 +33,14 @@ the allocated structure 'arg' is free.
 void		p_a_error(t_arg *arg);
 // main.c
 //parsing.c-----------------------------------
-t_arg		*init_arg(void);
+// t_cmd_arg		*init_arg(void);
 int			**malloc_fds(int cmd_count);
 // run_cmd.c-----------------------------------
 /*
 [run_cmd()]
 Creates child processes and executes command.
 */
-int			run_cmd(t_arg *arg, int i, t_env *env);
+int			run_cmd(t_arg *arg, t_cmd_arg *cmd_arg);
 /*
 [connect_pipe()]
 Pipe connection with the following command.
@@ -99,4 +100,11 @@ char		*add_str(char **str, char **rl);
 Set a signal_handler function to SIGINT, SIGQUIT, SIGTERM.
  */
 void	    sig_init(void);
+
+/*
+add_function
+*/
+char	*cmd_connect_path(char *cmd, char **path);
+char	**get_path();
+int		add_slash(char **path);
 #endif

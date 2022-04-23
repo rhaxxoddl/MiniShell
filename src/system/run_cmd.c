@@ -6,34 +6,35 @@
 /*   By: sanjeon <sanjeon@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/14 16:26:10 by sanjeon           #+#    #+#             */
-/*   Updated: 2022/04/22 21:40:26 by sanjeon          ###   ########.fr       */
+/*   Updated: 2022/04/23 14:35:20 by sanjeon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "run_cmd.h"
 
-int	run_cmd(t_arg *arg, int cmd_idx, t_env *env)
+int	run_cmd(t_arg *arg, t_cmd_arg *cmd_arg)
 {
+	print_arg(arg->cmd_arg);
 	pid_t	pid;
 
-	if (pipe(arg->fds[cmd_idx]) == -1)
+	if (pipe(cmd_arg->fds[cmd_arg->cmd_head->cmd_idx]) == -1)
 		p_a_error(arg);
-	connect_redir(arg->c_t[cmd_idx].redir, arg);
+	connect_redir(cmd_arg->cmd_head[cmd_arg->cmd_head->cmd_idx].redir, arg);
 	pid = fork();
 	if (pid == -1)
 		p_a_error(arg);
 	else if (pid == 0)
 	{
-		connect_pipe(cmd_idx, arg);
-		if (execve(arg->c_t[cmd_idx].cmd_param[0], arg->c_t[arg->cmd_idx].cmd_param,
-				env) == -1)
+		connect_pipe(cmd_arg->cmd_head->cmd_idx, arg);
+		if (execve(cmd_arg->cmd_head[cmd_arg->cmd_head->cmd_idx].cmd_param[0],
+				cmd_arg->cmd_head[cmd_arg->cmd_head->cmd_idx].cmd_param, arg->envp) == -1)
 			p_a_error(arg);
 	}
 	if (pid)
 	{
-		close(arg->fds[cmd_idx][W]);
-		dup2(arg->fds[cmd_idx][R], STDIN_FILENO);
-		close(arg->fds[cmd_idx][R]);
+		close(cmd_arg->fds[cmd_arg->cmd_head->cmd_idx][W]);
+		dup2(cmd_arg->fds[cmd_arg->cmd_head->cmd_idx][R], STDIN_FILENO);
+		close(cmd_arg->fds[cmd_arg->cmd_head->cmd_idx][R]);
 		waitpid(pid, &(arg->status), WNOHANG);
 	}
 	return (0);
@@ -41,12 +42,12 @@ int	run_cmd(t_arg *arg, int cmd_idx, t_env *env)
 
 void	connect_pipe(int cmd_idx, t_arg *arg)
 {
-	if (cmd_idx != arg->cmd_count - 1)
+	if (cmd_idx != arg->cmd_arg->cmd_count - 1)
 	{
-		if (dup2(arg->fds[cmd_idx][W], STDOUT_FILENO) == -1)
+		if (dup2(arg->cmd_arg->fds[cmd_idx][W], STDOUT_FILENO) == -1)
 			p_a_error(arg);
-		close(arg->fds[cmd_idx][W]);
-		close(arg->fds[cmd_idx][R]);
+		close(arg->cmd_arg->fds[cmd_idx][W]);
+		close(arg->cmd_arg->fds[cmd_idx][R]);
 	}
 }
 

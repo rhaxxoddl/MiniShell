@@ -6,7 +6,7 @@
 /*   By: sanjeon <sanjeon@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 15:02:18 by sanjeon           #+#    #+#             */
-/*   Updated: 2022/04/22 15:02:47 by sanjeon          ###   ########.fr       */
+/*   Updated: 2022/04/23 16:25:10 by sanjeon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	pro_d_quotes_r(char **temp, char **line, t_env *env_head, int *i)
 		return (0);
 	(*line) = (*line) + (*i) + 1;
 	*i = 0;
-	*temp = app_str(*temp, d_quotes(line, env_head));
+	*temp = app_str(*temp, d_quotes(line));
 	if ((*temp) == 0)
 		return (0);
 	return (1);
@@ -72,7 +72,7 @@ char	*d_quotes_r(char **line, t_env *env_head)
 	{
 		if (valid_dol(&(*line)[i]))
 		{
-			if (!pro_env(&output, line, env_head, &i))
+			if (!pro_env(&output, line, &i))
 				return ("error");
 		}
 		else
