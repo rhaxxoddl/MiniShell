@@ -6,16 +6,38 @@
 /*   By: sanjeon <sanjeon@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/14 16:26:10 by sanjeon           #+#    #+#             */
-/*   Updated: 2022/04/23 17:23:36 by sanjeon          ###   ########.fr       */
+/*   Updated: 2022/04/23 21:11:54 by sanjeon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "run_cmd.h"
 
-int	run_cmd(t_arg *arg, t_cmd_arg *cmd_arg)
+int	run_process(t_arg *arg, t_cmd_arg *cmd_arg)
+{
+	print_arg(cmd_arg);
+	pid_t	pid;
+	int		status;
+
+	status = 0;
+	pid = fork();
+	if (pid == -1)
+		p_a_error(arg);
+	else if (pid == 0)
+	{
+		if (run_cmd(arg, cmd_arg) == 0)
+			p_a_error(arg);
+	}
+	else if (pid > 0)
+	while(!wait(&status))
+		;
+	return (0);
+}
+
+int	run_cmd(t_arg *arg, t_cmd_arg *cmd_arg) // 새로운 프로세스이기 때문에 arg까지 해제하는 게 아니라 cmd_arg만 해제
 {
 	pid_t	pid;
 
+	// printf("2cmd_arg : %p\n", cmd_arg->fds[cmd_arg->cmd_head->cmd_idx]);
 	if (pipe(cmd_arg->fds[cmd_arg->cmd_head->cmd_idx]) == -1)
 		p_a_error(arg);
 	connect_redir(cmd_arg->cmd_head[cmd_arg->cmd_head->cmd_idx].redir, arg);
@@ -30,7 +52,7 @@ int	run_cmd(t_arg *arg, t_cmd_arg *cmd_arg)
 				cmd_arg->cmd_head[cmd_arg->cmd_head->cmd_idx].cmd_param, arg->envp) == -1)
 			p_a_error(arg);
 	}
-	if (pid)
+	else if (pid > 0)
 	{
 		close(cmd_arg->fds[cmd_arg->cmd_head->cmd_idx][W]);
 		dup2(cmd_arg->fds[cmd_arg->cmd_head->cmd_idx][R], STDIN_FILENO);

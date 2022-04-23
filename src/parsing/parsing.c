@@ -6,7 +6,7 @@
 /*   By: sanjeon <sanjeon@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 10:37:54 by sanjeon           #+#    #+#             */
-/*   Updated: 2022/04/23 16:23:41 by sanjeon          ###   ########.fr       */
+/*   Updated: 2022/04/23 21:04:20 by sanjeon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ t_cmd_arg	*parsing(char *line, char **envp)
 	cmd_arg->fds = malloc_fds(cmd_arg->cmd_count);
 	if (cmd_arg->fds == 0)
 		return (0);
-	cmd_arg->path = get_path(envp);
+	cmd_arg->path = get_path(envp); // path t_arg->envp에서 가져오기
 	return (cmd_arg);
 }
 

@@ -6,7 +6,7 @@
 /*   By: sanjeon <sanjeon@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/11 18:51:05 by sanjeon           #+#    #+#             */
-/*   Updated: 2022/04/23 16:14:21 by sanjeon          ###   ########.fr       */
+/*   Updated: 2022/04/23 20:59:25 by sanjeon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ void		p_a_error(t_arg *arg);
 // t_cmd_arg		*init_arg(void);
 int			**malloc_fds(int cmd_count);
 // run_cmd.c-----------------------------------
+int			run_process(t_arg *arg, t_cmd_arg *cmd_arg);
 /*
 [run_cmd()]
 Creates child processes and executes command.
