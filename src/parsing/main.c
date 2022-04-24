@@ -6,24 +6,24 @@
 /*   By: sanjeon <sanjeon@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 16:44:48 by sanjeon           #+#    #+#             */
-/*   Updated: 2022/04/23 20:42:08 by sanjeon          ###   ########.fr       */
+/*   Updated: 2022/04/24 16:24:54 by sanjeon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parsing.h"
+// #include "parsing.h"
 
-int	main(int argc, char **argv, char **envp)
-{
-	(void)argc;
-	(void)argv;
-	t_env	*env;
-	t_cmd_arg	*arg;
-	char	*str = ft_strdup("afds\'abcd$PATH\' pad$PATH > abcd   asf | <hihi ls -al");
+// int	main(int argc, char **argv, char **envp)
+// {
+// 	(void)argc;
+// 	(void)argv;
+// 	t_env	*env;
+// 	t_cmd_arg	*arg;
+// 	char	*str = ft_strdup("afds\'abcd$PATH\' pad$PATH > abcd   asf | <hihi ls -al");
 
-	env = get_env(envp);
-	arg = parsing(str, env);
-	print_arg(arg);
-	// printf("str : %s\n", str);
-	// parsing_split(&str, env);
-	return (0);
-}
+// 	env = get_env(envp);
+// 	arg = parsing(str, env);
+// 	print_arg(arg);
+// 	// printf("str : %s\n", str);
+// 	// parsing_split(&str, env);
+// 	return (0);
+// }

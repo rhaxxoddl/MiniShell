@@ -6,7 +6,7 @@
 /*   By: sanjeon <sanjeon@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/23 14:59:20 by sanjeon           #+#    #+#             */
-/*   Updated: 2022/04/23 16:19:07 by sanjeon          ###   ########.fr       */
+/*   Updated: 2022/04/24 16:42:09 by sanjeon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,6 @@ char	**get_path()
 	path = ft_split(getenv("PATH"), ':');
 	if (path == 0)
 		return (0);
-	i = 0;
-	while (path[i] != 0)
-		i++;
-	path[i] = getcwd(NULL, 0);
 	if (path[i] == 0)
 	{
 		free_path(path);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc_util.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sanjeon <sanjeon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sanjeon <sanjeon@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/25 16:56:43 by sanjeon           #+#    #+#             */
-/*   Updated: 2022/03/26 12:51:47 by sanjeon          ###   ########.fr       */
+/*   Updated: 2022/04/24 15:35:54 by sanjeon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ int	until_comein_limitor(char **str, char **rl, const char *limitor, int fd)
 	while (1)
 	{
 		*rl = is_limitor(readline("heredoc> "), limitor);
+		printf("rl : %s\n", *rl);
 		if (*rl == 0)
 			return (comein_limitor(fd, str, rl));
 		else
@@ -80,6 +81,8 @@ char	*is_limitor(char *rl, const char *limitor)
 		free(rl);
 		return (0);
 	}
+	printf("ft_strncmp : %d\n", ft_strncmp(rl, limitor, ft_strlen(rl)));
+	printf("limitor : %s\n", limitor);
 	return (rl);
 }
 

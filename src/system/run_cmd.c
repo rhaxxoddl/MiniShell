@@ -6,7 +6,7 @@
 /*   By: sanjeon <sanjeon@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/14 16:26:10 by sanjeon           #+#    #+#             */
-/*   Updated: 2022/04/23 21:11:54 by sanjeon          ###   ########.fr       */
+/*   Updated: 2022/04/24 17:09:10 by sanjeon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	run_process(t_arg *arg, t_cmd_arg *cmd_arg)
 {
-	print_arg(cmd_arg);
+	// print_arg(cmd_arg);
 	pid_t	pid;
 	int		status;
 
@@ -24,12 +24,12 @@ int	run_process(t_arg *arg, t_cmd_arg *cmd_arg)
 		p_a_error(arg);
 	else if (pid == 0)
 	{
-		if (run_cmd(arg, cmd_arg) == 0)
+		if (run_cmd(arg, cmd_arg) != 0)
 			p_a_error(arg);
+		exit(0);
 	}
 	else if (pid > 0)
-	while(!wait(&status))
-		;
+		wait(NULL);
 	return (0);
 }
 
@@ -37,7 +37,6 @@ int	run_cmd(t_arg *arg, t_cmd_arg *cmd_arg) // 새로운 프로세스이기 때�
 {
 	pid_t	pid;
 
-	// printf("2cmd_arg : %p\n", cmd_arg->fds[cmd_arg->cmd_head->cmd_idx]);
 	if (pipe(cmd_arg->fds[cmd_arg->cmd_head->cmd_idx]) == -1)
 		p_a_error(arg);
 	connect_redir(cmd_arg->cmd_head[cmd_arg->cmd_head->cmd_idx].redir, arg);
