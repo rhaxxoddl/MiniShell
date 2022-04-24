@@ -12,6 +12,7 @@
 
 #include <unistd.h>
 #include <stdlib.h>
+#include "libft.h"
 
 long long check_atoll(char *str)
 {

@@ -1,14 +1,15 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_export.c                                        :+:      :+:    :+:   */
+/*   ft_unset.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jinoh <jinoh@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/24 17:31:19 by jinoh             #+#    #+#             */
-/*   Updated: 2022/04/24 17:31:21 by jinoh            ###   ########.fr       */
+/*   Created: 2022/04/24 19:34:33 by jinoh             #+#    #+#             */
+/*   Updated: 2022/04/24 19:34:53 by jinoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #include <unistd.h>
 #include <stdlib.h>
@@ -23,13 +24,9 @@ int check_arg(char *str)
 	i = 0;
 	while (str[++i])
 	{
-		if (str[i] == '=')
-			break;
 		if (!ft_isalpha(str[i]) && !ft_isdigit(str[i]) && str[i] != '_')
 			return (0);
 	}
-	if (i == 1 && str[0] == '_')
-		return (2);
 	return (1);
 }
 
@@ -44,70 +41,45 @@ static int find_env(char *str, char *envp[])
 		j = -1;
 		while (envp[i][++j] || str[j])
 		{
-			if (envp[i][j] != str[j] || envp[i][j] == '=' || str[j] == '=')
+			if (envp[i][j] != str[j] || envp[i][j] == '=')
 				break;
 		}
-		if (envp[i][j] == str[j] || (!envp[i][j] && str[j] == '='))
+		if (envp[i][j] == str[j] || (envp[i][j] =='=' && !str[j]))
 			return (i);
 	}
 	return (0);
 }
 
-static void    _export(char *str, char *envp[])
+static void _unset(char *str, char *envp[])
 {
 	int i;
+	int j;
 
 	i = find_env(str, envp);
 	if (i)
 	{
 		free(envp[i]);
-		envp[i] = ft_strdup(str);
-		if (!envp[i])
-			exit(EXIT_FAILURE);
-	}
-	else
-	{
-		i = ft_strlen(envp[]);
-		envp[i] = ft_strdup(str);
-		envp[i + 1] = 0;
-		if (!envp[i])
-			exit(EXIT_FAULRE);
+		j = ft_strlen(envp[]);
+		envp[i] = envp[j];
+		envp[j] = 0;
 	}
 }
 
-void print_envp(char *envp[])
-{
-	int i;
-
-	i = -1;
-	while (envp[++i])
-	{
-		if (envp[i][0] == '?')
-			continue;
-		write(1, "declare -x ", 11);
-		write(1, envp[i], ft_strlen(envp[i]));
-		write(1, "\n", 1);
-	}
-}
-
-void	ft_export(char *argv[], char *envp[])
+void	ft_unset(char *argv[], char *envp[])
 {
 	int i;
 
 	if (!argv[1])
-		print_envp(envp);
-	i = 0;
+		return ;
 	while (argv[++i])
 	{
 		if (!check_arg(argv[i]))
 		{
-			write(2, "-minishell: export: \'", 21);
+			write(2, "-minishell: unset: \'", 20);
 			write(2, argv[i], ft_strlen(argv[i]));
 			write(2, "\': not a valid identifier\n", 26);
 		}
-		else if (check_arg(argv[i]) == 2)
-			return ;
 		else
-			_export(argv[i], envp);
+			_unset(argv[i], envp);
 	}
 }
