@@ -6,7 +6,7 @@
 /*   By: sanjeon <sanjeon@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 20:25:32 by sanjeon           #+#    #+#             */
-/*   Updated: 2022/04/24 16:17:57 by sanjeon          ###   ########.fr       */
+/*   Updated: 2022/04/24 17:16:17 by sanjeon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,10 +82,7 @@ t_redir	*pro_redir(char **line, int redir_type, int *i)
 	temp = app_str(temp, ft_substr(*line, 0, *i));
 	redir->filename = temp;
 	redir->redir_type = redir_type;
-	printf("filename : %s\n", redir->filename);
-	printf("line : %s\n", (*line) + *i + 1);
-	if (*line[*i] != 0)
-		(*line) = (*line) + *i + 1;
+	(*line) = (*line) + *i + 1;
 	*i = 0;
 	return (redir);
 }

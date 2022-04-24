@@ -6,7 +6,7 @@
 /*   By: sanjeon <sanjeon@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/25 16:56:43 by sanjeon           #+#    #+#             */
-/*   Updated: 2022/04/24 15:35:54 by sanjeon          ###   ########.fr       */
+/*   Updated: 2022/04/24 17:31:31 by sanjeon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,8 +81,6 @@ char	*is_limitor(char *rl, const char *limitor)
 		free(rl);
 		return (0);
 	}
-	printf("ft_strncmp : %d\n", ft_strncmp(rl, limitor, ft_strlen(rl)));
-	printf("limitor : %s\n", limitor);
 	return (rl);
 }
 
@@ -91,12 +89,13 @@ char	*add_str(char **str, char **rl)
 	char	*temp1;
 	char	*temp2;
 
-	temp1 = ft_strjoin(*str, *rl);
-	free_return(str, rl, 0);
+	temp1 = ft_strjoin(*str, "\n");
+	free(*str);
 	if (temp1 == 0)
 		return (0);
-	temp2 = ft_strjoin(temp1, "\n");
-	free(temp1);
+	temp2 = ft_strjoin(temp1, *rl);
+	free_return(&temp1, rl, 0);
+	printf("temp2 : %s\n", temp2);
 	temp1 = 0;
 	if (temp2 == 0)
 		return (0);
