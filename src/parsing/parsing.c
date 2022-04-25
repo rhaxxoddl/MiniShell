@@ -6,7 +6,7 @@
 /*   By: sanjeon <sanjeon@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 10:37:54 by sanjeon           #+#    #+#             */
-/*   Updated: 2022/04/25 19:34:39 by sanjeon          ###   ########.fr       */
+/*   Updated: 2022/04/26 07:59:00 by sanjeon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,17 +16,15 @@ t_cmd_arg	*parsing(char *line, char **envp)
 {
 	t_cmd_arg	*cmd_arg;
 	t_cmd		*temp_cmd;
-	int		i;
 
 	cmd_arg = (t_cmd_arg *)ft_calloc(1, sizeof(t_cmd_arg));
 	if (cmd_arg == 0)
 		return (0);
 	while (ft_isspace(*line))
 		line++;
-	i = -1;
-	while (line[++i] != 0)
+	while (*line != 0)
 	{
-		if (i == 0)
+		if (cmd_arg->cmd_count == 0)
 		{
 			temp_cmd = parsing_cmd(&line);
 			cmd_arg->cmd_head = temp_cmd;
@@ -44,7 +42,7 @@ t_cmd_arg	*parsing(char *line, char **envp)
 	cmd_arg->fds = malloc_fds(cmd_arg->cmd_count);
 	if (cmd_arg->fds == 0)
 		return (0);
-	cmd_arg->path = get_path(envp); // path t_arg->envp에서 가져오기
+	cmd_arg->path = get_path(envp);
 	return (cmd_arg);
 }
 
@@ -117,6 +115,5 @@ t_cmd	*parsing_cmd(char **line)
 		(*line) = (*line) + i + 1;
 	else
 		(*line) = (*line) + i;
-	printf("[%p]line : \"%s\"\n", *line, *line);
 	return (cmd);
 }

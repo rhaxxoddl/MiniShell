@@ -6,7 +6,7 @@
 /*   By: sanjeon <sanjeon@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 15:33:57 by sanjeon           #+#    #+#             */
-/*   Updated: 2022/04/25 19:00:09 by sanjeon          ###   ########.fr       */
+/*   Updated: 2022/04/26 07:59:16 by sanjeon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ void	print_arg(t_cmd_arg *arg)
 			temp_cmd->redir = temp_cmd->redir->next;
 		}
 		temp_cmd = temp_cmd->next;
-		printf("next : %p\n", temp_cmd);
 	}
 }
 
@@ -36,7 +35,6 @@ char	*app_str(char *dest, char *src)
 	char	*output;
 
 	output = 0;
-	// printf("dest : %s\nsrc : %s\n", dest, src);
 	if (dest != 0)
 	{
 		if (src != 0)
@@ -82,7 +80,6 @@ char	**add_col(char **cmd, char *add)
 
 int	pro_before_str(char **temp, char **line, int *i)
 {
-	// printf("i : %d\n", *i);
 	*temp = app_str(*temp, ft_substr(*line, 0, *i));
 	if (*temp == 0)
 		return (0);
