@@ -6,7 +6,7 @@
 /*   By: sanjeon <sanjeon@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/14 16:26:10 by sanjeon           #+#    #+#             */
-/*   Updated: 2022/04/25 18:00:47 by sanjeon          ###   ########.fr       */
+/*   Updated: 2022/04/25 18:57:52 by sanjeon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,11 +53,12 @@ int	run_cmd(t_arg *arg, t_cmd *cmd_head)// 새로운 프로세스이기 때문�
 	else if (pid == 0)
 	{
 		connect_pipe(cmd_head->cmd_idx, arg);
+		printf("print idx : %d\n", cmd_head->cmd_idx);
 		cmd_head->cmd_param[0] = cmd_connect_path(cmd_head->cmd_param[0],
 				arg->cmd_arg->path);
-		if (execve(cmd_head->cmd_param[0],
-				cmd_head->cmd_param, arg->envp) == -1)
-			p_a_error(arg);
+		// if (execve(cmd_head->cmd_param[0],
+		// 		cmd_head->cmd_param, arg->envp) == -1)
+		// 	p_a_error(arg);
 	}
 	else if (pid > 0)
 	{

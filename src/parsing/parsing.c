@@ -6,7 +6,7 @@
 /*   By: sanjeon <sanjeon@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 10:37:54 by sanjeon           #+#    #+#             */
-/*   Updated: 2022/04/25 18:13:04 by sanjeon          ###   ########.fr       */
+/*   Updated: 2022/04/25 19:34:39 by sanjeon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,6 +113,10 @@ t_cmd	*parsing_cmd(char **line)
 		if (cmd->cmd_param == 0)
 			return (0);
 		temp = 0;
-	(*line) = (*line) + i + 1;
+	if ((*line)[i] == '|')
+		(*line) = (*line) + i + 1;
+	else
+		(*line) = (*line) + i;
+	printf("[%p]line : \"%s\"\n", *line, *line);
 	return (cmd);
 }
