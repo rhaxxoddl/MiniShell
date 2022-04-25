@@ -6,7 +6,7 @@
 /*   By: sanjeon <sanjeon@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 10:37:54 by sanjeon           #+#    #+#             */
-/*   Updated: 2022/04/24 17:01:07 by sanjeon          ###   ########.fr       */
+/*   Updated: 2022/04/25 18:13:04 by sanjeon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ t_cmd_arg	*parsing(char *line, char **envp)
 	i = -1;
 	while (line[++i] != 0)
 	{
-		printf("line : %s\n", line);
 		if (i == 0)
 		{
 			temp_cmd = parsing_cmd(&line);
@@ -109,11 +108,11 @@ t_cmd	*parsing_cmd(char **line)
 		temp = app_str(temp, ft_substr(*line, 0, i));
 		if (temp == 0)
 			return (0);
+	}
 		cmd->cmd_param = add_col(cmd->cmd_param, temp);
 		if (cmd->cmd_param == 0)
 			return (0);
 		temp = 0;
-	}
 	(*line) = (*line) + i + 1;
 	return (cmd);
 }

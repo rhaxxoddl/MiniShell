@@ -6,7 +6,7 @@
 /*   By: sanjeon <sanjeon@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/11 18:51:05 by sanjeon           #+#    #+#             */
-/*   Updated: 2022/04/23 20:59:25 by sanjeon          ###   ########.fr       */
+/*   Updated: 2022/04/25 14:49:38 by sanjeon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int			run_process(t_arg *arg, t_cmd_arg *cmd_arg);
 [run_cmd()]
 Creates child processes and executes command.
 */
-int			run_cmd(t_arg *arg, t_cmd_arg *cmd_arg);
+int			run_cmd(t_arg *arg, t_cmd *cmd_head);
 /*
 [connect_pipe()]
 Pipe connection with the following command.

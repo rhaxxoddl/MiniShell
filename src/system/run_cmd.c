@@ -6,7 +6,7 @@
 /*   By: sanjeon <sanjeon@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/14 16:26:10 by sanjeon           #+#    #+#             */
-/*   Updated: 2022/04/24 17:09:10 by sanjeon          ###   ########.fr       */
+/*   Updated: 2022/04/25 18:00:47 by sanjeon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,38 +24,46 @@ int	run_process(t_arg *arg, t_cmd_arg *cmd_arg)
 		p_a_error(arg);
 	else if (pid == 0)
 	{
-		if (run_cmd(arg, cmd_arg) != 0)
-			p_a_error(arg);
+		while (cmd_arg->cmd_head != 0)
+		{
+			if (run_cmd(arg, cmd_arg->cmd_head) != 0)
+				p_a_error(arg);
+			cmd_arg->cmd_head = cmd_arg->cmd_head->next;
+		}
 		exit(0);
 	}
 	else if (pid > 0)
-		wait(NULL);
+	{
+		wait(&status);
+		printf("wait\n");
+	}
 	return (0);
 }
 
-int	run_cmd(t_arg *arg, t_cmd_arg *cmd_arg) // 새로운 프로세스이기 때문에 arg까지 해제하는 게 아니라 cmd_arg만 해제
+int	run_cmd(t_arg *arg, t_cmd *cmd_head)// 새로운 프로세스이기 때문에 arg까지 해제하는 게 아니라 해제
 {
 	pid_t	pid;
 
-	if (pipe(cmd_arg->fds[cmd_arg->cmd_head->cmd_idx]) == -1)
+	if (pipe(arg->cmd_arg->fds[cmd_head->cmd_idx]) == -1)
 		p_a_error(arg);
-	connect_redir(cmd_arg->cmd_head[cmd_arg->cmd_head->cmd_idx].redir, arg);
+	connect_redir(cmd_head->redir, arg);
 	pid = fork();
 	if (pid == -1)
 		p_a_error(arg);
 	else if (pid == 0)
 	{
-		connect_pipe(cmd_arg->cmd_head->cmd_idx, arg);
-		cmd_arg->cmd_head->cmd_param[0] = cmd_connect_path(cmd_arg->cmd_head->cmd_param[0], cmd_arg->path);
-		if (execve(cmd_arg->cmd_head[cmd_arg->cmd_head->cmd_idx].cmd_param[0],
-				cmd_arg->cmd_head[cmd_arg->cmd_head->cmd_idx].cmd_param, arg->envp) == -1)
+		connect_pipe(cmd_head->cmd_idx, arg);
+		cmd_head->cmd_param[0] = cmd_connect_path(cmd_head->cmd_param[0],
+				arg->cmd_arg->path);
+		if (execve(cmd_head->cmd_param[0],
+				cmd_head->cmd_param, arg->envp) == -1)
 			p_a_error(arg);
 	}
 	else if (pid > 0)
 	{
-		close(cmd_arg->fds[cmd_arg->cmd_head->cmd_idx][W]);
-		dup2(cmd_arg->fds[cmd_arg->cmd_head->cmd_idx][R], STDIN_FILENO);
-		close(cmd_arg->fds[cmd_arg->cmd_head->cmd_idx][R]);
+		close(arg->cmd_arg->fds[cmd_head->cmd_idx][W]);
+		dup2(arg->cmd_arg->fds[cmd_head->cmd_idx][R], STDIN_FILENO);
+		close(arg->cmd_arg->fds[cmd_head->cmd_idx][R]);
 		waitpid(pid, &(arg->status), WNOHANG);
 	}
 	return (0);

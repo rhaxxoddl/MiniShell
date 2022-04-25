@@ -6,7 +6,7 @@
 /*   By: sanjeon <sanjeon@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/25 16:56:43 by sanjeon           #+#    #+#             */
-/*   Updated: 2022/04/24 17:31:31 by sanjeon          ###   ########.fr       */
+/*   Updated: 2022/04/24 17:40:55 by sanjeon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ int	until_comein_limitor(char **str, char **rl, const char *limitor, int fd)
 	while (1)
 	{
 		*rl = is_limitor(readline("heredoc> "), limitor);
-		printf("rl : %s\n", *rl);
 		if (*rl == 0)
 			return (comein_limitor(fd, str, rl));
 		else
@@ -95,7 +94,6 @@ char	*add_str(char **str, char **rl)
 		return (0);
 	temp2 = ft_strjoin(temp1, *rl);
 	free_return(&temp1, rl, 0);
-	printf("temp2 : %s\n", temp2);
 	temp1 = 0;
 	if (temp2 == 0)
 		return (0);

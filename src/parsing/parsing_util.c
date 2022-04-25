@@ -6,7 +6,7 @@
 /*   By: sanjeon <sanjeon@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 15:33:57 by sanjeon           #+#    #+#             */
-/*   Updated: 2022/04/24 17:01:12 by sanjeon          ###   ########.fr       */
+/*   Updated: 2022/04/25 18:02:49 by sanjeon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	print_arg(t_cmd_arg *arg)
 			printf("[%p]cmd->cmd_param[%d] : \"%s\"\n", temp_cmd, i, temp_cmd->cmd_param[i]);
 		while (temp_cmd->redir != 0)
 		{
-			printf("file : %s, type : %d\n", temp_cmd->redir->filename, temp_cmd->redir->redir_type);
+			printf("[%p]file : %s, type : %d\n", temp_cmd->redir, temp_cmd->redir->filename, temp_cmd->redir->redir_type);
 			temp_cmd->redir = temp_cmd->redir->next;
 		}
 		temp_cmd = temp_cmd->next;
@@ -35,6 +35,7 @@ char	*app_str(char *dest, char *src)
 	char	*output;
 
 	output = 0;
+	// printf("dest : %s\nsrc : %s\n", dest, src);
 	if (dest != 0)
 	{
 		if (src != 0)
@@ -45,9 +46,15 @@ char	*app_str(char *dest, char *src)
 	else
 		output = ft_strdup(src);
 	if (dest != 0)
+	{
 		free(dest);
+		dest = 0;
+	}
 	if (src != 0)
+	{
 		free(src);
+		src = 0;
+	}
 	return (output);
 }
 
@@ -74,6 +81,7 @@ char	**add_col(char **cmd, char *add)
 
 int	pro_before_str(char **temp, char **line, int *i)
 {
+	// printf("i : %d\n", *i);
 	*temp = app_str(*temp, ft_substr(*line, 0, *i));
 	if (*temp == 0)
 		return (0);
