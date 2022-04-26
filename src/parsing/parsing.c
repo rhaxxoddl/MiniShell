@@ -6,7 +6,7 @@
 /*   By: sanjeon <sanjeon@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 10:37:54 by sanjeon           #+#    #+#             */
-/*   Updated: 2022/04/26 07:59:00 by sanjeon          ###   ########.fr       */
+/*   Updated: 2022/04/26 21:24:59 by sanjeon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ t_cmd	*parsing_cmd(char **line)
 	// 여기까지 함수로 빼기
 	while ((*line)[i] != 0 && (*line)[i] != '|')
 	{
+		printf("[%p]middle line[%d] : %s\n", *line, i, *line);
 		if (valid_dol(&(*line)[i]))
 		{
 			if (!pro_env(&temp, line, &i))
@@ -84,19 +85,28 @@ t_cmd	*parsing_cmd(char **line)
 		}
 		else if (get_redir_type(&(*line)[i]))
 		{
-			if (!pro_before_str(&temp, line, &i) ||
-				!parsing_redir(cmd, line, &i))
+			printf("*line[%d] : %s\n*temp : %p\n", i, *line, temp);
+			if (!pro_before_str(&temp, line, &i))
 				return (0);
+			cmd->cmd_param = add_col(cmd->cmd_param, temp);
+			if (!parsing_redir(cmd, line, &i))
+				return (0);
+			printf("-===============\n");
 		}
 		else if (ft_isspace((*line)[i]))
 		{
+			printf("1=================\n");
 			temp = app_str(temp, ft_substr(*line, 0, i));
 			cmd->cmd_param = add_col(cmd->cmd_param, temp);
+			printf("[%p]temp[%d] : %s\n", temp, i, temp);
 			temp = 0;
+			printf("[%p]line[%d] : %s\n", *line, i, *line);
+			printf("1=================\n");
 			(*line) = (*line) + i;
 			while (ft_isspace(**line))
 				(*line)++;
 			i = 0;
+			printf("[%p]after line[%d] : %s\n", *line, i, *line);
 		}
 		else
 			i++;

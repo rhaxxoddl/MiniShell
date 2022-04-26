@@ -6,7 +6,7 @@
 /*   By: sanjeon <sanjeon@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 15:33:57 by sanjeon           #+#    #+#             */
-/*   Updated: 2022/04/26 07:59:16 by sanjeon          ###   ########.fr       */
+/*   Updated: 2022/04/26 21:23:18 by sanjeon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,15 +35,21 @@ char	*app_str(char *dest, char *src)
 	char	*output;
 
 	output = 0;
-	if (dest != 0)
+	printf("[%p]dest : \"%s\"\n[%p]src : \"%s\"\n", dest, dest, src, src);
+	while (ft_isspace(*src))
+		src++;
+	printf("[%p]after src : \"%s\"\n", src, src);
+	if (dest != 0 && *dest != 0)
 	{
-		if (src != 0)
+		if (src != 0 && *src != 0)
 			output = ft_strjoin(dest, src);
 		else
 			return (dest);
 	}
-	else
+	else if (src != 0 && *src != 0)
+	{
 		output = ft_strdup(src);
+	}
 	if (dest != 0)
 	{
 		free(dest);
@@ -54,6 +60,7 @@ char	*app_str(char *dest, char *src)
 		free(src);
 		src = 0;
 	}
+		printf("output : %s\n", output);
 	return (output);
 }
 
@@ -80,9 +87,22 @@ char	**add_col(char **cmd, char *add)
 
 int	pro_before_str(char **temp, char **line, int *i)
 {
-	*temp = app_str(*temp, ft_substr(*line, 0, *i));
-	if (*temp == 0)
-		return (0);
+	char	*add_temp;
+
+	add_temp = ft_substr(*line, 0, *i);
+	printf("debug\n");
+	if (temp != 0 && *temp != 0)
+	{
+		*temp = app_str(*temp, add_temp);
+		if (*temp == 0)
+			return (0);
+		printf("2=================\n");
+		printf("[%p]temp[%d] : %s\n", *temp, *i, *temp);
+		printf("[%p]line[%d] : %s\n", *line, *i, *line);
+		printf("2=================\n");
+	}
+	else if (add_temp != 0 && *add_temp == 0)
+		free(add_temp);
 	(*line) = (*line) + *i;
 	*i = 0;
 	return (1);
