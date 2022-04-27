@@ -6,7 +6,7 @@
 /*   By: sanjeon <sanjeon@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 11:38:46 by sanjeon           #+#    #+#             */
-/*   Updated: 2022/04/27 18:53:27 by sanjeon          ###   ########.fr       */
+/*   Updated: 2022/04/27 19:22:35 by sanjeon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,15 +39,15 @@ int		add_env(t_env **head, t_env **current, int *i);
 char	*get_env(t_env *env_head, char *key);
 
 // parsing_redir.c
-int		parsing_redir(t_cmd *cmd, char **line, int *i);
+int		parsing_redir(t_env *env_head, t_cmd *cmd, char **line, int *i);
 int		get_redir_type(char *c);
-t_redir	*pro_redir(char **line, int redir_type, int *i);
+t_redir	*pro_redir(t_env *env_head, char **line, int redir_type, int *i);
 
 // parsing_quotes.c
-int		pro_d_quotes(char **temp, char **line, int *i);
+int		pro_d_quotes(t_env *env_head, char **temp, char **line, int *i);
 int		pro_s_quotes(char **temp, char **line, int *i);
 char	*s_quotes(char **line);
-char	*d_quotes(char **line);
+char	*d_quotes(t_env *env_head, char **line);
 
 // parsing_env.c
 int		valid_dol(char *line);

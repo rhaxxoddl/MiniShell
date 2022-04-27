@@ -6,7 +6,7 @@
 /*   By: sanjeon <sanjeon@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/14 16:26:10 by sanjeon           #+#    #+#             */
-/*   Updated: 2022/04/26 21:25:36 by sanjeon          ###   ########.fr       */
+/*   Updated: 2022/04/27 19:48:34 by sanjeon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,7 @@ void	connect_redir(t_redir *redir, t_arg *arg)
 
 int	sellect_redir(t_redir *redir)
 {
+	printf("hihi\n");
 	if (redir->redir_type == HERE_DOC)
 	{
 		if (redir_here(redir->filename) == -1)

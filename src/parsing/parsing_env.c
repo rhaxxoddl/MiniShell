@@ -6,7 +6,7 @@
 /*   By: sanjeon <sanjeon@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 17:10:02 by sanjeon           #+#    #+#             */
-/*   Updated: 2022/04/27 18:00:38 by sanjeon          ###   ########.fr       */
+/*   Updated: 2022/04/27 19:25:50 by sanjeon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,9 @@ int	valid_dol(char *line)
 
 int	pro_env(t_env *env_head, char **temp, char **line, int *i)
 {
-	// printf("1temp : %s\n", *temp);
 	if (i <= 0 && !pro_before_str(temp, line, i))
 		return (0);
 	(*line)++;
-	printf("temp : \"%p\"\nline : \"%p\"\n", *temp, *line);
 	*temp = app_str(*temp, trans_env(env_head, line));
 	if ((*temp) == 0)
 		return (0);
@@ -45,7 +43,6 @@ char	*trans_env(t_env *env_head, char **line)
 	int		i;
 	int		j;
 
-	printf("22222222123 : %p\n", *line);
 	i = 0;
 	while (ft_isalnum((*line)[i]) || (*line)[i] == '_')
 		i++;
