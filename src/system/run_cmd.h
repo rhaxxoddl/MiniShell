@@ -6,7 +6,11 @@
 /*   By: sanjeon <sanjeon@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/11 18:51:05 by sanjeon           #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2022/04/28 07:40:16 by sanjeon          ###   ########.fr       */
+=======
+/*   Updated: 2022/04/27 21:32:52 by sanjeon          ###   ########.fr       */
+>>>>>>> 76e36056149f693f5adbbd89cc798d32b06010b9
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +98,8 @@ char		*is_limitor(char *rl, const char *limitor);
 Added rl and newline to str.
 null return on failure.
 */
-char		*here_add_str(char **str, char **rl);
+char		*here_app_str(char **str, char **rl);
+
 char		*add_nl(char **str);
 // signal_handler.c-----------------------------------
 /*
