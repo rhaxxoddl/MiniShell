@@ -6,7 +6,7 @@
 /*   By: sanjeon <sanjeon@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 15:33:57 by sanjeon           #+#    #+#             */
-/*   Updated: 2022/04/26 21:23:18 by sanjeon          ###   ########.fr       */
+/*   Updated: 2022/04/27 15:41:38 by sanjeon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ char	*app_str(char *dest, char *src)
 	char	*output;
 
 	output = 0;
+	if (src == 0)
+		return (0);
 	printf("[%p]dest : \"%s\"\n[%p]src : \"%s\"\n", dest, dest, src, src);
 	while (ft_isspace(*src))
 		src++;
@@ -66,6 +68,7 @@ char	*app_str(char *dest, char *src)
 
 char	**add_col(char **cmd, char *add)
 {
+	printf("add_cal\n");
 	int		l;
 	int		i;
 	char	**temp;
@@ -73,6 +76,7 @@ char	**add_col(char **cmd, char *add)
 	l = 0;
 	while (cmd[l] != 0)
 		l++;
+	printf("in add_cal l : %d\n", l);
 	temp = (char **)ft_calloc(l + 2, sizeof(char *));
 	if (temp == 0)
 		return (0);
@@ -81,6 +85,7 @@ char	**add_col(char **cmd, char *add)
 		temp[i] = cmd[i];
 	temp[i] = add;
 	free(cmd);
+	printf("out add_col : %s\n", add);
 	return (temp);
 }
 
@@ -89,10 +94,15 @@ int	pro_before_str(char **temp, char **line, int *i)
 {
 	char	*add_temp;
 
+	if (*i <= 0)
+		return (1);
 	add_temp = ft_substr(*line, 0, *i);
-	printf("debug\n");
+	if (add_temp == 0)
+		return (0);
+	printf("temp : %p\nadd_temp : %s\nline : %s\n", *temp, add_temp, *line);
 	if (temp != 0 && *temp != 0)
 	{
+		printf("in\n");
 		*temp = app_str(*temp, add_temp);
 		if (*temp == 0)
 			return (0);

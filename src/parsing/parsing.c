@@ -6,7 +6,7 @@
 /*   By: sanjeon <sanjeon@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 10:37:54 by sanjeon           #+#    #+#             */
-/*   Updated: 2022/04/26 21:24:59 by sanjeon          ###   ########.fr       */
+/*   Updated: 2022/04/27 15:39:16 by sanjeon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,8 @@ t_cmd	*parsing_cmd(char **line)
 			printf("1=================\n");
 			temp = app_str(temp, ft_substr(*line, 0, i));
 			cmd->cmd_param = add_col(cmd->cmd_param, temp);
+			for (int i = 0; cmd->cmd_param[i] != 0 ; i++)
+				printf("cmd->cmd_idx[%d] : %s\n", i, cmd->cmd_param[i]);
 			printf("[%p]temp[%d] : %s\n", temp, i, temp);
 			temp = 0;
 			printf("[%p]line[%d] : %s\n", *line, i, *line);
@@ -113,6 +115,7 @@ t_cmd	*parsing_cmd(char **line)
 	}
 	if (i > 0 && !ft_isspace((*line)[i - 1]))
 	{
+		printf("111111111\n");
 		temp = app_str(temp, ft_substr(*line, 0, i));
 		if (temp == 0)
 			return (0);
