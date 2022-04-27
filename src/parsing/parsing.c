@@ -6,13 +6,13 @@
 /*   By: sanjeon <sanjeon@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 10:37:54 by sanjeon           #+#    #+#             */
-/*   Updated: 2022/04/27 15:39:16 by sanjeon          ###   ########.fr       */
+/*   Updated: 2022/04/27 18:53:44 by sanjeon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
 
-t_cmd_arg	*parsing(char *line, char **envp)
+t_cmd_arg	*parsing(t_env *env_head, char *line, char **envp)
 {
 	t_cmd_arg	*cmd_arg;
 	t_cmd		*temp_cmd;
@@ -26,14 +26,14 @@ t_cmd_arg	*parsing(char *line, char **envp)
 	{
 		if (cmd_arg->cmd_count == 0)
 		{
-			temp_cmd = parsing_cmd(&line);
+			temp_cmd = parsing_cmd(env_head, &line);
 			cmd_arg->cmd_head = temp_cmd;
 			cmd_arg->cmd_count = 1;
 			temp_cmd->cmd_idx = 0;
 		}
 		else
 		{
-			temp_cmd->next = parsing_cmd(&line);
+			temp_cmd->next = parsing_cmd(env_head, &line);
 			temp_cmd = temp_cmd->next;
 			cmd_arg->cmd_count++;
 			temp_cmd->cmd_idx = cmd_arg->cmd_count - 1;
@@ -46,7 +46,7 @@ t_cmd_arg	*parsing(char *line, char **envp)
 	return (cmd_arg);
 }
 
-t_cmd	*parsing_cmd(char **line)
+t_cmd	*parsing_cmd(t_env *env_head, char **line)
 {
 	t_cmd	*cmd;
 	char	*temp;
@@ -70,7 +70,7 @@ t_cmd	*parsing_cmd(char **line)
 		printf("[%p]middle line[%d] : %s\n", *line, i, *line);
 		if (valid_dol(&(*line)[i]))
 		{
-			if (!pro_env(&temp, line, &i))
+			if (!pro_env(env_head, &temp, line, &i))
 				return (0);
 		}
 		else if ((*line)[i] == '\'')

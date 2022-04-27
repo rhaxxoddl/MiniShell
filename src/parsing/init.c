@@ -6,7 +6,7 @@
 /*   By: sanjeon <sanjeon@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 17:09:20 by sanjeon           #+#    #+#             */
-/*   Updated: 2022/04/23 13:45:28 by sanjeon          ###   ########.fr       */
+/*   Updated: 2022/04/27 18:55:30 by sanjeon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,11 @@ t_arg	*init_arg(char **envp)
 	arg = (t_arg *)ft_calloc(1, sizeof(t_arg));
 	if (arg == 0)
 		return (0);
-	arg->envp = envp;
+	arg->env = init_env(envp);
 	return (arg);
 }
 
-t_env	*get_env(char **envp)
+t_env	*init_env(char **envp)
 {
 	t_env	*head;
 	t_env	*current;
@@ -75,4 +75,26 @@ int	add_env(t_env **head, t_env **current, int *i)
 		(*head) = (*current);
 	}
 	return (1);
+}
+
+char	*get_env(t_env *env_head, char *key)
+{
+	char	*output;
+	int		i;
+
+	i = 0;
+			printf("hihi=====\n");
+	while (env_head != 0)
+	{
+		if (ft_strcmp(env_head->key, key) == 0)
+		{
+			output = ft_strdup(env_head->value);
+			printf("trans_env : %s\n", output);
+			if (output == 0)
+				return("error");
+			return (output);
+		}
+		env_head = env_head->next;
+	}
+	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: sanjeon <sanjeon@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 15:33:57 by sanjeon           #+#    #+#             */
-/*   Updated: 2022/04/27 15:41:38 by sanjeon          ###   ########.fr       */
+/*   Updated: 2022/04/27 17:13:49 by sanjeon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ char	*app_str(char *dest, char *src)
 	printf("[%p]dest : \"%s\"\n[%p]src : \"%s\"\n", dest, dest, src, src);
 	while (ft_isspace(*src))
 		src++;
-	printf("[%p]after src : \"%s\"\n", src, src);
 	if (dest != 0 && *dest != 0)
 	{
 		if (src != 0 && *src != 0)
@@ -51,6 +50,7 @@ char	*app_str(char *dest, char *src)
 	else if (src != 0 && *src != 0)
 	{
 		output = ft_strdup(src);
+		printf("hihi\n");
 	}
 	if (dest != 0)
 	{
@@ -60,6 +60,7 @@ char	*app_str(char *dest, char *src)
 	if (src != 0)
 	{
 		free(src);
+		printf("free\n");
 		src = 0;
 	}
 		printf("output : %s\n", output);
