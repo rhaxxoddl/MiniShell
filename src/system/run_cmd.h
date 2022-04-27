@@ -6,7 +6,7 @@
 /*   By: sanjeon <sanjeon@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/11 18:51:05 by sanjeon           #+#    #+#             */
-/*   Updated: 2022/04/25 14:49:38 by sanjeon          ###   ########.fr       */
+/*   Updated: 2022/04/28 07:40:16 by sanjeon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,12 +94,15 @@ char		*is_limitor(char *rl, const char *limitor);
 Added rl and newline to str.
 null return on failure.
 */
-char		*add_str(char **str, char **rl);
+char		*here_add_str(char **str, char **rl);
+char		*add_nl(char **str);
 // signal_handler.c-----------------------------------
 /*
 [sig_init()]
 Set a signal_handler function to SIGINT, SIGQUIT, SIGTERM.
  */
+
+
 void	    sig_init(void);
 
 /*
