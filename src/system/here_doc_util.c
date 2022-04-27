@@ -6,7 +6,7 @@
 /*   By: sanjeon <sanjeon@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/25 16:56:43 by sanjeon           #+#    #+#             */
-/*   Updated: 2022/04/28 07:44:31 by sanjeon          ###   ########.fr       */
+/*   Updated: 2022/04/28 08:33:23 by sanjeon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ int	until_comein_limitor(char **str, char **rl, const char *limitor, int fd)
 			return (comein_limitor(fd, str, rl));
 		else
 		{
-			printf("str : %p", *str);
 			*str = add_nl(str);
 			if (*str == 0)
 				return (0);
@@ -85,7 +84,6 @@ char	*is_limitor(char *rl, const char *limitor)
 		free(rl);
 		return (0);
 	}
-	printf("is_limitor : %s\n", rl);
 	return (rl);
 }
 
@@ -100,17 +98,6 @@ char	*here_app_str(char **str, char **rl)
 	free_return(&(*str), rl, 0);
 	if (temp == 0)
 		return (0);
-	return (temp);
-}
-
-char	*add_nl(char **str)
-{
-	char	*temp;
-
-	temp = ft_strjoin(*str, "\n");
-	if (temp == 0)
-		return (0);
-	free(*str);
 	return (temp);
 }
 

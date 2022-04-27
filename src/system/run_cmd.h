@@ -6,7 +6,7 @@
 /*   By: sanjeon <sanjeon@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/11 18:51:05 by sanjeon           #+#    #+#             */
-/*   Updated: 2022/04/28 07:45:38 by sanjeon          ###   ########.fr       */
+/*   Updated: 2022/04/28 08:41:03 by sanjeon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,8 @@ If allocation fails, use it in return.
 int			free_return(char **str, char **rl, int status);
 /*
 [comein_limitor()]
-Create a temporary file named temp, write a str, attach temp to STDIN, and temp is unlink.
+Create a temporary file named temp, write a str, attach temp to STDIN,
+and temp is unlink.
 */
 int			comein_limitor(int fd, char **str, char **rl);
 /*
@@ -97,19 +98,17 @@ null return on failure.
 char		*here_app_str(char **str, char **rl);
 
 char		*add_nl(char **str);
+
+char	**get_path(t_env *env_head);
+
+char	*cmd_connect_path(char *cmd, char **path);
+
+int		add_slash(char **path);
 // signal_handler.c-----------------------------------
 /*
 [sig_init()]
 Set a signal_handler function to SIGINT, SIGQUIT, SIGTERM.
  */
 
-
-void	    sig_init(void);
-
-/*
-add_function
-*/
-char	*cmd_connect_path(char *cmd, char **path);
-char	**get_path();
-int		add_slash(char **path);
+void		sig_init(void);
 #endif

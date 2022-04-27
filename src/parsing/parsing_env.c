@@ -6,7 +6,7 @@
 /*   By: sanjeon <sanjeon@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 17:10:02 by sanjeon           #+#    #+#             */
-/*   Updated: 2022/04/27 20:42:46 by sanjeon          ###   ########.fr       */
+/*   Updated: 2022/04/28 08:44:53 by sanjeon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,9 @@ int	valid_dol(char *line)
 
 int	pro_env(t_env *env_head, char **temp, char **line, int *i)
 {
-	printf("1[%d]temp : \"%s\"\n1line : \"%s\"\n", *i, *temp, *line);
 	if (!pro_before_str(temp, line, i))
 		return (0);
 	(*line)++;
-	printf("2temp : \"%s\"\n2line : \"%s\"\n", *temp, *line);
 	*temp = app_str(*temp, trans_env(env_head, line));
 	if ((*temp) == 0)
 		return (0);
@@ -53,9 +51,7 @@ char	*trans_env(t_env *env_head, char **line)
 		output = ft_strdup("$");
 		return (output);
 	}
-	printf("line[%d] : %s\n", i, *line);
 	temp = ft_substr(*line, 0, i);
-	printf("temp : %s\n", temp);
 	if (temp == 0)
 		return (0);
 	j = 0;

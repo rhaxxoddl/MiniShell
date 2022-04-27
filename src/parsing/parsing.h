@@ -6,7 +6,7 @@
 /*   By: sanjeon <sanjeon@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 11:38:46 by sanjeon           #+#    #+#             */
-/*   Updated: 2022/04/27 19:22:35 by sanjeon          ###   ########.fr       */
+/*   Updated: 2022/04/28 08:41:36 by sanjeon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int		pro_before_str(char **temp, char **line, int *i);
 
 // parsing.c
 t_arg		*init_arg(char **envp);
-t_cmd_arg	*parsing(t_env *env_head, char *line, char **envp);
+t_cmd_arg	*parsing(t_env *env_head, char *line);
 t_cmd		*parsing_cmd(t_env *env_head, char **line);
 t_cmd		*add_cmd(char *cmd_line);
 // init.c

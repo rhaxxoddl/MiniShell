@@ -6,13 +6,13 @@
 /*   By: sanjeon <sanjeon@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 10:37:54 by sanjeon           #+#    #+#             */
-/*   Updated: 2022/04/27 19:25:17 by sanjeon          ###   ########.fr       */
+/*   Updated: 2022/04/28 08:42:39 by sanjeon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
 
-t_cmd_arg	*parsing(t_env *env_head, char *line, char **envp)
+t_cmd_arg	*parsing(t_env *env_head, char *line)
 {
 	t_cmd_arg	*cmd_arg;
 	t_cmd		*temp_cmd;
@@ -42,7 +42,7 @@ t_cmd_arg	*parsing(t_env *env_head, char *line, char **envp)
 	cmd_arg->fds = malloc_fds(cmd_arg->cmd_count);
 	if (cmd_arg->fds == 0)
 		return (0);
-	cmd_arg->path = get_path(envp);
+	cmd_arg->path = get_path(env_head);
 	return (cmd_arg);
 }
 
