@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sanjeon <sanjeon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sanjeon <sanjeon@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/30 01:13:53 by sanjeon           #+#    #+#             */
-/*   Updated: 2021/10/25 14:13:48 by sanjeon          ###   ########.fr       */
+/*   Updated: 2022/04/27 20:49:53 by sanjeon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ char	*ft_strdup(const char *s)
 	char	*str;
 	char	*m;
 
+	if (s == 0)
+		return (0);
 	str = (char *)s;
 	i = 0;
 	len = ft_strlen(str);

@@ -6,7 +6,7 @@
 /*   By: sanjeon <sanjeon@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 15:33:57 by sanjeon           #+#    #+#             */
-/*   Updated: 2022/04/27 19:47:59 by sanjeon          ###   ########.fr       */
+/*   Updated: 2022/04/27 20:32:32 by sanjeon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,6 @@ char	*app_str(char *dest, char *src)
 	output = 0;
 	if (src == 0)
 		return (0);
-	while (ft_isspace(*src))
-		src++;
 	if (dest != 0 && *dest != 0)
 	{
 		if (src != 0 && *src != 0)
@@ -88,14 +86,12 @@ int	pro_before_str(char **temp, char **line, int *i)
 	if (*i <= 0)
 		return (1);
 	add_temp = ft_substr(*line, 0, *i);
+	printf("add_temp : %s\n", add_temp);
 	if (add_temp == 0)
 		return (0);
-	if (temp != 0 && *temp != 0)
-	{
-		*temp = app_str(*temp, add_temp);
-		if (*temp == 0)
-			return (0);
-	}
+	*temp = app_str(*temp, add_temp);
+	if (*temp == 0)
+		return (0);
 	else if (add_temp != 0 && *add_temp == 0)
 		free(add_temp);
 	(*line) = (*line) + *i;
