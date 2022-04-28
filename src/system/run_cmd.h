@@ -6,7 +6,7 @@
 /*   By: sanjeon <sanjeon@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/11 18:51:05 by sanjeon           #+#    #+#             */
-/*   Updated: 2022/04/23 16:14:21 by sanjeon          ###   ########.fr       */
+/*   Updated: 2022/04/28 09:18:02 by sanjeon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,17 +30,19 @@
 Before printing the error about errno,
 the allocated structure 'arg' is free.
 */
-void		p_a_error(t_arg *arg);
+void		ft_error();
+void		cnf_error(char *cmd);
 // main.c
 //parsing.c-----------------------------------
 // t_cmd_arg		*init_arg(void);
 int			**malloc_fds(int cmd_count);
 // run_cmd.c-----------------------------------
+int			run_process(t_arg *arg, t_cmd_arg *cmd_arg);
 /*
 [run_cmd()]
 Creates child processes and executes command.
 */
-int			run_cmd(t_arg *arg, t_cmd_arg *cmd_arg);
+int			run_cmd(t_arg *arg, t_cmd *cmd_head);
 /*
 [connect_pipe()]
 Pipe connection with the following command.
@@ -78,7 +80,8 @@ If allocation fails, use it in return.
 int			free_return(char **str, char **rl, int status);
 /*
 [comein_limitor()]
-Create a temporary file named temp, write a str, attach temp to STDIN, and temp is unlink.
+Create a temporary file named temp, write a str, attach temp to STDIN,
+and temp is unlink.
 */
 int			comein_limitor(int fd, char **str, char **rl);
 /*
@@ -93,18 +96,20 @@ char		*is_limitor(char *rl, const char *limitor);
 Added rl and newline to str.
 null return on failure.
 */
-char		*add_str(char **str, char **rl);
+char		*here_app_str(char **str, char **rl);
+
+char		*add_nl(char **str);
+
+char	**get_path(t_env *env_head);
+
+char	*cmd_connect_path(char *cmd, char **path);
+
+int		add_slash(char **path);
 // signal_handler.c-----------------------------------
 /*
 [sig_init()]
 Set a signal_handler function to SIGINT, SIGQUIT, SIGTERM.
  */
-void	    sig_init(void);
 
-/*
-add_function
-*/
-char	*cmd_connect_path(char *cmd, char **path);
-char	**get_path();
-int		add_slash(char **path);
+void		sig_init(void);
 #endif

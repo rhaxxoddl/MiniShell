@@ -6,7 +6,7 @@
 /*   By: sanjeon <sanjeon@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 15:33:57 by sanjeon           #+#    #+#             */
-/*   Updated: 2022/04/23 14:23:43 by sanjeon          ###   ########.fr       */
+/*   Updated: 2022/04/28 08:45:17 by sanjeon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,16 +15,18 @@
 void	print_arg(t_cmd_arg *arg)
 {
 	t_cmd	*temp_cmd;
+	t_redir * temp_redir;
 
 	temp_cmd = arg->cmd_head;
 	while (temp_cmd != 0)
 	{
+		temp_redir = temp_cmd->redir;
 		for (int i = 0; temp_cmd->cmd_param[i] != 0; i++)
-			printf("cmd->cmd_param[%d] : \"%s\"\n", i, temp_cmd->cmd_param[i]);
-		while (temp_cmd->redir != 0)
+			printf("[%d]cmd->cmd_param[%d] : \"%s\"\n", temp_cmd->cmd_idx, i, temp_cmd->cmd_param[i]);
+		while (temp_redir != 0)
 		{
-			printf("file : %s, type : %d\n", temp_cmd->redir->filename, temp_cmd->redir->redir_type);
-			temp_cmd->redir = temp_cmd->redir->next;
+			printf("[%p]file : %s, type : %d\n", temp_redir, temp_redir->filename, temp_redir->redir_type);
+			temp_redir = temp_redir->next;
 		}
 		temp_cmd = temp_cmd->next;
 	}
@@ -35,19 +37,24 @@ char	*app_str(char *dest, char *src)
 	char	*output;
 
 	output = 0;
-	if (dest != 0)
+	if (src == 0)
+		return (0);
+	if (dest != 0 && *dest != 0)
 	{
-		if (src != 0)
+		if (src != 0 && *src != 0)
 			output = ft_strjoin(dest, src);
 		else
 			return (dest);
 	}
-	else
+	else if (src != 0 && *src != 0)
 		output = ft_strdup(src);
 	if (dest != 0)
+	{
 		free(dest);
-	if (src != 0)
-		free(src);
+		dest = 0;
+	}
+	free(src);
+	src = 0;
 	return (output);
 }
 
@@ -74,9 +81,18 @@ char	**add_col(char **cmd, char *add)
 
 int	pro_before_str(char **temp, char **line, int *i)
 {
-	*temp = app_str(*temp, ft_substr(*line, 0, *i));
+	char	*add_temp;
+
+	if (*i <= 0)
+		return (1);
+	add_temp = ft_substr(*line, 0, *i);
+	if (add_temp == 0)
+		return (0);
+	*temp = app_str(*temp, add_temp);
 	if (*temp == 0)
 		return (0);
+	else if (add_temp != 0 && *add_temp == 0)
+		free(add_temp);
 	(*line) = (*line) + *i;
 	*i = 0;
 	return (1);

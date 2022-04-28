@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc_util.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sanjeon <sanjeon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sanjeon <sanjeon@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/25 16:56:43 by sanjeon           #+#    #+#             */
-/*   Updated: 2022/03/26 12:51:47 by sanjeon          ###   ########.fr       */
+/*   Updated: 2022/04/28 09:07:22 by sanjeon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,14 @@ int	until_comein_limitor(char **str, char **rl, const char *limitor, int fd)
 {
 	while (1)
 	{
-		*rl = is_limitor(readline("heredoc> "), limitor);
+		*rl = is_limitor(readline("> "), limitor);
 		if (*rl == 0)
 			return (comein_limitor(fd, str, rl));
 		else
 		{
 			if (*str != 0)
 			{
-				*str = add_str(str, rl);
+				*str = here_app_str(str, rl);
 				if (*str == 0)
 					return (0);
 			}
@@ -60,6 +60,7 @@ int	free_return(char **str, char **rl, int status)
 
 int	comein_limitor(int fd, char **str, char **rl)
 {
+	*str = add_nl(str);
 	if (dup2(fd, STDIN_FILENO) == -1)
 		return (free_return(str, rl, 0));
 	close(fd);
@@ -83,19 +84,27 @@ char	*is_limitor(char *rl, const char *limitor)
 	return (rl);
 }
 
-char	*add_str(char **str, char **rl)
+char	*here_app_str(char **str, char **rl)
 {
-	char	*temp1;
-	char	*temp2;
+	char	*temp;
 
-	temp1 = ft_strjoin(*str, *rl);
-	free_return(str, rl, 0);
-	if (temp1 == 0)
+	*str = add_nl(str);
+	if (*str == 0)
 		return (0);
-	temp2 = ft_strjoin(temp1, "\n");
-	free(temp1);
-	temp1 = 0;
-	if (temp2 == 0)
+	temp = ft_strjoin(*str, *rl);
+	free_return(&(*str), rl, 0);
+	if (temp == 0)
 		return (0);
-	return (temp2);
+	return (temp);
+}
+
+char	*add_nl(char **str)
+{
+	char	*temp;
+
+	temp = ft_strjoin(*str, "\n");
+	if (temp == 0)
+		return (0);
+	free(*str);
+	return (temp);
 }

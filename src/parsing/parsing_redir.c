@@ -6,19 +6,19 @@
 /*   By: sanjeon <sanjeon@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 20:25:32 by sanjeon           #+#    #+#             */
-/*   Updated: 2022/04/23 16:11:00 by sanjeon          ###   ########.fr       */
+/*   Updated: 2022/04/27 19:24:43 by sanjeon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
 
-int	parsing_redir(t_cmd *cmd, char **line, int *i)
+int	parsing_redir(t_env *env_head, t_cmd *cmd, char **line, int *i)
 {
 	if (cmd->redir == 0)
-		cmd->redir = pro_redir(line, get_redir_type((*line)++), i);
+		cmd->redir = pro_redir(env_head, line, get_redir_type(*line), i);
 	else
 	{
-		cmd->redir->next = pro_redir(line, get_redir_type((*line)++), i);
+		cmd->redir->next = pro_redir(env_head, line, get_redir_type(*line), i);
 	}
 	if (cmd->redir == 0)
 		return (0);
@@ -45,23 +45,25 @@ int	get_redir_type(char *c)
 		return (0);
 }
 
-t_redir	*pro_redir(char **line, int redir_type, int *i)
+t_redir	*pro_redir(t_env *env_head, char **line, int redir_type, int *i)
 {
 	t_redir	*redir;
 	char	*temp;
 
 	temp = 0;
+	while (**line == '<' || **line == '>')
+		(*line)++;
 	while (ft_isspace(**line))
 		(*line)++;
 	redir = (t_redir *)ft_calloc(1, sizeof(t_redir));
 	if (redir == 0)
 		return (0);
-	while (&(*line)[*i] != 0 && !ft_isspace((*line)[*i])
+	while ((*line)[*i] != 0 && !ft_isspace((*line)[*i])
 			&& !get_redir_type(&(*line)[*i]))
 	{
 		if (valid_dol(&(*line)[*i]))
 		{
-			if (!pro_env(&temp, line, i))
+			if (!pro_env(env_head, &temp, line, i))
 				return (0);
 		}
 		else if ((*line)[*i] == '\'')
@@ -71,7 +73,7 @@ t_redir	*pro_redir(char **line, int redir_type, int *i)
 		}
 		else if ((*line)[*i] == '\"')
 		{
-			if (!pro_d_quotes(&temp, line, i))
+			if (!pro_d_quotes(env_head, &temp, line, i))
 				return (0);
 		}
 		else
@@ -80,8 +82,7 @@ t_redir	*pro_redir(char **line, int redir_type, int *i)
 	temp = app_str(temp, ft_substr(*line, 0, *i));
 	redir->filename = temp;
 	redir->redir_type = redir_type;
-	if (*line[*i] != 0)
-		(*line) = (*line) + *i + 1;
+	(*line) = (*line) + *i + 1;
 	*i = 0;
 	return (redir);
 }
