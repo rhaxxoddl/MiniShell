@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jinoh <jinoh@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: sanjeon <sanjeon@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/24 14:56:00 by jinoh             #+#    #+#             */
-/*   Updated: 2022/04/28 17:41:47 by                  ###   ########.fr       */
+/*   Updated: 2022/04/28 21:15:46 by sanjeon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 //////////////
 void	ft_putstrendl_fd(char *s, int fd);
 
-int check_atoll(char *str)
+static int _check_atoll(char *str)
 {
 	long long sign;
 	long long ret;
@@ -44,7 +44,7 @@ int check_atoll(char *str)
 	return (1);
 }
 
-long long ft_atoll(char *str)
+static long long _ft_atoll(char *str)
 {
 	long long sign;
 	long long ret;
@@ -65,7 +65,7 @@ long long ft_atoll(char *str)
 	return (ret);
 }
 
-int	isnum(char *str)
+static int	_isnum(char *str)
 {
 	while (ft_isspace(*str))
 		str++;
@@ -92,7 +92,7 @@ void	ft_exit(char *argv[])
 		ft_putstrendl_fd("exit", 1);
 		exit(EXIT_SUCCESS);
 	}
-	else if (!isnum(argv[2]) && !check_atoll(argv[2]))
+	else if (!_isnum(argv[2]) && !_check_atoll(argv[2]))
 	{
 		ft_putstr_fd("exit\nminishell: exit: ", 2);
 		ft_putstr_fd(argv[2], 2);
@@ -105,5 +105,5 @@ void	ft_exit(char *argv[])
 		exit(EXIT_FAILURE);
 	}
 	ft_putstrendl_fd("exit", 1);
-	exit(ft_atoll(argv[2]) % 256);
+	exit(_ft_atoll(argv[2]) % 256);
 }

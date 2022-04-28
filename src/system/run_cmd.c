@@ -6,7 +6,7 @@
 /*   By: sanjeon <sanjeon@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/14 16:26:10 by sanjeon           #+#    #+#             */
-/*   Updated: 2022/04/28 20:06:15 by sanjeon          ###   ########.fr       */
+/*   Updated: 2022/04/28 21:35:29 by sanjeon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,11 +50,10 @@ int	run_cmd(t_arg *arg, t_cmd *cmd_head)
 	{
 		connect_pipe(cmd_head->cmd_idx, arg);
 		connect_redir(cmd_head->redir, arg);
-		cmd_head->cmd_param[0] = cmd_connect_path(cmd_head->cmd_param[0],
-				arg->cmd_arg->path);
-		if (execve(cmd_head->cmd_param[0],
-				cmd_head->cmd_param, arg->envp) == -1)
-			ft_error(arg);
+		exec_cmd(cmd_head->cmd_param, arg->envp, arg->cmd_arg->path);
+		// if (execve(cmd_head->cmd_param[0],
+		// 		cmd_head->cmd_param, arg->envp) == -1)
+			// ft_error(arg);
 	}
 	else if (pid > 0)
 	{

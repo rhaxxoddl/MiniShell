@@ -21,16 +21,27 @@ SRCS		=	$(SYSTEM_DIR)/main.c\
 				$(SYSTEM_DIR)/redirection.c\
 				$(SYSTEM_DIR)/here_doc_util.c\
 				$(SYSTEM_DIR)/connect_cmd.c\
+				$(SYSTEM_DIR)/exec_cmd.c\
+				$(SYSTEM_DIR)/signal_handler.c\
 				$(PARSING_DIR)/free.c\
 				$(PARSING_DIR)/init.c\
 				$(PARSING_DIR)/parsing.c\
 				$(PARSING_DIR)/parsing_env.c\
 				$(PARSING_DIR)/parsing_quotes.c\
 				$(PARSING_DIR)/parsing_redir.c\
-				$(PARSING_DIR)/parsing_util.c
-				# $(SYSTEM_DIR)/signal_handler.c
+				$(PARSING_DIR)/parsing_util.c\
+				$(BUILTIN_DIR)/builtin_utils.c\
+				$(BUILTIN_DIR)/ft_cd.c\
+				$(BUILTIN_DIR)/ft_echo.c\
+				$(BUILTIN_DIR)/ft_env.c\
+				$(BUILTIN_DIR)/ft_exit.c\
+				$(BUILTIN_DIR)/ft_export_print.c\
+				$(BUILTIN_DIR)/ft_export.c\
+				$(BUILTIN_DIR)/ft_pwd.c\
+				$(BUILTIN_DIR)/ft_unset.c
 PARSING_DIR	=	./parsing
 SYSTEM_DIR	=	./system
+BUILTIN_DIR	=	./builtin
 OBJS		=	$(SRCS:.c=.o)
 ARFS		=	$(LIB_DIR)/Libft.a
 MAKEFLAGS	+=	--silent

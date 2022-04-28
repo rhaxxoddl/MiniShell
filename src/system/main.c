@@ -6,7 +6,7 @@
 /*   By: sanjeon <sanjeon@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/11 18:56:51 by sanjeon           #+#    #+#             */
-/*   Updated: 2022/04/28 20:05:52 by sanjeon          ###   ########.fr       */
+/*   Updated: 2022/04/28 20:51:10 by sanjeon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	main(int argc, char *argv[], char *envp[])
 	char    *line;
 
 	arg = 0;
-	// sig_init();
+	sig_init();
 	arg = init_arg(envp);
 	if (arg == 0)
 		return (0);
@@ -32,10 +32,11 @@ int	main(int argc, char *argv[], char *envp[])
 		line = readline("minishell$ ");
 		add_history(line);
 		if (line == NULL)
-			perror("");
+			exit(0);
 		arg->cmd_arg = parsing(arg->env, line);
 		// print_arg(arg->cmd_arg);
-		free(line);
+		if (line != 0)
+			free(line);
 		if (arg->cmd_arg->cmd_count != 0)
 			run_process(arg, arg->cmd_arg);
 	}

@@ -6,7 +6,7 @@
 /*   By: sanjeon <sanjeon@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 17:09:20 by sanjeon           #+#    #+#             */
-/*   Updated: 2022/04/27 20:47:59 by sanjeon          ###   ########.fr       */
+/*   Updated: 2022/04/28 21:52:56 by sanjeon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,5 @@ char	*get_env(t_env *env_head, char *key)
 		}
 		env_head = env_head->next;
 	}
-			printf("if\n");
 	return (0);
 }

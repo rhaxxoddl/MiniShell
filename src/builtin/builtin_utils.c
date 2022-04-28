@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jinoh <jinoh@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: sanjeon <sanjeon@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 18:31:19 by jinoh             #+#    #+#             */
-/*   Updated: 2022/04/28 16:51:59 by                  ###   ########.fr       */
+/*   Updated: 2022/04/28 21:18:44 by sanjeon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include "builtin.h"
 
 void	ft_putstrendl_fd(char *s, int fd)
 {

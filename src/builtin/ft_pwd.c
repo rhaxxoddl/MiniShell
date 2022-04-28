@@ -3,21 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   ft_pwd.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jinoh <jinoh@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: sanjeon <sanjeon@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 14:11:44 by jinoh             #+#    #+#             */
-/*   Updated: 2022/04/28 17:55:11 by                  ###   ########.fr       */
+/*   Updated: 2022/04/28 21:19:15 by sanjeon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
 #include <stdlib.h>
 #include <string.h>
+#include <errno.h>
 #include "libft.h"
+#include "builtin.h"
 ///////////////////
 void	ft_putstrendl_fd(char *s, int fd);
 
-int	ft_pwd(char *argv[])
+int	ft_pwd(void)
 {
 	char	*pwd;
 

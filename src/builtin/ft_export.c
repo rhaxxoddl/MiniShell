@@ -3,20 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jinoh <jinoh@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: sanjeon <sanjeon@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/24 17:31:19 by jinoh             #+#    #+#             */
-/*   Updated: 2022/04/28 19:31:37 by                  ###   ########.fr       */
+/*   Updated: 2022/04/28 21:23:35 by sanjeon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
 #include <stdlib.h>
 #include "libft.h"
+#include "builtin.h"
 //////////////////
 void	ft_putstrendl_fd(char *s, int fd);
 
-int check_arg(char *str)
+static int _check_arg(char *str)
 {
 	int i;
 
@@ -69,11 +70,13 @@ static void    _export(char *str, char *envp[])
 	}
 	else
 	{
-		i = ft_strlen(envp[]);
+		i = 0;
+		while (envp[i])
+			++i;
 		envp[i] = ft_strdup(str);
 		envp[i + 1] = 0;
 		if (!envp[i])
-			exit(EXIT_FAULRE);
+			exit(EXIT_FAILURE);
 	}
 }
 
@@ -87,7 +90,7 @@ void	ft_export(char *argv[], char *envp[])
 	i = 0;
 	while (argv[++i])
 	{
-		chk = check_arg(argv[i]);
+		chk = _check_arg(argv[i]);
 		if (!chk)
 		{
 			ft_putstr_fd("minishell: export: \'", 2);

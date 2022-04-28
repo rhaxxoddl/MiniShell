@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_unset.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jinoh <jinoh@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: sanjeon <sanjeon@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/24 19:34:33 by jinoh             #+#    #+#             */
-/*   Updated: 2022/04/28 18:01:02 by                  ###   ########.fr       */
+/*   Updated: 2022/04/28 21:23:35 by sanjeon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,11 @@
 #include <unistd.h>
 #include <stdlib.h>
 #include "libft.h"
+#include "builtin.h"
 ///////////////
 void	ft_putstrendl_fd(char *s, int fd);
 
-int check_arg(char *str)
+static int _check_arg(char *str)
 {
 	int i;
 
@@ -61,7 +62,9 @@ static void _unset(char *str, char *envp[])
 	if (i)
 	{
 		free(envp[i]);
-		j = ft_strlen(envp[]);
+		j = 0;
+		while (envp[j] != 0)
+			j++;
 		envp[i] = envp[j];
 		envp[j] = 0;
 	}
@@ -73,9 +76,10 @@ void	ft_unset(char *argv[], char *envp[])
 
 	if (!argv[1])
 		return ;
+	i = 0;
 	while (argv[++i])
 	{
-		if (!check_arg(argv[i]))
+		if (!_check_arg(argv[i]))
 		{
 			ft_putstr_fd("minishell: unset: \'", 2);
 			ft_putstr_fd(argv[i], 2);

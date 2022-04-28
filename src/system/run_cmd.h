@@ -6,7 +6,7 @@
 /*   By: sanjeon <sanjeon@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/11 18:51:05 by sanjeon           #+#    #+#             */
-/*   Updated: 2022/04/28 09:18:02 by sanjeon          ###   ########.fr       */
+/*   Updated: 2022/04/28 21:35:51 by sanjeon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include "libft.h"
 # include "../parsing/parsing.h"
+# include "../builtin/builtin.h"
 # include <stdlib.h>
 # include <stdio.h>
 # include <sys/types.h>
@@ -105,6 +106,8 @@ char	**get_path(t_env *env_head);
 char	*cmd_connect_path(char *cmd, char **path);
 
 int		add_slash(char **path);
+
+void exec_cmd(char *argv[], char *envp[], char **path);
 // signal_handler.c-----------------------------------
 /*
 [sig_init()]

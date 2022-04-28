@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export_print.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jinoh <jinoh@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: sanjeon <sanjeon@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 17:31:19 by jinoh             #+#    #+#             */
-/*   Updated: 2022/04/28 20:08:27 by                  ###   ########.fr       */
+/*   Updated: 2022/04/28 21:18:49 by sanjeon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
 #include <stdlib.h>
 #include "libft.h"
+#include "builtin.h"
 
 //////////////////
 void ft_putstrendl_fd(char *s, int fd);
@@ -27,7 +28,7 @@ static int	find_end(char *str)
 	return (i);
 }
 
-static int ft_strcmp(char *s1, char *s2)
+static int ft_strcmp_j(char *s1, char *s2)
 {
 	int len1;
 	int len2;
@@ -51,21 +52,6 @@ static int ft_strcmp(char *s1, char *s2)
 	}
 }
 
-void print_envp(char *envp[])
-{
-	int len;
-	char *arr;
-
-	len = 0;
-	while (envp[len])
-		++len;
-	arr = ft_calloc(len, sizeof(char));
-	if (!arr)
-		exit(EXIT_FAILURE);
-	_print_envp(envp, arr, 0, 0);
-	free(arr);
-}
-
 static void	_print_envp(char *envp[], char *arr, int cur, int i)
 {
 	while (1)
@@ -80,7 +66,7 @@ static void	_print_envp(char *envp[], char *arr, int cur, int i)
 				cur = i;
 			else
 			{
-				if (ft_strcmp(envp[cur], envp[i]) > 0)
+				if (ft_strcmp_j(envp[cur], envp[i]) > 0)
 					cur = i;
 			}
 		}
@@ -90,4 +76,19 @@ static void	_print_envp(char *envp[], char *arr, int cur, int i)
 		ft_putstrendl_fd(envp[cur], 1);
 		arr[cur] = 1;
 	}
+}
+
+void print_envp(char *envp[])
+{
+	int len;
+	char *arr;
+
+	len = 0;
+	while (envp[len])
+		++len;
+	arr = ft_calloc(len, sizeof(char));
+	if (!arr)
+		exit(EXIT_FAILURE);
+	_print_envp(envp, arr, 0, 0);
+	free(arr);
 }
