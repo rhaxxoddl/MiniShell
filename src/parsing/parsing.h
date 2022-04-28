@@ -6,7 +6,7 @@
 /*   By: sanjeon <sanjeon@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 11:38:46 by sanjeon           #+#    #+#             */
-/*   Updated: 2022/04/28 10:50:33 by sanjeon          ###   ########.fr       */
+/*   Updated: 2022/04/29 07:39:24 by sanjeon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ t_cmd		*add_cmd(char *cmd_line);
 t_arg	*init_arg(char **envp);
 t_env	*init_env(char **envp);
 int		add_env(t_env **head, t_env **current, int *i);
-char	*get_env(t_env *env_head, char *key);
+char	*get_env(t_env *env_head, char *key); // env_head를 envp로
 
 // parsing_redir.c
 int		parsing_redir(t_env *env_head, t_cmd *cmd, char **line, int *i);

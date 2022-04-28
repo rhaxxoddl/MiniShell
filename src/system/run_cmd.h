@@ -6,7 +6,7 @@
 /*   By: sanjeon <sanjeon@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/11 18:51:05 by sanjeon           #+#    #+#             */
-/*   Updated: 2022/04/28 21:35:51 by sanjeon          ###   ########.fr       */
+/*   Updated: 2022/04/29 07:36:52 by sanjeon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@
 Before printing the error about errno,
 the allocated structure 'arg' is free.
 */
-void		ft_error();
+void		ft_error(char *str);
 void		cnf_error(char *cmd);
 // main.c
 //parsing.c-----------------------------------
@@ -101,7 +101,7 @@ char		*here_app_str(char **str, char **rl);
 
 char		*add_nl(char **str);
 
-char	**get_path(t_env *env_head);
+char	**get_path(t_env *env_head); // env_head를 envp로 교체
 
 char	*cmd_connect_path(char *cmd, char **path);
 
