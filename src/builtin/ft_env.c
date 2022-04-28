@@ -6,22 +6,24 @@
 /*   By: jinoh <jinoh@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/24 18:31:19 by jinoh             #+#    #+#             */
-/*   Updated: 2022/04/24 19:31:21 by jinoh            ###   ########.fr       */
+/*   Updated: 2022/04/28 16:56:54 by                  ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
 #include "libft.h"
+////////////////////
+void	ft_putstrendl_fd(char *s, int fd);
 
 void	ft_env(char *argv[], char *envp[])
 {
 	int i;
 
-	if (argv[0])
+	if (argv[1])
 	{
-		write(2, "env: ", 5);
-		write(2, argv[0], ft_strlen(argv[0]));
-		write(2, ": No such file or directory", 27);
+		ft_putstr_fd("env: \'", 2);
+		ft_putstr_fd(argv[1], 2);
+		ft_putstrendl_fd("\' : No such file or directory", 2);
 		return ;
 	}
 	i = -1;
@@ -29,6 +31,6 @@ void	ft_env(char *argv[], char *envp[])
 	{
 		if (!ft_strchr(envp[i], '='))
 			continue;
-		write(1, envp[i], ft_strlen(envp[i]));
+		ft_putstrendl_fd(envp[i], 1);
 	}
 }

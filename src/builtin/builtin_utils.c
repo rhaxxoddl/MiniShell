@@ -1,34 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_pwd.c                                           :+:      :+:    :+:   */
+/*   builtin_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jinoh <jinoh@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/05 14:11:44 by jinoh             #+#    #+#             */
-/*   Updated: 2022/04/28 17:55:11 by                  ###   ########.fr       */
+/*   Created: 2022/04/26 18:31:19 by jinoh             #+#    #+#             */
+/*   Updated: 2022/04/28 16:51:59 by                  ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
-#include <stdlib.h>
-#include <string.h>
 #include "libft.h"
-///////////////////
-void	ft_putstrendl_fd(char *s, int fd);
 
-int	ft_pwd(char *argv[])
+void	ft_putstrendl_fd(char *s, int fd)
 {
-	char	*pwd;
-
-	pwd = getcwd(NULL, 0);
-	if (pwd == NULL)
-	{
-		ft_putstr_fd("pwd: ", 2);
-		ft_putstrendl_fd(strerror(errno), 2);
-		return (0);
-	}
-	ft_putstr_fd(pwd, 1);
-	free(pwd);
-	return (1);
+	if (!s || fd < 0)
+		return ;
+	write(fd, s, ft_strlen(s));
+	write(fd, "\n", 1);
 }
