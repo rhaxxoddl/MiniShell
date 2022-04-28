@@ -6,13 +6,14 @@
 /*   By: sanjeon <sanjeon@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/11 18:56:51 by sanjeon           #+#    #+#             */
-/*   Updated: 2022/04/23 17:23:30 by sanjeon          ###   ########.fr       */
+/*   Updated: 2022/04/28 20:05:52 by sanjeon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "run_cmd.h"
 #include <readline/readline.h>
 #include <readline/history.h>
+#include <errno.h>
 
 int	main(int argc, char *argv[], char *envp[])
 {
@@ -30,19 +31,13 @@ int	main(int argc, char *argv[], char *envp[])
 	{
 		line = readline("minishell$ ");
 		add_history(line);
-		if (line == NULL) {
-			return (1);
-		}
-		arg->cmd_arg = parsing(line, envp);
-		run_cmd(arg, arg->cmd_arg);
+		if (line == NULL)
+			perror("");
+		arg->cmd_arg = parsing(arg->env, line);
+		// print_arg(arg->cmd_arg);
 		free(line);
+		if (arg->cmd_arg->cmd_count != 0)
+			run_process(arg, arg->cmd_arg);
 	}
-	// arg = init_arg();
-	// parsing(arg, envp);
-	// while (arg->cmd_idx < arg->cmd_count)
-	// {
-	// 	run_cmd(arg, arg->cmd_idx);
-	// 	arg->cmd_idx++;
-	// }
 	return (0);
 }

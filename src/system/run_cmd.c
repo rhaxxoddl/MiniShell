@@ -6,38 +6,64 @@
 /*   By: sanjeon <sanjeon@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/14 16:26:10 by sanjeon           #+#    #+#             */
-/*   Updated: 2022/04/23 17:23:36 by sanjeon          ###   ########.fr       */
+/*   Updated: 2022/04/28 20:06:15 by sanjeon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "run_cmd.h"
 
-int	run_cmd(t_arg *arg, t_cmd_arg *cmd_arg)
+int	run_process(t_arg *arg, t_cmd_arg *cmd_arg)
 {
 	pid_t	pid;
 
-	if (pipe(cmd_arg->fds[cmd_arg->cmd_head->cmd_idx]) == -1)
-		p_a_error(arg);
-	connect_redir(cmd_arg->cmd_head[cmd_arg->cmd_head->cmd_idx].redir, arg);
 	pid = fork();
 	if (pid == -1)
-		p_a_error(arg);
+		ft_error(arg);
 	else if (pid == 0)
 	{
-		connect_pipe(cmd_arg->cmd_head->cmd_idx, arg);
-		cmd_arg->cmd_head->cmd_param[0] = cmd_connect_path(cmd_arg->cmd_head->cmd_param[0], cmd_arg->path);
-		if (execve(cmd_arg->cmd_head[cmd_arg->cmd_head->cmd_idx].cmd_param[0],
-				cmd_arg->cmd_head[cmd_arg->cmd_head->cmd_idx].cmd_param, arg->envp) == -1)
-			p_a_error(arg);
+		while (cmd_arg->cmd_head != 0)
+		{
+			if (run_cmd(arg, cmd_arg->cmd_head) != 0)
+				ft_error(arg);
+			cmd_arg->cmd_head = cmd_arg->cmd_head->next;
+		}
+		exit(arg->status);
 	}
-	if (pid)
+	else if (pid > 0)
 	{
-		close(cmd_arg->fds[cmd_arg->cmd_head->cmd_idx][W]);
-		dup2(cmd_arg->fds[cmd_arg->cmd_head->cmd_idx][R], STDIN_FILENO);
-		close(cmd_arg->fds[cmd_arg->cmd_head->cmd_idx][R]);
-		waitpid(pid, &(arg->status), WNOHANG);
+		waitpid(pid ,&(arg->status), 0);
+		free_cmd_arg(cmd_arg);
 	}
 	return (0);
+}
+
+int	run_cmd(t_arg *arg, t_cmd *cmd_head)
+{
+	pid_t	pid;
+
+	if (pipe(arg->cmd_arg->fds[cmd_head->cmd_idx]) == -1)
+		ft_error(arg);
+	pid = fork();
+	if (pid == -1)
+		ft_error(arg);
+	else if (pid == 0)
+	{
+		connect_pipe(cmd_head->cmd_idx, arg);
+		connect_redir(cmd_head->redir, arg);
+		cmd_head->cmd_param[0] = cmd_connect_path(cmd_head->cmd_param[0],
+				arg->cmd_arg->path);
+		if (execve(cmd_head->cmd_param[0],
+				cmd_head->cmd_param, arg->envp) == -1)
+			ft_error(arg);
+	}
+	else if (pid > 0)
+	{
+		close(arg->cmd_arg->fds[cmd_head->cmd_idx][W]);
+		dup2(arg->cmd_arg->fds[cmd_head->cmd_idx][R], STDIN_FILENO);
+		close(arg->cmd_arg->fds[cmd_head->cmd_idx][R]);
+		waitpid(pid, &(arg->status), 0);
+	}
+	return (arg->status);
 }
 
 void	connect_pipe(int cmd_idx, t_arg *arg)
@@ -45,7 +71,7 @@ void	connect_pipe(int cmd_idx, t_arg *arg)
 	if (cmd_idx != arg->cmd_arg->cmd_count - 1)
 	{
 		if (dup2(arg->cmd_arg->fds[cmd_idx][W], STDOUT_FILENO) == -1)
-			p_a_error(arg);
+			ft_error(arg);
 		close(arg->cmd_arg->fds[cmd_idx][W]);
 		close(arg->cmd_arg->fds[cmd_idx][R]);
 	}
@@ -59,7 +85,7 @@ void	connect_redir(t_redir *redir, t_arg *arg)
 	while (temp != 0)
 	{
 		if (sellect_redir(temp) == 0)
-			p_a_error(arg);
+			ft_error(arg);
 		temp = temp->next;
 	}
 }
