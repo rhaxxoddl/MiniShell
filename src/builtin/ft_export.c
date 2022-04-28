@@ -6,13 +6,15 @@
 /*   By: jinoh <jinoh@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/24 17:31:19 by jinoh             #+#    #+#             */
-/*   Updated: 2022/04/24 17:31:21 by jinoh            ###   ########.fr       */
+/*   Updated: 2022/04/28 19:31:37 by                  ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
 #include <stdlib.h>
 #include "libft.h"
+//////////////////
+void	ft_putstrendl_fd(char *s, int fd);
 
 int check_arg(char *str)
 {
@@ -42,7 +44,7 @@ static int find_env(char *str, char *envp[])
 	while (envp[++i])
 	{
 		j = -1;
-		while (envp[i][++j] || str[j])
+		while (envp[i][++j] && str[j])
 		{
 			if (envp[i][j] != str[j] || envp[i][j] == '=' || str[j] == '=')
 				break;
@@ -75,38 +77,25 @@ static void    _export(char *str, char *envp[])
 	}
 }
 
-void print_envp(char *envp[])
-{
-	int i;
-
-	i = -1;
-	while (envp[++i])
-	{
-		if (envp[i][0] == '?')
-			continue;
-		write(1, "declare -x ", 11);
-		write(1, envp[i], ft_strlen(envp[i]));
-		write(1, "\n", 1);
-	}
-}
-
 void	ft_export(char *argv[], char *envp[])
 {
 	int i;
+	int chk;
 
 	if (!argv[1])
 		print_envp(envp);
 	i = 0;
 	while (argv[++i])
 	{
-		if (!check_arg(argv[i]))
+		chk = check_arg(argv[i]);
+		if (!chk)
 		{
-			write(2, "-minishell: export: \'", 21);
-			write(2, argv[i], ft_strlen(argv[i]));
-			write(2, "\': not a valid identifier\n", 26);
+			ft_putstr_fd("minishell: export: \'", 2);
+			ft_putstr_fd(argv[i], 2);
+			ft_putstrendl_fd("\': not a valid identifier", 2);
 		}
-		else if (check_arg(argv[i]) == 2)
-			return ;
+		else if (chk == 2)
+			;
 		else
 			_export(argv[i], envp);
 	}

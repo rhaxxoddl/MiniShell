@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "run_cmd.h"
 #include <limits.h>
+#include "libft.h"
 
 int	ft_echo(char *argv[])
 {
@@ -27,17 +27,11 @@ int	ft_echo(char *argv[])
 	}
 	while (argv[++i] != 0)
 	{
-		write(STDOUT_FILENO, argv[i], ft_strlen(argv[i]));
+		ft_putstr_fd(argv[i], 1);
 		if (argv[i + 1] != 0)
-			write(STDOUT_FILENO, " ", 1);
+			ft_putstr_fd(" ", 1);
 	}
 	if (n == 0)
-		write(STDOUT_FILENO, "\n", 1);
+		ft_putstr_fd("\n", 1);
 	return (1);
-}
-
-void	ft_exit(int	status)
-{
-	write(1, "exit\n", 5);
-	exit(status);
 }

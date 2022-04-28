@@ -6,7 +6,7 @@
 /*   By: jinoh <jinoh@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/24 19:34:33 by jinoh             #+#    #+#             */
-/*   Updated: 2022/04/24 19:34:53 by jinoh            ###   ########.fr       */
+/*   Updated: 2022/04/28 18:01:02 by                  ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 #include <unistd.h>
 #include <stdlib.h>
 #include "libft.h"
+///////////////
+void	ft_putstrendl_fd(char *s, int fd);
 
 int check_arg(char *str)
 {
@@ -75,9 +77,9 @@ void	ft_unset(char *argv[], char *envp[])
 	{
 		if (!check_arg(argv[i]))
 		{
-			write(2, "-minishell: unset: \'", 20);
-			write(2, argv[i], ft_strlen(argv[i]));
-			write(2, "\': not a valid identifier\n", 26);
+			ft_putstr_fd("minishell: unset: \'", 2);
+			ft_putstr_fd(argv[i], 2);
+			ft_putstrendl_fd("\': not a valid identifier", 2);
 		}
 		else
 			_unset(argv[i], envp);
