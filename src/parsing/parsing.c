@@ -6,10 +6,11 @@
 /*   By: sanjeon <sanjeon@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 10:37:54 by sanjeon           #+#    #+#             */
-/*   Updated: 2022/04/28 08:42:39 by sanjeon          ###   ########.fr       */
+/*   Updated: 2022/04/28 09:20:40 by sanjeon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <errno.h>
 #include "parsing.h"
 
 t_cmd_arg	*parsing(t_env *env_head, char *line)
@@ -19,7 +20,7 @@ t_cmd_arg	*parsing(t_env *env_head, char *line)
 
 	cmd_arg = (t_cmd_arg *)ft_calloc(1, sizeof(t_cmd_arg));
 	if (cmd_arg == 0)
-		return (0);
+		perror("");
 	while (ft_isspace(*line))
 		line++;
 	while (*line != 0)
@@ -41,7 +42,7 @@ t_cmd_arg	*parsing(t_env *env_head, char *line)
 	}
 	cmd_arg->fds = malloc_fds(cmd_arg->cmd_count);
 	if (cmd_arg->fds == 0)
-		return (0);
+		perror("");
 	cmd_arg->path = get_path(env_head);
 	return (cmd_arg);
 }
@@ -59,10 +60,10 @@ t_cmd	*parsing_cmd(t_env *env_head, char **line)
 	// 여기부터
 	cmd = (t_cmd *)ft_calloc(1, sizeof(t_cmd));
 	if (cmd == 0)
-		return (0);
+		perror("");
 	cmd->cmd_param = (char **)ft_calloc(1, sizeof(char *));
 	if (cmd->cmd_param == 0)
-		return (0); // 전에 할당한 거 해제해야 함.
+		perror("");
 	cmd->redir = 0;
 	// 여기까지 함수로 빼기
 	while ((*line)[i] != 0 && (*line)[i] != '|')
@@ -70,25 +71,25 @@ t_cmd	*parsing_cmd(t_env *env_head, char **line)
 		if (valid_dol(&(*line)[i]))
 		{
 			if (!pro_env(env_head, &temp, line, &i))
-				return (0);
+				perror("");
 		}
 		else if ((*line)[i] == '\'')
 		{
 			if (!pro_s_quotes(&temp, line, &i))
-				return (0);
+				perror("");
 		}
 		else if ((*line)[i] == '\"')
 		{
 			if (!pro_d_quotes(env_head, &temp, line, &i))
-				return (0);
+				perror("");
 		}
 		else if (get_redir_type(&(*line)[i]))
 		{
 			if (!pro_before_str(&temp, line, &i))
-				return (0);
+				perror("");
 			cmd->cmd_param = add_col(cmd->cmd_param, temp);
 			if (!parsing_redir(env_head, cmd, line, &i))
-				return (0);
+				perror("");
 		}
 		else if (ft_isspace((*line)[i]))
 		{
@@ -107,11 +108,11 @@ t_cmd	*parsing_cmd(t_env *env_head, char **line)
 	{
 		temp = app_str(temp, ft_substr(*line, 0, i));
 		if (temp == 0)
-			return (0);
+			perror("");
 	}
 		cmd->cmd_param = add_col(cmd->cmd_param, temp);
 		if (cmd->cmd_param == 0)
-			return (0);
+			perror("");
 		temp = 0;
 	if ((*line)[i] == '|')
 		(*line) = (*line) + i + 1;

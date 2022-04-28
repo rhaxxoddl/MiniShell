@@ -6,7 +6,7 @@
 /*   By: sanjeon <sanjeon@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/23 14:59:20 by sanjeon           #+#    #+#             */
-/*   Updated: 2022/04/28 09:01:01 by sanjeon          ###   ########.fr       */
+/*   Updated: 2022/04/28 10:22:27 by sanjeon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ char	**get_path(t_env *env_head)
 		return (0);
 	if (path[i] == 0)
 	{
-		free_path(path);
+		free_str_arr(path);
 		return (0);
 	}
 	if (add_slash(path) == -1)
@@ -42,7 +42,7 @@ int	add_slash(char **path)
 		temp = ft_strjoin(path[i], "/");
 		if (temp == 0)
 		{
-			free_path(path);
+			free_str_arr(path);
 			return (-1);
 		}
 		free(path[i]);

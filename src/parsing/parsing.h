@@ -6,7 +6,7 @@
 /*   By: sanjeon <sanjeon@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 11:38:46 by sanjeon           #+#    #+#             */
-/*   Updated: 2022/04/28 08:41:36 by sanjeon          ###   ########.fr       */
+/*   Updated: 2022/04/28 10:50:33 by sanjeon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,10 @@ char	*trans_env(t_env *env_head, char **line);
 
 // free.c
 void	free_env(t_env *head);
-void	free_path(char **path);
+void	free_str_arr(char **path);
+void	free_reidr(t_redir *redir);
+void	free_cmd(t_cmd *cmd);
+void	free_fds(int **fds);
+void	free_cmd_arg(t_cmd_arg *cmd_arg);
 
 #endif
