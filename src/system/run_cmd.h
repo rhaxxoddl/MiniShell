@@ -6,7 +6,7 @@
 /*   By: sanjeon <sanjeon@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/11 18:51:05 by sanjeon           #+#    #+#             */
-/*   Updated: 2022/04/28 08:41:03 by sanjeon          ###   ########.fr       */
+/*   Updated: 2022/04/28 09:01:57 by sanjeon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ Before printing the error about errno,
 the allocated structure 'arg' is free.
 */
 void		p_a_error(t_arg *arg);
+void		cnf_error(char *cmd);
 // main.c
 //parsing.c-----------------------------------
 // t_cmd_arg		*init_arg(void);

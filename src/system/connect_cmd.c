@@ -6,7 +6,7 @@
 /*   By: sanjeon <sanjeon@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/23 14:59:20 by sanjeon           #+#    #+#             */
-/*   Updated: 2022/04/28 08:39:25 by sanjeon          ###   ########.fr       */
+/*   Updated: 2022/04/28 09:01:01 by sanjeon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,10 +72,7 @@ char	*cmd_connect_path(char *cmd, char **path)
 	temp = ft_strdup(cmd);
 	if (temp == 0)
 		return (0);
-	// if (access(temp, X_OK) != 0)
-	// {
-	// 	free(temp);
-	// 	exit(127);
-	// }
+	if (access(temp, X_OK) != 0)
+		cnf_error(cmd);
 	return (temp);
 }

@@ -6,7 +6,7 @@
 /*   By: sanjeon <sanjeon@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/14 16:26:10 by sanjeon           #+#    #+#             */
-/*   Updated: 2022/04/28 08:08:51 by sanjeon          ###   ########.fr       */
+/*   Updated: 2022/04/28 09:05:27 by sanjeon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,9 @@ int	run_process(t_arg *arg, t_cmd_arg *cmd_arg)
 int	run_cmd(t_arg *arg, t_cmd *cmd_head)// 새로운 프로세스이기 때문에 arg까지 해제하는 게 아니라 해제
 {
 	pid_t	pid;
-	int		exit_process;
+	// int		exit_process;
 
-	exit_process = 0;
+	// exit_process = 0;
 	if (pipe(arg->cmd_arg->fds[cmd_head->cmd_idx]) == -1)
 		p_a_error(arg);
 	pid = fork();

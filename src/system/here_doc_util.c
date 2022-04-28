@@ -6,7 +6,7 @@
 /*   By: sanjeon <sanjeon@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/25 16:56:43 by sanjeon           #+#    #+#             */
-/*   Updated: 2022/04/28 08:33:23 by sanjeon          ###   ########.fr       */
+/*   Updated: 2022/04/28 09:07:22 by sanjeon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,6 @@ int	until_comein_limitor(char **str, char **rl, const char *limitor, int fd)
 			return (comein_limitor(fd, str, rl));
 		else
 		{
-			*str = add_nl(str);
-			if (*str == 0)
-				return (0);
 			if (*str != 0)
 			{
 				*str = here_app_str(str, rl);
