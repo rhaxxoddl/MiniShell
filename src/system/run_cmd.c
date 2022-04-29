@@ -6,7 +6,7 @@
 /*   By: sanjeon <sanjeon@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/14 16:26:10 by sanjeon           #+#    #+#             */
-/*   Updated: 2022/04/28 21:35:29 by sanjeon          ###   ########.fr       */
+/*   Updated: 2022/04/29 08:58:32 by sanjeon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,17 @@ int	run_process(t_arg *arg, t_cmd_arg *cmd_arg)
 {
 	pid_t	pid;
 
+	if (ft_strncmp("exit", cmd_arg->cmd_head->cmd_param[0], 4) == 0)
+		ft_exit(cmd_arg->cmd_head->cmd_param);
 	pid = fork();
 	if (pid == -1)
-		ft_error(arg);
+		ft_error("");
 	else if (pid == 0)
 	{
 		while (cmd_arg->cmd_head != 0)
 		{
 			if (run_cmd(arg, cmd_arg->cmd_head) != 0)
-				ft_error(arg);
+				ft_error("");
 			cmd_arg->cmd_head = cmd_arg->cmd_head->next;
 		}
 		exit(arg->status);
@@ -42,18 +44,18 @@ int	run_cmd(t_arg *arg, t_cmd *cmd_head)
 	pid_t	pid;
 
 	if (pipe(arg->cmd_arg->fds[cmd_head->cmd_idx]) == -1)
-		ft_error(arg);
+		ft_error("");
 	pid = fork();
 	if (pid == -1)
-		ft_error(arg);
+		ft_error("");
 	else if (pid == 0)
 	{
 		connect_pipe(cmd_head->cmd_idx, arg);
-		connect_redir(cmd_head->redir, arg);
+		connect_redir(cmd_head->redir);
 		exec_cmd(cmd_head->cmd_param, arg->envp, arg->cmd_arg->path);
 		// if (execve(cmd_head->cmd_param[0],
 		// 		cmd_head->cmd_param, arg->envp) == -1)
-			// ft_error(arg);
+			// ft_error("");
 	}
 	else if (pid > 0)
 	{
@@ -70,13 +72,13 @@ void	connect_pipe(int cmd_idx, t_arg *arg)
 	if (cmd_idx != arg->cmd_arg->cmd_count - 1)
 	{
 		if (dup2(arg->cmd_arg->fds[cmd_idx][W], STDOUT_FILENO) == -1)
-			ft_error(arg);
+			ft_error("");
 		close(arg->cmd_arg->fds[cmd_idx][W]);
 		close(arg->cmd_arg->fds[cmd_idx][R]);
 	}
 }
 
-void	connect_redir(t_redir *redir, t_arg *arg)
+void	connect_redir(t_redir *redir)
 {
 	t_redir	*temp;
 
@@ -84,7 +86,7 @@ void	connect_redir(t_redir *redir, t_arg *arg)
 	while (temp != 0)
 	{
 		if (sellect_redir(temp) == 0)
-			ft_error(arg);
+			ft_error("");
 		temp = temp->next;
 	}
 }

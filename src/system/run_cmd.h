@@ -6,7 +6,7 @@
 /*   By: sanjeon <sanjeon@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/11 18:51:05 by sanjeon           #+#    #+#             */
-/*   Updated: 2022/04/29 07:36:52 by sanjeon          ###   ########.fr       */
+/*   Updated: 2022/04/29 08:51:07 by sanjeon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void		connect_pipe(int cmd_idx, t_arg *arg);
 [connect_redir()]
 Apply redirection.
 */
-void		connect_redir(t_redir *redir, t_arg *arg);
+void		connect_redir(t_redir *redir);
 /*
 [sellect_redir()]
 Choose the proper redirection function and execute it.
