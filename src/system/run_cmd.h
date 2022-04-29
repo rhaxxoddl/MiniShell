@@ -6,7 +6,7 @@
 /*   By: sanjeon <sanjeon@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/11 18:51:05 by sanjeon           #+#    #+#             */
-/*   Updated: 2022/04/29 08:51:07 by sanjeon          ###   ########.fr       */
+/*   Updated: 2022/04/29 09:23:08 by sanjeon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ char		*here_app_str(char **str, char **rl);
 
 char		*add_nl(char **str);
 
-char	**get_path(t_env *env_head); // env_head를 envp로 교체
+char	**get_path(char **envp); // env_head를 envp로 교체
 
 char	*cmd_connect_path(char *cmd, char **path);
 

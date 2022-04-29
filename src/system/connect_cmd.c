@@ -6,19 +6,19 @@
 /*   By: sanjeon <sanjeon@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/23 14:59:20 by sanjeon           #+#    #+#             */
-/*   Updated: 2022/04/29 07:34:46 by sanjeon          ###   ########.fr       */
+/*   Updated: 2022/04/29 09:49:10 by sanjeon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "run_cmd.h"
-//TODO : PATH를 처음에 가지고 다니는 게 아니라 명령어를 파싱할 때마다 가져오도록
-char	**get_path(t_env *env_head)
+
+char	**get_path(char **envp)
 {
 	char	**path;
 	int		i;
 
 	i = 0;
-	path = ft_split(get_env(env_head, "PATH"), ':');
+	path = ft_split(get_env(envp, "PATH"), ':');
 	if (path == 0)
 		return (0);
 	if (path[i] == 0)
