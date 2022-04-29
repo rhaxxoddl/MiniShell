@@ -6,7 +6,7 @@
 /*   By: sanjeon <sanjeon@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/14 16:26:10 by sanjeon           #+#    #+#             */
-/*   Updated: 2022/04/29 09:56:02 by sanjeon          ###   ########.fr       */
+/*   Updated: 2022/04/29 20:32:50 by sanjeon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	run_process(t_arg *arg, t_cmd_arg *cmd_arg)
 {
 	pid_t	pid;
 
-	if (ft_strncmp("exit", cmd_arg->cmd_head->cmd_param[0], 4) == 0)
+	if (ft_strncmp("exit", cmd_arg->cmd_head->cmd_param[0], 4) == 0) //cmd가 1개일 때 조건 추가
 		ft_exit(cmd_arg->cmd_head->cmd_param);
 	pid = fork();
 	if (pid == -1)
