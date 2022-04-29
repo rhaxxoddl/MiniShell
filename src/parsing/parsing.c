@@ -6,7 +6,7 @@
 /*   By: sanjeon <sanjeon@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 10:37:54 by sanjeon           #+#    #+#             */
-/*   Updated: 2022/04/29 10:35:24 by sanjeon          ###   ########.fr       */
+/*   Updated: 2022/04/29 10:38:33 by sanjeon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,11 +101,11 @@ t_cmd	*parsing_cmd(char **envp, char **line)
 	{
 		temp = app_str(temp, ft_substr(*line, 0, i));
 		if (temp == 0)
-			perror("");
+			ft_error();
 	}
 		cmd->cmd_param = add_col(cmd->cmd_param, temp);
 		if (cmd->cmd_param == 0)
-			perror("");
+			ft_error();
 		temp = 0;
 	if ((*line)[i] == '|')
 		(*line) = (*line) + i + 1;
