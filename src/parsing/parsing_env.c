@@ -6,7 +6,7 @@
 /*   By: sanjeon <sanjeon@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 17:10:02 by sanjeon           #+#    #+#             */
-/*   Updated: 2022/04/29 09:28:40 by sanjeon          ###   ########.fr       */
+/*   Updated: 2022/04/29 10:22:31 by sanjeon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,15 +25,11 @@ int	valid_dol(char *line)
 	return (0);
 }
 
-int	pro_env(char **envp, char **temp, char **line, int *i)
+void	pro_env(char **envp, char **temp, char **line, int *i)
 {
-	if (!pro_before_str(temp, line, i))
-		return (0);
+	pro_before_str(temp, line, i);
 	(*line)++;
 	*temp = app_str(*temp, trans_env(envp, line));
-	if ((*temp) == 0)
-		return (0);
-	return (1);
 }
 
 char	*trans_env(char **envp, char **line)

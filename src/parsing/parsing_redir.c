@@ -6,25 +6,22 @@
 /*   By: sanjeon <sanjeon@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 20:25:32 by sanjeon           #+#    #+#             */
-/*   Updated: 2022/04/29 09:22:07 by sanjeon          ###   ########.fr       */
+/*   Updated: 2022/04/29 10:16:11 by sanjeon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
 
-int	parsing_redir(char **envp, t_cmd *cmd, char **line, int *i)
+void	parsing_redir(char **envp, t_cmd *cmd, char **line, int *i)
 {
 	if (cmd->redir == 0)
 		cmd->redir = pro_redir(envp, line, get_redir_type(*line), i);
 	else
-	{
 		cmd->redir->next = pro_redir(envp, line, get_redir_type(*line), i);
-	}
 	if (cmd->redir == 0)
-		return (0);
+		ft_error();
 	while (ft_isspace(**line))
 		(*line)++;
-	return (1);
 }
 
 int	get_redir_type(char *c)
@@ -62,20 +59,11 @@ t_redir	*pro_redir(char **envp, char **line, int redir_type, int *i)
 			&& !get_redir_type(&(*line)[*i]))
 	{
 		if (valid_dol(&(*line)[*i]))
-		{
-			if (!pro_env(envp, &temp, line, i))
-				return (0);
-		}
+			pro_env(envp, &temp, line, i);
 		else if ((*line)[*i] == '\'')
-		{
-			if (!pro_s_quotes(&temp, line, i))
-				return (0);
-		}
+			pro_s_quotes(&temp, line, i);
 		else if ((*line)[*i] == '\"')
-		{
-			if (!pro_d_quotes(envp, &temp, line, i))
-				return (0);
-		}
+			pro_d_quotes(envp, &temp, line, i);
 		else
 			(*i)++;
 	}

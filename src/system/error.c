@@ -6,7 +6,7 @@
 /*   By: sanjeon <sanjeon@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/14 11:42:15 by sanjeon           #+#    #+#             */
-/*   Updated: 2022/04/29 07:33:26 by sanjeon          ###   ########.fr       */
+/*   Updated: 2022/04/29 09:54:30 by sanjeon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,8 @@
 #include <errno.h>
 #include <stdio.h>
 
-void	ft_error(char *str)
+void	ft_error(void)
 {
-	perror(str);
 	printf("errno : %d\n", errno);
 	exit(errno);
 }
