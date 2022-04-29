@@ -6,7 +6,7 @@
 /*   By: sanjeon <sanjeon@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/11 18:56:51 by sanjeon           #+#    #+#             */
-/*   Updated: 2022/04/28 20:51:10 by sanjeon          ###   ########.fr       */
+/*   Updated: 2022/04/29 09:16:05 by sanjeon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	main(int argc, char *argv[], char *envp[])
 		add_history(line);
 		if (line == NULL)
 			exit(0);
-		arg->cmd_arg = parsing(arg->env, line);
+		arg->cmd_arg = parsing(arg->envp, line);
 		// print_arg(arg->cmd_arg);
 		if (line != 0)
 			free(line);

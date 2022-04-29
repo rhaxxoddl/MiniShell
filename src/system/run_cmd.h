@@ -6,7 +6,7 @@
 /*   By: sanjeon <sanjeon@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/11 18:51:05 by sanjeon           #+#    #+#             */
-/*   Updated: 2022/04/28 21:35:51 by sanjeon          ###   ########.fr       */
+/*   Updated: 2022/04/29 10:01:54 by sanjeon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@
 Before printing the error about errno,
 the allocated structure 'arg' is free.
 */
-void		ft_error();
+void		ft_error(void);
 void		cnf_error(char *cmd);
 // main.c
 //parsing.c-----------------------------------
@@ -53,7 +53,7 @@ void		connect_pipe(int cmd_idx, t_arg *arg);
 [connect_redir()]
 Apply redirection.
 */
-void		connect_redir(t_redir *redir, t_arg *arg);
+void		connect_redir(t_redir *redir);
 /*
 [sellect_redir()]
 Choose the proper redirection function and execute it.
@@ -101,7 +101,7 @@ char		*here_app_str(char **str, char **rl);
 
 char		*add_nl(char **str);
 
-char	**get_path(t_env *env_head);
+char	**get_path(char **envp);
 
 char	*cmd_connect_path(char *cmd, char **path);
 

@@ -6,7 +6,7 @@
 /*   By: sanjeon <sanjeon@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 18:31:19 by jinoh             #+#    #+#             */
-/*   Updated: 2022/04/28 21:36:15 by sanjeon          ###   ########.fr       */
+/*   Updated: 2022/04/29 08:55:13 by sanjeon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 
 void exec_cmd(char *argv[], char *envp[], char **path)
 {
-	printf("argv : %s\n", argv[0]);
 	if (ft_strncmp("echo", argv[0], 4) == 0)
 		ft_echo(argv);
 	// else if (ft_strncmp("cd", argv[0], 2) == 0)

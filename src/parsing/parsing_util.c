@@ -6,7 +6,7 @@
 /*   By: sanjeon <sanjeon@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 15:33:57 by sanjeon           #+#    #+#             */
-/*   Updated: 2022/04/28 08:45:17 by sanjeon          ###   ########.fr       */
+/*   Updated: 2022/04/29 10:20:44 by sanjeon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,8 @@ char	*app_str(char *dest, char *src)
 	}
 	else if (src != 0 && *src != 0)
 		output = ft_strdup(src);
+	if (output == 0)
+		ft_error();
 	if (dest != 0)
 	{
 		free(dest);
@@ -69,7 +71,7 @@ char	**add_col(char **cmd, char *add)
 		l++;
 	temp = (char **)ft_calloc(l + 2, sizeof(char *));
 	if (temp == 0)
-		return (0);
+		ft_error();
 	i = -1;
 	while (++i < l)
 		temp[i] = cmd[i];
@@ -79,21 +81,20 @@ char	**add_col(char **cmd, char *add)
 }
 
 
-int	pro_before_str(char **temp, char **line, int *i)
+void	pro_before_str(char **temp, char **line, int *i)
 {
 	char	*add_temp;
 
 	if (*i <= 0)
-		return (1);
+		return ;
 	add_temp = ft_substr(*line, 0, *i);
 	if (add_temp == 0)
-		return (0);
+		ft_error();
 	*temp = app_str(*temp, add_temp);
 	if (*temp == 0)
-		return (0);
+		ft_error();
 	else if (add_temp != 0 && *add_temp == 0)
 		free(add_temp);
 	(*line) = (*line) + *i;
 	*i = 0;
-	return (1);
 }
