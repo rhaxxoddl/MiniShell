@@ -6,7 +6,7 @@
 /*   By: sanjeon <sanjeon@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/14 16:26:10 by sanjeon           #+#    #+#             */
-/*   Updated: 2022/04/29 20:32:50 by sanjeon          ###   ########.fr       */
+/*   Updated: 2022/04/30 20:54:12 by sanjeon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,13 @@ int	run_process(t_arg *arg, t_cmd_arg *cmd_arg)
 	{
 		while (cmd_arg->cmd_head != 0)
 		{
-			if (run_cmd(arg, cmd_arg->cmd_head) != 0)
-				ft_error();
+			run_cmd(arg, cmd_arg->cmd_head);
 			cmd_arg->cmd_head = cmd_arg->cmd_head->next;
 		}
-		exit(arg->status);
+		if (WIFEXITED(arg->status))
+			exit(WEXITSTATUS(arg->status));
+		else if (WIFSIGNALED(arg->status))
+			exit(WTERMSIG(arg->status));
 	}
 	else if (pid > 0)
 	{
@@ -39,7 +41,7 @@ int	run_process(t_arg *arg, t_cmd_arg *cmd_arg)
 	return (0);
 }
 
-int	run_cmd(t_arg *arg, t_cmd *cmd_head)
+void	run_cmd(t_arg *arg, t_cmd *cmd_head)
 {
 	pid_t	pid;
 
@@ -59,9 +61,8 @@ int	run_cmd(t_arg *arg, t_cmd *cmd_head)
 		close(arg->cmd_arg->fds[cmd_head->cmd_idx][W]);
 		dup2(arg->cmd_arg->fds[cmd_head->cmd_idx][R], STDIN_FILENO);
 		close(arg->cmd_arg->fds[cmd_head->cmd_idx][R]);
-		waitpid(pid, &(arg->status), 0);
+		wait(&(arg->status));
 	}
-	return (arg->status);
 }
 
 void	connect_pipe(int cmd_idx, t_arg *arg)

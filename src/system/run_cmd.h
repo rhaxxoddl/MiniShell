@@ -6,7 +6,7 @@
 /*   By: sanjeon <sanjeon@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/11 18:51:05 by sanjeon           #+#    #+#             */
-/*   Updated: 2022/04/29 10:01:54 by sanjeon          ###   ########.fr       */
+/*   Updated: 2022/04/30 20:30:12 by sanjeon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int			run_process(t_arg *arg, t_cmd_arg *cmd_arg);
 [run_cmd()]
 Creates child processes and executes command.
 */
-int			run_cmd(t_arg *arg, t_cmd *cmd_head);
+void		run_cmd(t_arg *arg, t_cmd *cmd_head);
 /*
 [connect_pipe()]
 Pipe connection with the following command.
@@ -101,13 +101,13 @@ char		*here_app_str(char **str, char **rl);
 
 char		*add_nl(char **str);
 
-char	**get_path(char **envp);
+char		**get_path(char **envp);
 
-char	*cmd_connect_path(char *cmd, char **path);
+char		*cmd_connect_path(char *cmd, char **path);
 
-int		add_slash(char **path);
+int			add_slash(char **path);
 
-void exec_cmd(char *argv[], char *envp[], char **path);
+void		exec_cmd(char *argv[], char *envp[], char **path);
 // signal_handler.c-----------------------------------
 /*
 [sig_init()]
