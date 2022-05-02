@@ -6,7 +6,7 @@
 /*   By: sanjeon <sanjeon@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 20:25:32 by sanjeon           #+#    #+#             */
-/*   Updated: 2022/04/29 10:16:11 by sanjeon          ###   ########.fr       */
+/*   Updated: 2022/05/02 19:30:34 by sanjeon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,14 +58,15 @@ t_redir	*pro_redir(char **envp, char **line, int redir_type, int *i)
 	while ((*line)[*i] != 0 && !ft_isspace((*line)[*i])
 			&& !get_redir_type(&(*line)[*i]))
 	{
-		if (valid_dol(&(*line)[*i]))
-			pro_env(envp, &temp, line, i);
-		else if ((*line)[*i] == '\'')
-			pro_s_quotes(&temp, line, i);
-		else if ((*line)[*i] == '\"')
-			pro_d_quotes(envp, &temp, line, i);
-		else
-			(*i)++;
+		pro_switch(line, i, &temp, envp);
+		// if (valid_dol(&(*line)[*i]))
+		// 	pro_env(envp, &temp, line, i);
+		// else if ((*line)[*i] == '\'')
+		// 	pro_s_quotes(&temp, line, i);
+		// else if ((*line)[*i] == '\"')
+		// 	pro_d_quotes(envp, &temp, line, i);
+		// else
+		// 	(*i)++;
 	}
 	temp = app_str(temp, ft_substr(*line, 0, *i));
 	redir->filename = temp;
@@ -73,4 +74,16 @@ t_redir	*pro_redir(char **envp, char **line, int redir_type, int *i)
 	(*line) = (*line) + *i + 1;
 	*i = 0;
 	return (redir);
+}
+
+void	pro_switch(char **line, int *i, char **temp, char **envp)
+{
+	if (valid_dol(&(*line)[*i]))
+		pro_env(envp, temp, line, i);
+	else if ((*line)[*i] == '\'')
+		pro_s_quotes(temp, line, i);
+	else if ((*line)[*i] == '\"')
+		pro_d_quotes(envp, temp, line, i);
+	else
+		(*i)++;
 }
