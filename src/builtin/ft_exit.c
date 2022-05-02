@@ -17,10 +17,10 @@
 //////////////
 void	ft_putstrendl_fd(char *s, int fd);
 
-static int _check_atoll(char *str)
+static int	_check_atoll(char *str)
 {
-	long long sign;
-	long long ret;
+	long long	sign;
+	long long	ret;
 
 	ret = 0;
 	sign = 1;
@@ -44,10 +44,10 @@ static int _check_atoll(char *str)
 	return (1);
 }
 
-static long long _ft_atoll(char *str)
+static long long	_ft_atoll(char *str)
 {
-	long long sign;
-	long long ret;
+	long long	sign;
+	long long	ret;
 
 	ret = 0;
 	sign = 1;
@@ -80,9 +80,9 @@ static int	_isnum(char *str)
 	return (1);
 }
 
-void	ft_exit(char *argv[])
+int	ft_exit(char *argv[]) // what to return
 {
-	int argc;
+	int	argc;
 
 	argc = 0;
 	while (argv[argc] != NULL)
@@ -106,4 +106,5 @@ void	ft_exit(char *argv[])
 	}
 	ft_putstrendl_fd("exit", 1);
 	exit(_ft_atoll(argv[2]) % 256);
+	return (0);
 }

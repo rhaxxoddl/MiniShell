@@ -16,8 +16,6 @@
 #include <errno.h>
 #include "libft.h"
 #include "builtin.h"
-///////////////////
-void	ft_putstrendl_fd(char *s, int fd);
 
 int	ft_pwd(void)
 {
@@ -28,9 +26,9 @@ int	ft_pwd(void)
 	{
 		ft_putstr_fd("pwd: ", 2);
 		ft_putstrendl_fd(strerror(errno), 2);
-		return (0);
+		return (1);
 	}
-	ft_putstr_fd(pwd, 1);
+	ft_putstrendl_fd(pwd, 1);
 	free(pwd);
-	return (1);
+	return (0);
 }
