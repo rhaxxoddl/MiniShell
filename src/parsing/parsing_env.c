@@ -6,7 +6,7 @@
 /*   By: sanjeon <sanjeon@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 17:10:02 by sanjeon           #+#    #+#             */
-/*   Updated: 2022/04/28 09:29:14 by sanjeon          ###   ########.fr       */
+/*   Updated: 2022/04/29 10:22:31 by sanjeon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,18 +25,14 @@ int	valid_dol(char *line)
 	return (0);
 }
 
-int	pro_env(t_env *env_head, char **temp, char **line, int *i)
+void	pro_env(char **envp, char **temp, char **line, int *i)
 {
-	if (!pro_before_str(temp, line, i))
-		return (0);
+	pro_before_str(temp, line, i);
 	(*line)++;
-	*temp = app_str(*temp, trans_env(env_head, line));
-	if ((*temp) == 0)
-		return (0);
-	return (1);
+	*temp = app_str(*temp, trans_env(envp, line));
 }
 
-char	*trans_env(t_env *env_head, char **line)
+char	*trans_env(char **envp, char **line)
 {
 	char	*output;
 	char	*temp;
@@ -55,7 +51,7 @@ char	*trans_env(t_env *env_head, char **line)
 	if (temp == 0)
 		return (0);
 	j = 0;
-	output = ft_strdup(get_env(env_head, temp));
+	output = ft_strdup(get_env(envp, temp));
 	free(temp);
 	if (output == 0)
 		return (0);

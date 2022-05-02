@@ -6,19 +6,20 @@
 /*   By: sanjeon <sanjeon@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 17:31:19 by jinoh             #+#    #+#             */
-/*   Updated: 2022/04/28 21:18:49 by sanjeon          ###   ########.fr       */
+/*   Updated: 2022/04/29 09:40:14 by sanjeon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
 #include <stdlib.h>
+#include <stdio.h> //나중에 삭제
 #include "libft.h"
 #include "builtin.h"
 
 //////////////////
 void	ft_putstrendl_fd(char *s, int fd);
 
-static int	find_end(char *str)
+int	find_end(char *str)
 {
 	int	i;
 

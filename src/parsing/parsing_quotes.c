@@ -6,32 +6,28 @@
 /*   By: sanjeon <sanjeon@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 17:09:45 by sanjeon           #+#    #+#             */
-/*   Updated: 2022/04/27 20:16:52 by sanjeon          ###   ########.fr       */
+/*   Updated: 2022/04/29 10:25:30 by sanjeon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
 
-int	pro_d_quotes(t_env *env_head, char **temp, char **line, int *i)
+void	pro_d_quotes(char **envp, char **temp, char **line, int *i)
 {
-	if (!pro_before_str(temp, line, i))
-		return (0);
+	pro_before_str(temp, line, i);
 	(*line)++;
-	*temp = app_str(*temp, d_quotes(env_head, line));
+	*temp = app_str(*temp, d_quotes(envp, line));
 	if ((*temp) == 0)
-		return (0);
-	return (1);
+		ft_error();
 }
 
-int	pro_s_quotes(char **temp, char **line, int *i)
+void	pro_s_quotes(char **temp, char **line, int *i)
 {
-	if (!pro_before_str(temp, line, i))
-		return (0);
+	pro_before_str(temp, line, i);
 	(*line)++;
 	*temp = app_str(*temp, s_quotes(line));
 	if ((*temp) == 0)
-		return (0);
-	return (1);
+		ft_error();
 }
 
 char	*s_quotes(char **line)
@@ -46,12 +42,12 @@ char	*s_quotes(char **line)
 		return (0);
 	output = ft_substr((*line), 0, i);
 	if (output == 0)
-		return ("error");
+		ft_error();
 	*line = (*line) + i + 1;
 	return (output);
 }
 
-char	*d_quotes(t_env *env_head, char **line)
+char	*d_quotes(char **envp, char **line)
 {
 	int		i;
 	char	*output;
@@ -61,18 +57,13 @@ char	*d_quotes(t_env *env_head, char **line)
 	while ((*line)[i] != '\"' && (*line)[i] != 0)
 	{
 		if (valid_dol(&(*line)[i]))
-		{
-			if (!pro_env(env_head, &output, line, &i))
-				return ("error");
-		}
+			pro_env(envp, &output, line, &i);
 		else
 			i++;
 	}
 	if ((*line)[i] == 0)
-		return ("error");
+		return ("Error with odd quotation marks");
 	output = app_str(output, ft_substr(*line, 0, i));
-	if (output == 0)
-		return ("error");
 	*line = (*line) + i + 1;
 	return (output);
 }
