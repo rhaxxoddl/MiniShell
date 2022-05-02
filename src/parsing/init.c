@@ -12,6 +12,23 @@
 
 #include "parsing.h"
 
+static char **copy_envp(char *envp[])
+{
+	char **ret;
+	int size;
+	int i;
+
+	size = -1;
+	while (envp[++size])
+		;
+	ret = malloc((size + 1) * sizeof(char *));
+	i = -1;
+	while (envp[++i])
+		ret[i] = ft_strdup(envp[i]);
+	ret[i] = 0;
+	return (ret);
+}
+
 t_arg	*init_arg(char **envp)
 {
 	t_arg	*arg;
@@ -20,7 +37,7 @@ t_arg	*init_arg(char **envp)
 	if (arg == 0)
 		return (0);
 	// arg->env = init_env(envp);
-	arg->envp = envp;
+	arg->envp = copy_envp(envp);
 	return (arg);
 }
 
