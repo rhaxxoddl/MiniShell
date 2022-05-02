@@ -6,7 +6,7 @@
 /*   By: sanjeon <sanjeon@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/28 21:11:03 by sanjeon           #+#    #+#             */
-/*   Updated: 2022/04/29 09:13:26 by sanjeon          ###   ########.fr       */
+/*   Updated: 2022/05/02 20:19:05 by sanjeon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,9 @@ int		ft_exit(char *argv[]);
 // ft_export.c
 int		ft_export(char *argv[], char *envp[]);
 void	update_env(char *str, char *envp[]);
+
 // ft_export_print.c
+int		find_end(char *str);
 void	print_envp(char *envp[]);
 
 // ft_pwd.c

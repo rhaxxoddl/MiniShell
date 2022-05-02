@@ -6,14 +6,14 @@
 /*   By: sanjeon <sanjeon@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/28 18:31:19 by jinoh             #+#    #+#             */
-/*   Updated: 2022/04/28 22:05:00 by sanjeon          ###   ########.fr       */
+/*   Updated: 2022/05/02 20:29:01 by sanjeon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
 #include <stdlib.h>
 #include <errno.h>
-#include <direct.h>
+#include <stdio.h>
 #include "libft.h"
 #include "builtin.h"
 
@@ -41,8 +41,8 @@ static int chdir_path(char *path)
 	int status;
 
 	status = chdir(path);
-	if (status)
-		ft_putstrendl_fd(strerror(errno), 2);
+	if (status < 0)
+		perror(NULL);
 	return (status);
 }
 
@@ -79,7 +79,7 @@ int	ft_cd(char *argv[], char *envp[]) // . or .. how should we handle them. pars
 	if (i > 2)
 	{
 		ft_putstrendl_fd("minishell: cd: too many arguments", 2);
-		return ;
+		return (1);
 	}
 	pwd = getcwd(NULL, 0);
 	if (!pwd)
