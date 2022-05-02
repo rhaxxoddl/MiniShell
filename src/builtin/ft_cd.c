@@ -5,42 +5,91 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: sanjeon <sanjeon@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/25 19:41:36 by sanjeon           #+#    #+#             */
-/*   Updated: 2022/04/28 21:02:57 by sanjeon          ###   ########.fr       */
+/*   Created: 2022/04/28 18:31:19 by jinoh             #+#    #+#             */
+/*   Updated: 2022/04/28 22:05:00 by sanjeon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../system/run_cmd.h"
-#include <limits.h>
+#include <unistd.h>
+#include <stdlib.h>
+#include <errno.h>
+#include <direct.h>
+#include "libft.h"
+#include "builtin.h"
 
+static int chdir_home(char *envp[])
+{
+	int i;
+	int status;
+	char *path;
 
-// int	ft_pwd()
-// {
-// 	char	*buf;
+	i = -1;
+	while (envp[++i])
+		if (ft_strncmp("HOME=", envp[i], 5) == 0)
+			break;
+	path = ft_substr(envp[i], 5, ft_strlen(envp[i]) - 5);
+	status = chdir(path);
+	if (path)
+		free(path);
+	if (status < 0)
+		ft_putstrendl_fd("minishell: cd: HOME not set", 2);
+	return (status);
+}
 
-// 	buf = (char *)ft_calloc(PATH_MAX, sizeof(char));
-// 	if (buf == 0)
-// 		return (0);
-// 	buf =  *getcwd(buf, PATH_MAX);
-// 	if (buf == 0)
-// 	{
-// 		free(buf);
-// 		buf = 0;
-// 		return (0);
-// 	}
-// 	write(STDOUT_FILENO, buf, ft_strlen(buf));
-// 	free(buf);
-// 	return (1);
-// }
+static int chdir_path(char *path)
+{
+	int status;
 
-// int	ft_cd(char *path)
-// {
-// 	char	**split;
+	status = chdir(path);
+	if (status)
+		ft_putstrendl_fd(strerror(errno), 2);
+	return (status);
+}
 
-// 	split = ft_split(path, '/');
-// }
+static int update_pwd(char *oldpwd, char *envp[])
+{
+	char *new_env;
+	char *pwd;
 
-// char	update_path(char *path)
-// {
-	
-// }
+	new_env = ft_strjoin("OLDPWD=", oldpwd);
+	if (!new_env)
+		return (1);
+	update_env(new_env, envp);
+	free(new_env);
+	pwd = getcwd(NULL, 0);
+	if (!pwd)
+		return (1);
+	new_env = ft_strjoin("PWD=", pwd);
+	if (!new_env)
+		return (1);
+	update_env(new_env, envp);
+	free(new_env);
+	return (0);
+}
+
+int	ft_cd(char *argv[], char *envp[]) // . or .. how should we handle them. parsing?
+{
+	int 	i;
+	char	*pwd;
+	int 	status;
+
+	i = 0;
+	while (argv[i])
+		++i;
+	if (i > 2)
+	{
+		ft_putstrendl_fd("minishell: cd: too many arguments", 2);
+		return ;
+	}
+	pwd = getcwd(NULL, 0);
+	if (!pwd)
+		return (1);
+	if (i == 1 || ft_strncmp("~\0", argv[1], 2) == 0)
+		status = chdir_home(envp);
+	else
+		status = chdir_path(argv[1]);
+	if (status == 0)
+		status = update_pwd(pwd, envp);
+	free(pwd);
+	return (status);
+}

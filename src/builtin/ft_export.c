@@ -14,12 +14,10 @@
 #include <stdlib.h>
 #include "libft.h"
 #include "builtin.h"
-//////////////////
-void	ft_putstrendl_fd(char *s, int fd);
 
-static int _check_arg(char *str)
+static int	_check_arg(char *str)
 {
-	int i;
+	int	i;
 
 	if (!ft_isalpha(str[0]) && str[0] != '_')
 		return (0);
@@ -36,10 +34,10 @@ static int _check_arg(char *str)
 	return (1);
 }
 
-static int find_env(char *str, char *envp[])
+static int	find_env(char *str, char *envp[])
 {
-	int i;
-	int j;
+	int	i;
+	int	j;
 
 	i = -1;
 	while (envp[++i])
@@ -56,9 +54,9 @@ static int find_env(char *str, char *envp[])
 	return (0);
 }
 
-static void    _export(char *str, char *envp[])
+void	update_env(char *str, char *envp[])
 {
-	int i;
+	int	i;
 
 	i = find_env(str, envp);
 	if (i)
@@ -82,8 +80,8 @@ static void    _export(char *str, char *envp[])
 
 void	ft_export(char *argv[], char *envp[])
 {
-	int i;
-	int chk;
+	int	i;
+	int	chk;
 
 	if (!argv[1])
 		print_envp(envp);
@@ -100,6 +98,6 @@ void	ft_export(char *argv[], char *envp[])
 		else if (chk == 2)
 			;
 		else
-			_export(argv[i], envp);
+			update_env(argv[i], envp);
 	}
 }

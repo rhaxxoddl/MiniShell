@@ -16,11 +16,11 @@
 #include "builtin.h"
 
 //////////////////
-void ft_putstrendl_fd(char *s, int fd);
+void	ft_putstrendl_fd(char *s, int fd);
 
 static int	find_end(char *str)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (str[i] != '=' && str[i] != '\0')
@@ -28,11 +28,11 @@ static int	find_end(char *str)
 	return (i);
 }
 
-static int ft_strcmp_j(char *s1, char *s2)
+static int	ft_strcmp_j(char *s1, char *s2)
 {
-	int len1;
-	int len2;
-	int result;
+	int	len1;
+	int	len2;
+	int	result;
 
 	len1 = find_end(s1);
 	len2 = find_end(s2);
@@ -46,7 +46,7 @@ static int ft_strcmp_j(char *s1, char *s2)
 	else
 	{
 		result = ft_strncmp(s1, s2, len2);
-		if (result == 0)
+		if (result == 0 && len1 > len2)
 			return (1);
 		return (result);
 	}
@@ -78,10 +78,10 @@ static void	_print_envp(char *envp[], char *arr, int cur, int i)
 	}
 }
 
-void print_envp(char *envp[])
+void	print_envp(char *envp[])
 {
-	int len;
-	char *arr;
+	int		len;
+	char	*arr;
 
 	len = 0;
 	while (envp[len])
