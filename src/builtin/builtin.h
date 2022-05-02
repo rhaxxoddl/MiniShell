@@ -6,7 +6,7 @@
 /*   By: sanjeon <sanjeon@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/28 21:11:03 by sanjeon           #+#    #+#             */
-/*   Updated: 2022/05/02 20:19:05 by sanjeon          ###   ########.fr       */
+/*   Updated: 2022/05/02 21:37:45 by jinoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 
 // builtin_utils.c
 void	ft_putstrendl_fd(char *s, int fd);
-
 
 //ft_cd.c
 int		ft_cd(char *argv[], char *envp[]);

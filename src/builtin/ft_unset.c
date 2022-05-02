@@ -6,17 +6,14 @@
 /*   By: sanjeon <sanjeon@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/24 19:34:33 by jinoh             #+#    #+#             */
-/*   Updated: 2022/04/28 21:23:35 by sanjeon          ###   ########.fr       */
+/*   Updated: 2022/05/02 21:39:38 by jinoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include <unistd.h>
 #include <stdlib.h>
 #include "libft.h"
 #include "builtin.h"
-///////////////
-void	ft_putstrendl_fd(char *s, int fd);
 
 static int	_check_arg(char *str)
 {
@@ -45,9 +42,9 @@ static int	find_env(char *str, char *envp[])
 		while (envp[i][++j] || str[j])
 		{
 			if (envp[i][j] != str[j] || envp[i][j] == '=')
-				break;
+				break ;
 		}
-		if (envp[i][j] == str[j] || (envp[i][j] =='=' && !str[j]))
+		if (envp[i][j] == str[j] || (envp[i][j] == '=' && !str[j]))
 			return (i);
 	}
 	return (0);
@@ -73,7 +70,7 @@ static void	_unset(char *str, char *envp[])
 int	ft_unset(char *argv[], char *envp[])
 {
 	int	i;
-	int status;
+	int	status;
 
 	if (!argv[1])
 		return (0);

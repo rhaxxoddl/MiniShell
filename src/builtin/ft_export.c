@@ -25,7 +25,7 @@ static int	_check_arg(char *str)
 	while (str[++i])
 	{
 		if (str[i] == '=')
-			break;
+			break ;
 		if (!ft_isalpha(str[i]) && !ft_isdigit(str[i]) && str[i] != '_')
 			return (0);
 	}
@@ -46,7 +46,7 @@ static int	find_env(char *str, char *envp[])
 		while (envp[i][++j] && str[j])
 		{
 			if (envp[i][j] != str[j] || envp[i][j] == '=' || str[j] == '=')
-				break;
+				break ;
 		}
 		if (envp[i][j] == str[j] || (!envp[i][j] && str[j] == '='))
 			return (i);
