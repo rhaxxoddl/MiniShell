@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirection.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sanjeon <sanjeon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sanjeon <sanjeon@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/14 13:59:13 by sanjeon           #+#    #+#             */
-/*   Updated: 2022/03/25 16:58:08 by sanjeon          ###   ########.fr       */
+/*   Updated: 2022/05/04 08:04:52 by sanjeon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int	redir_app(const char *filename)
 			S_IRWXU | S_IRWXG | S_IRWXO);
 	if (fd < 0)
 		return (-1);
-	if (dup2(fd, STDIN_FILENO) == -1)
+	if (dup2(fd, STDOUT_FILENO) == -1)
 		return (-1);
 	return (1);
 }

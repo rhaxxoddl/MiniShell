@@ -6,7 +6,7 @@
 /*   By: sanjeon <sanjeon@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/25 16:56:43 by sanjeon           #+#    #+#             */
-/*   Updated: 2022/04/28 09:07:22 by sanjeon          ###   ########.fr       */
+/*   Updated: 2022/05/04 08:03:59 by sanjeon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ int	comein_limitor(int fd, char **str, char **rl)
 
 char	*is_limitor(char *rl, const char *limitor)
 {
-	if ((ft_strlen(rl) == ft_strlen(limitor))
+	if (rl != 0 && (ft_strlen(rl) == ft_strlen(limitor))
 		&& !ft_strncmp(rl, limitor, ft_strlen(rl)))
 	{
 		free(rl);
