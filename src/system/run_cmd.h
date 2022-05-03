@@ -6,7 +6,7 @@
 /*   By: sanjeon <sanjeon@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/11 18:51:05 by sanjeon           #+#    #+#             */
-/*   Updated: 2022/04/30 20:30:12 by sanjeon          ###   ########.fr       */
+/*   Updated: 2022/05/03 14:53:06 by sanjeon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ Before printing the error about errno,
 the allocated structure 'arg' is free.
 */
 void		ft_error(void);
+void		ft_str_error(char *str);
 void		cnf_error(char *cmd);
 // main.c
 //parsing.c-----------------------------------

@@ -6,7 +6,7 @@
 /*   By: sanjeon <sanjeon@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 15:33:57 by sanjeon           #+#    #+#             */
-/*   Updated: 2022/05/03 10:16:02 by sanjeon          ###   ########.fr       */
+/*   Updated: 2022/05/03 19:18:39 by sanjeon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,12 +41,12 @@ char	*app_str(char *dest, char *src)
 		return (0);
 	if (dest != 0 && *dest != 0)
 	{
-		if (src != 0 && *src != 0)
+		if (src != 0)
 			output = ft_strjoin(dest, src);
 		else
 			return (dest);
 	}
-	else if (src != 0 && *src != 0)
+	else if (src != 0)
 		output = ft_strdup(src);
 	if (output == 0)
 		ft_error();
@@ -56,7 +56,6 @@ char	*app_str(char *dest, char *src)
 		dest = 0;
 	}
 	free(src);
-	src = 0;
 	return (output);
 }
 
