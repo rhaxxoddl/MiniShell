@@ -6,7 +6,7 @@
 /*   By: sanjeon <sanjeon@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 15:33:57 by sanjeon           #+#    #+#             */
-/*   Updated: 2022/05/02 20:05:29 by sanjeon          ###   ########.fr       */
+/*   Updated: 2022/05/03 10:16:02 by sanjeon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ char	*app_str(char *dest, char *src)
 	return (output);
 }
 
-char	**add_col(char **cmd, char *add)
+char	**add_col(char **cmd, char **add)
 {
 	int		l;
 	int		i;
@@ -75,8 +75,10 @@ char	**add_col(char **cmd, char *add)
 	i = -1;
 	while (++i < l)
 		temp[i] = cmd[i];
-	temp[i] = add;
-	free_str_arr(cmd);
+	temp[i] = *add;
+	*add = 0;
+	free(*add);
+	free(cmd);
 	return (temp);
 }
 
@@ -87,7 +89,6 @@ void	pro_before_str(char **temp, char **line, int *i)
 	if (*i <= 0)
 		return ;
 	add_temp = ft_substr(*line, 0, *i);
-	printf("pro_before_str : %s(%s)\n", add_temp, *line);
 	if (add_temp == 0)
 		ft_error();
 	*temp = app_str(*temp, add_temp);

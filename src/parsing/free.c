@@ -6,7 +6,7 @@
 /*   By: sanjeon <sanjeon@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 17:09:54 by sanjeon           #+#    #+#             */
-/*   Updated: 2022/05/02 20:01:57 by sanjeon          ###   ########.fr       */
+/*   Updated: 2022/05/03 10:17:02 by sanjeon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,9 @@ void	free_str_arr(char **str_arr)
 		return ;
 	while (str_arr[++i] != NULL)
 	{
-		printf("str_arr[%d] : %s\n", i, str_arr[i]);
 		free(str_arr[i]);
 		str_arr[i] = 0;
 	}
-	printf("out while\n");
-	// free(str_arr);
 	str_arr = 0;
 }
 
