@@ -16,8 +16,11 @@ int	run_process(t_arg *arg, t_cmd_arg *cmd_arg)
 {
 	pid_t	pid;
 
-	if (ft_strncmp("exit", cmd_arg->cmd_head->cmd_param[0], 4) == 0) //cmd가 1개일 때 조건 추가
-		ft_exit(cmd_arg->cmd_head->cmd_param);
+	if (arg->cmd_arg->cmd_count == 1 && chk_builtin(cmd_arg->cmd_head->cmd_param)) //cmd가 1개일 때 조건 추가
+	{
+		exec_cmd_tmp(cmd_arg->cmd_head->cmd_param, arg->envp, arg->cmd_arg->path);
+		return (0);
+	}
 	pid = fork();
 	if (pid == -1)
 		ft_error();

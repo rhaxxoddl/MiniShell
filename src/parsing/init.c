@@ -22,9 +22,20 @@ static char **copy_envp(char *envp[])
 	while (envp[++size])
 		;
 	ret = malloc((size + 1) * sizeof(char *));
+	if (!ret)
+		exit(1);
 	i = -1;
-	while (envp[++i])
+	while (envp[++i]) {
 		ret[i] = ft_strdup(envp[i]);
+		if (!ret[i])
+		{
+			size = i;
+			i = -1;
+			while (++i < size)
+				free(ret[i]);
+			exit(1);
+		}
+	}
 	ret[i] = 0;
 	return (ret);
 }
