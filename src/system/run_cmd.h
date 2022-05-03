@@ -109,17 +109,12 @@ char		*cmd_connect_path(char *cmd, char **path);
 int			add_slash(char **path);
 
 void		exec_cmd(char *argv[], char *envp[], char **path);
+int			chk_builtin(char *argv[]);
+void		exec_cmd_one(char *argv[], char *envp[]);
 // signal_handler.c-----------------------------------
 /*
 [sig_init()]
 Set a signal_handler function to SIGINT, SIGQUIT, SIGTERM.
  */
-
 void		sig_init(void);
-
-
-
-int chk_builtin(char *argv[]);
-void exec_cmd_tmp(char *argv[], char *envp[], char **path);
-
 #endif

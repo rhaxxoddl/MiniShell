@@ -66,7 +66,7 @@ static int	update_pwd(char *oldpwd, char *envp[])
 	free(new_env);
 	return (0);
 }
-// . or .. should be handled
+
 int	ft_cd(char *argv[], char *envp[])
 {
 	int		i;
