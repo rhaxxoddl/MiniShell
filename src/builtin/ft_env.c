@@ -12,19 +12,18 @@
 
 #include <unistd.h>
 #include "libft.h"
-////////////////////
-void	ft_putstrendl_fd(char *s, int fd);
+#include "builtin.h"
 
-void	ft_env(char *argv[], char *envp[])
+int	ft_env(char *argv[], char *envp[])
 {
-	int i;
+	int	i;
 
 	if (argv[1])
 	{
 		ft_putstr_fd("env: \'", 2);
 		ft_putstr_fd(argv[1], 2);
 		ft_putstrendl_fd("\' : No such file or directory", 2);
-		return ;
+		return (1);
 	}
 	i = -1;
 	while (envp[++i])
@@ -33,4 +32,5 @@ void	ft_env(char *argv[], char *envp[])
 			continue;
 		ft_putstrendl_fd(envp[i], 1);
 	}
+	return (0);
 }

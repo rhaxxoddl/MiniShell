@@ -6,7 +6,7 @@
 /*   By: sanjeon <sanjeon@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/24 17:31:19 by jinoh             #+#    #+#             */
-/*   Updated: 2022/04/28 21:23:35 by sanjeon          ###   ########.fr       */
+/*   Updated: 2022/05/02 20:31:09 by sanjeon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,10 @@
 #include <stdlib.h>
 #include "libft.h"
 #include "builtin.h"
-//////////////////
-void	ft_putstrendl_fd(char *s, int fd);
 
-static int _check_arg(char *str)
+static int	_check_arg(char *str)
 {
-	int i;
+	int	i;
 
 	if (!ft_isalpha(str[0]) && str[0] != '_')
 		return (0);
@@ -36,10 +34,10 @@ static int _check_arg(char *str)
 	return (1);
 }
 
-static int find_env(char *str, char *envp[])
+static int	find_env(char *str, char *envp[])
 {
-	int i;
-	int j;
+	int	i;
+	int	j;
 
 	i = -1;
 	while (envp[++i])
@@ -56,9 +54,9 @@ static int find_env(char *str, char *envp[])
 	return (0);
 }
 
-static void    _export(char *str, char *envp[])
+void	update_env(char *str, char *envp[])
 {
-	int i;
+	int	i;
 
 	i = find_env(str, envp);
 	if (i)
@@ -80,14 +78,16 @@ static void    _export(char *str, char *envp[])
 	}
 }
 
-void	ft_export(char *argv[], char *envp[])
+int	ft_export(char *argv[], char *envp[])
 {
-	int i;
-	int chk;
+	int	i;
+	int	chk;
+	int	status;
 
 	if (!argv[1])
 		print_envp(envp);
 	i = 0;
+	status = 0;
 	while (argv[++i])
 	{
 		chk = _check_arg(argv[i]);
@@ -96,10 +96,12 @@ void	ft_export(char *argv[], char *envp[])
 			ft_putstr_fd("minishell: export: \'", 2);
 			ft_putstr_fd(argv[i], 2);
 			ft_putstrendl_fd("\': not a valid identifier", 2);
+			status = 1;
 		}
 		else if (chk == 2)
 			;
 		else
-			_export(argv[i], envp);
+			update_env(argv[i], envp);
 	}
+	return (status);
 }

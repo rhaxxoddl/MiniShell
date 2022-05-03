@@ -33,5 +33,5 @@ int	ft_echo(char *argv[])
 	}
 	if (n == 0)
 		ft_putstr_fd("\n", 1);
-	return (1);
+	return (0);
 }

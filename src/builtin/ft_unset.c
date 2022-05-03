@@ -18,9 +18,9 @@
 ///////////////
 void	ft_putstrendl_fd(char *s, int fd);
 
-static int _check_arg(char *str)
+static int	_check_arg(char *str)
 {
-	int i;
+	int	i;
 
 	if (!ft_isalpha(str[0]) && str[0] != '_')
 		return (0);
@@ -33,10 +33,10 @@ static int _check_arg(char *str)
 	return (1);
 }
 
-static int find_env(char *str, char *envp[])
+static int	find_env(char *str, char *envp[])
 {
-	int i;
-	int j;
+	int	i;
+	int	j;
 
 	i = -1;
 	while (envp[++i])
@@ -53,10 +53,10 @@ static int find_env(char *str, char *envp[])
 	return (0);
 }
 
-static void _unset(char *str, char *envp[])
+static void	_unset(char *str, char *envp[])
 {
-	int i;
-	int j;
+	int	i;
+	int	j;
 
 	i = find_env(str, envp);
 	if (i)
@@ -70,13 +70,15 @@ static void _unset(char *str, char *envp[])
 	}
 }
 
-void	ft_unset(char *argv[], char *envp[])
+int	ft_unset(char *argv[], char *envp[])
 {
-	int i;
+	int	i;
+	int status;
 
 	if (!argv[1])
-		return ;
+		return (0);
 	i = 0;
+	status = 0;
 	while (argv[++i])
 	{
 		if (!_check_arg(argv[i]))
@@ -84,8 +86,10 @@ void	ft_unset(char *argv[], char *envp[])
 			ft_putstr_fd("minishell: unset: \'", 2);
 			ft_putstr_fd(argv[i], 2);
 			ft_putstrendl_fd("\': not a valid identifier", 2);
+			status = 1;
 		}
 		else
 			_unset(argv[i], envp);
 	}
+	return (status);
 }
