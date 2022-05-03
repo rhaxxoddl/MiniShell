@@ -6,7 +6,7 @@
 /*   By: sanjeon <sanjeon@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 20:25:32 by sanjeon           #+#    #+#             */
-/*   Updated: 2022/05/03 19:35:16 by sanjeon          ###   ########.fr       */
+/*   Updated: 2022/05/04 07:56:01 by sanjeon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,17 +58,7 @@ t_redir	*pro_redir(char **envp, char **line, int redir_type, int *i)
 		return (0);
 	while ((*line)[*i] != 0 && !ft_isspace((*line)[*i])
 			&& !get_redir_type(&(*line)[*i]) && (*line)[*i] != '|')
-	{
 		pro_switch(line, i, &temp, envp);
-		// if (valid_dol(&(*line)[*i]))
-		// 	pro_env(envp, &temp, line, i);
-		// else if ((*line)[*i] == '\'')
-		// 	pro_s_quotes(&temp, line, i);
-		// else if ((*line)[*i] == '\"')
-		// 	pro_d_quotes(envp, &temp, line, i);
-		// else
-		// 	(*i)++;
-	}
 	add = ft_substr(*line, 0, *i);
 	if (add == 0)
 		return (0);
@@ -87,9 +77,7 @@ void	pro_switch(char **line, int *i, char **temp, char **envp)
 	else if ((*line)[*i] == '\'')
 		pro_s_quotes(temp, line, i);
 	else if ((*line)[*i] == '\"')
-	{
 		pro_d_quotes(envp, temp, line, i);
-	}
 	else
 		(*i)++;
 }

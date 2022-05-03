@@ -6,7 +6,7 @@
 /*   By: sanjeon <sanjeon@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 10:37:54 by sanjeon           #+#    #+#             */
-/*   Updated: 2022/05/03 19:35:21 by sanjeon          ###   ########.fr       */
+/*   Updated: 2022/05/04 07:58:00 by sanjeon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,8 @@ t_cmd	*parsing_cmd(char **envp, char **line)
 			cmd->cmd_param = add_col(cmd->cmd_param, &temp);
 			parsing_redir(envp, cmd, line, &i);
 		}
+		else if ((*line)[i] == '\\')
+			pro_bslash(&temp, line, &i);
 		else if (ft_isspace((*line)[i]))
 		{
 			temp = app_str(temp, ft_substr(*line, 0, i));
