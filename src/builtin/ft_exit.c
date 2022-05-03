@@ -6,7 +6,7 @@
 /*   By: sanjeon <sanjeon@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/24 14:56:00 by jinoh             #+#    #+#             */
-/*   Updated: 2022/04/28 21:15:46 by sanjeon          ###   ########.fr       */
+/*   Updated: 2022/05/02 21:38:39 by jinoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,10 @@ static int	_check_atoll(char *str)
 	while (ft_isdigit(*str))
 	{
 		if (sign == 1 && ((ret == 922337203685477580 && *str > '7')
-						  || (ret > 922337203685477580)))
+				|| (ret > 922337203685477580)))
 			return (0);
 		else if (sign == -1 && ((ret == -922337203685477580 && *str > '8')
-								|| (ret < -922337203685477580)))
+				|| (ret < -922337203685477580)))
 			return (0);
 		ret = ret * 10 + sign * (*str - '0');
 		str++;
@@ -80,7 +80,7 @@ static int	_isnum(char *str)
 	return (1);
 }
 
-int	ft_exit(char *argv[]) // what to return
+void	ft_exit(char *argv[])
 {
 	int	argc;
 
@@ -106,5 +106,4 @@ int	ft_exit(char *argv[]) // what to return
 	}
 	ft_putstrendl_fd("exit", 1);
 	exit(_ft_atoll(argv[2]) % 256);
-	return (0);
 }

@@ -116,4 +116,10 @@ Set a signal_handler function to SIGINT, SIGQUIT, SIGTERM.
  */
 
 void		sig_init(void);
+
+
+
+int chk_builtin(char *argv[]);
+void exec_cmd_tmp(char *argv[], char *envp[], char **path);
+
 #endif

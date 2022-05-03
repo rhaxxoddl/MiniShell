@@ -6,7 +6,7 @@
 /*   By: sanjeon <sanjeon@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 17:31:19 by jinoh             #+#    #+#             */
-/*   Updated: 2022/04/29 09:40:14 by sanjeon          ###   ########.fr       */
+/*   Updated: 2022/05/02 21:39:20 by jinoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ static void	_print_envp(char *envp[], char *arr, int cur, int i)
 		while (envp[++i])
 		{
 			if (envp[i][0] == '?' || arr[i])
-				continue;
+				continue ;
 			if (cur == -1)
 				cur = i;
 			else
@@ -72,7 +72,7 @@ static void	_print_envp(char *envp[], char *arr, int cur, int i)
 			}
 		}
 		if (cur == -1)
-			break;
+			break ;
 		ft_putstr_fd("declare -x ", 1);
 		ft_putstrendl_fd(envp[cur], 1);
 		arr[cur] = 1;

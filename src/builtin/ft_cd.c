@@ -6,7 +6,7 @@
 /*   By: sanjeon <sanjeon@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/28 18:31:19 by jinoh             #+#    #+#             */
-/*   Updated: 2022/05/02 20:29:01 by sanjeon          ###   ########.fr       */
+/*   Updated: 2022/05/02 21:39:56 by jinoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,16 +17,16 @@
 #include "libft.h"
 #include "builtin.h"
 
-static int chdir_home(char *envp[])
+static int	chdir_home(char *envp[])
 {
-	int i;
-	int status;
-	char *path;
+	int		i;
+	int		status;
+	char	*path;
 
 	i = -1;
 	while (envp[++i])
 		if (ft_strncmp("HOME=", envp[i], 5) == 0)
-			break;
+			break ;
 	path = ft_substr(envp[i], 5, ft_strlen(envp[i]) - 5);
 	status = chdir(path);
 	if (path)
@@ -36,9 +36,9 @@ static int chdir_home(char *envp[])
 	return (status);
 }
 
-static int chdir_path(char *path)
+static int	chdir_path(char *path)
 {
-	int status;
+	int	status;
 
 	status = chdir(path);
 	if (status < 0)
@@ -46,10 +46,10 @@ static int chdir_path(char *path)
 	return (status);
 }
 
-static int update_pwd(char *oldpwd, char *envp[])
+static int	update_pwd(char *oldpwd, char *envp[])
 {
-	char *new_env;
-	char *pwd;
+	char	*new_env;
+	char	*pwd;
 
 	new_env = ft_strjoin("OLDPWD=", oldpwd);
 	if (!new_env)
@@ -66,12 +66,12 @@ static int update_pwd(char *oldpwd, char *envp[])
 	free(new_env);
 	return (0);
 }
-
-int	ft_cd(char *argv[], char *envp[]) // . or .. how should we handle them. parsing?
+// . or .. should be handled
+int	ft_cd(char *argv[], char *envp[])
 {
-	int 	i;
+	int		i;
+	int		status;
 	char	*pwd;
-	int 	status;
 
 	i = 0;
 	while (argv[i])
