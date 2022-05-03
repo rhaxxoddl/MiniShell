@@ -20,7 +20,7 @@ int	ft_echo(char *argv[])
 
 	i = 0;
 	n = 0;
-	if (!ft_strncmp(argv[i + 1], "-n", 2))
+	if (argv[1] != 0 && !ft_strcmp(argv[1], "-n"))
 	{
 		n = 1;
 		i++;

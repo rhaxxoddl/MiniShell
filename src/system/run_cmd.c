@@ -16,9 +16,10 @@ int	run_process(t_arg *arg, t_cmd_arg *cmd_arg)
 {
 	pid_t	pid;
 
-	if (arg->cmd_arg->cmd_count == 1 && chk_builtin(cmd_arg->cmd_head->cmd_param)) //cmd가 1개일 때 조건 추가
+	if (arg->cmd_arg->cmd_count == 1
+		&& chk_builtin(cmd_arg->cmd_head->cmd_param)) //cmd가 1개일 때 조건 추가
 	{
-		exec_cmd_tmp(cmd_arg->cmd_head->cmd_param, arg->envp, arg->cmd_arg->path);
+		exec_cmd_one(cmd_arg->cmd_head->cmd_param, arg->envp);
 		return (0);
 	}
 	pid = fork();
