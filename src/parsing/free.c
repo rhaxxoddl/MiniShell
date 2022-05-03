@@ -6,7 +6,7 @@
 /*   By: sanjeon <sanjeon@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 17:09:54 by sanjeon           #+#    #+#             */
-/*   Updated: 2022/05/02 20:17:45 by sanjeon          ###   ########.fr       */
+/*   Updated: 2022/05/03 19:39:30 by sanjeon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ void	free_str_arr(char **str_arr)
 		free(str_arr[i]);
 		str_arr[i] = 0;
 	}
-	free(str_arr);
 	str_arr = 0;
 }
 
@@ -50,6 +49,7 @@ void	free_cmd(t_cmd *cmd)
 	while (cmd != NULL)
 	{
 		free_str_arr(cmd->cmd_param);
+		free(cmd->cmd_param);
 		free_reidr(cmd->redir);
 		temp = cmd;
 		cmd = cmd->next;
@@ -74,6 +74,7 @@ void	free_cmd_arg(t_cmd_arg *cmd_arg)
 	if (cmd_arg == NULL)
 		return ;
 	free_str_arr(cmd_arg->path);
+	free(cmd_arg->path);
 	free_cmd(cmd_arg->cmd_head);
 	free_fds(cmd_arg->fds);
 	free(cmd_arg);

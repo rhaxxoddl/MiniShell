@@ -6,7 +6,7 @@
 /*   By: sanjeon <sanjeon@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 11:38:46 by sanjeon           #+#    #+#             */
-/*   Updated: 2022/04/29 20:48:26 by sanjeon          ###   ########.fr       */
+/*   Updated: 2022/05/03 10:13:59 by sanjeon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 void	print_arg(t_cmd_arg *arg);
 void	skip_space(char **line, int *i);
 char	*app_str(char *dest, char *src);
-char	**add_col(char **cmd, char *add);
+char	**add_col(char **cmd, char **add);
 void	pro_before_str(char **temp, char **line, int *i);
 
 // parsing.c
@@ -41,6 +41,7 @@ char	*get_env(char **envp, char *key);
 void	parsing_redir(char **envp, t_cmd *cmd, char **line, int *i);
 int		get_redir_type(char *c);
 t_redir	*pro_redir(char **envp, char **line, int redir_type, int *i);
+void	pro_switch(char **line, int *i, char **temp, char **envp);
 
 // parsing_quotes.c
 void	pro_d_quotes(char **envp, char **temp, char **line, int *i);
