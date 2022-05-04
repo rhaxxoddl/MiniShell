@@ -6,7 +6,7 @@
 /*   By: sanjeon <sanjeon@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/14 16:26:10 by sanjeon           #+#    #+#             */
-/*   Updated: 2022/05/03 10:39:36 by sanjeon          ###   ########.fr       */
+/*   Updated: 2022/05/04 10:23:51 by sanjeon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	run_process(t_arg *arg, t_cmd_arg *cmd_arg)
 	pid_t	pid;
 
 	if (arg->cmd_arg->cmd_count == 1
-		&& chk_builtin(cmd_arg->cmd_head->cmd_param)) //cmd가 1개일 때 조건 추가
+		&& chk_builtin(cmd_arg->cmd_head->cmd_param))
 	{
 		exec_cmd_one(cmd_arg->cmd_head->cmd_param, arg->envp);
 		return (0);
@@ -32,14 +32,11 @@ int	run_process(t_arg *arg, t_cmd_arg *cmd_arg)
 			run_cmd(arg, cmd_arg->cmd_head);
 			cmd_arg->cmd_head = cmd_arg->cmd_head->next;
 		}
-		if (WIFEXITED(arg->status))
-			exit(WEXITSTATUS(arg->status));
-		else if (WIFSIGNALED(arg->status))
-			exit(WTERMSIG(arg->status));
+		exit_handle(arg);
 	}
 	else if (pid > 0)
 	{
-		waitpid(pid ,&(arg->status), 0);
+		waitpid(pid, &(arg->status), 0);
 		free_cmd_arg(cmd_arg);
 	}
 	return (0);
@@ -93,27 +90,10 @@ void	connect_redir(t_redir *redir)
 	}
 }
 
-int	sellect_redir(t_redir *redir)
+void	exit_handle(t_arg *arg)
 {
-	if (redir->redir_type == HERE_DOC)
-	{
-		if (redir_here(redir->filename) == -1)
-			return (0);
-	}
-	else if (redir->redir_type == REDIR_IN)
-	{
-		if (redir_in(redir->filename) == -1)
-			return (0);
-	}
-	else if (redir->redir_type == REDIR_OUT)
-	{
-		if (redir_out(redir->filename) == -1)
-			return (0);
-	}
-	else if (redir->redir_type == REDIR_APP)
-	{
-		if (redir_app(redir->filename) == -1)
-			return (0);
-	}
-	return (1);
+	if (WIFEXITED(arg->status))
+		exit(WEXITSTATUS(arg->status));
+	else if (WIFSIGNALED(arg->status))
+		exit(WTERMSIG(arg->status));
 }

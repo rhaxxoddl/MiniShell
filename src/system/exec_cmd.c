@@ -6,7 +6,7 @@
 /*   By: sanjeon <sanjeon@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 18:31:19 by jinoh             #+#    #+#             */
-/*   Updated: 2022/04/29 08:55:13 by sanjeon          ###   ########.fr       */
+/*   Updated: 2022/05/04 10:23:18 by sanjeon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "run_cmd.h"
 #include "../builtin/builtin.h"
 
-int chk_builtin(char *argv[])
+int	chk_builtin(char *argv[])
 {
 	if (ft_strncmp("cd\0", argv[0], 3) == 0)
 		return (1);
@@ -27,7 +27,7 @@ int chk_builtin(char *argv[])
 	return (0);
 }
 
-void exec_cmd_one(char *argv[], char *envp[])
+void	exec_cmd_one(char *argv[], char *envp[])
 {
 	if (ft_strncmp("cd\0", argv[0], 3) == 0)
 		ft_cd(argv, envp);
@@ -39,9 +39,8 @@ void exec_cmd_one(char *argv[], char *envp[])
 		ft_exit(argv);
 }
 
-void exec_cmd(char *argv[], char *envp[], char **path)
+void	exec_cmd(char *argv[], char *envp[], char **path)
 {
-//	printf("argv : %s\n", argv[0]);
 	if (ft_strncmp("echo\0", argv[0], 5) == 0)
 		ft_echo(argv);
 	else if (ft_strncmp("cd\0", argv[0], 3) == 0)
@@ -58,7 +57,7 @@ void exec_cmd(char *argv[], char *envp[], char **path)
 		ft_exit(argv);
 	else
 	{
-		argv[0] = cmd_connect_path(argv[0],	path);
+		argv[0] = cmd_connect_path(argv[0], path);
 		execve(argv[0], argv, envp);
 	}
 }
