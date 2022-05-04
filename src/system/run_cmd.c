@@ -6,7 +6,7 @@
 /*   By: sanjeon <sanjeon@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/14 16:26:10 by sanjeon           #+#    #+#             */
-/*   Updated: 2022/05/04 10:23:51 by sanjeon          ###   ########.fr       */
+/*   Updated: 2022/05/04 16:27:58 by sanjeon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ int	run_process(t_arg *arg, t_cmd_arg *cmd_arg)
 	{
 		while (cmd_arg->cmd_head != 0)
 		{
+			printf("run_cmd : %s\n", cmd_arg->cmd_head->cmd_param[0]);
 			run_cmd(arg, cmd_arg->cmd_head);
 			cmd_arg->cmd_head = cmd_arg->cmd_head->next;
 		}
