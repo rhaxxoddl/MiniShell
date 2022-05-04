@@ -36,6 +36,25 @@ static int	chdir_home(char *envp[])
 	return (status);
 }
 
+static int	chdir_oldpwd(char *envp[])
+{
+	int		i;
+	int		status;
+	char	*path;
+
+	i = -1;
+	while (envp[++i])
+		if (ft_strncmp("OLDPWD=", envp[i], 7) == 0)
+			break ;
+	path = ft_substr(envp[i], 7, ft_strlen(envp[i]) - 7);
+	status = chdir(path);
+	if (path)
+		free(path);
+	if (status < 0)
+		ft_putstrendl_fd("minishell: cd: OLDPWD not set", 2);
+	return (status);
+}
+
 static int	chdir_path(char *path)
 {
 	int	status;
@@ -86,6 +105,8 @@ int	ft_cd(char *argv[], char *envp[])
 		return (1);
 	if (i == 1 || ft_strncmp("~\0", argv[1], 2) == 0)
 		status = chdir_home(envp);
+	else if (ft_strncmp("-\0", argv[1], 2) == 0)
+		status = chdir_oldpwd(envp);
 	else
 		status = chdir_path(argv[1]);
 	if (status == 0)
