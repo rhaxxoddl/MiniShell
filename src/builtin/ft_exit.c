@@ -71,11 +71,11 @@ static int	_isnum(char *str)
 		str++;
 	if (*str == '-' || *str == '+')
 		str++;
-	if (!*str)
+	if (*str == '\0')
 		return (0);
 	while (ft_isdigit(*str))
 		str++;
-	if (*str)
+	if (*str != '\0')
 		return (0);
 	return (1);
 }
@@ -92,7 +92,7 @@ void	ft_exit(char *argv[])
 		ft_putstrendl_fd("exit", 1);
 		exit(EXIT_SUCCESS);
 	}
-	else if (!_isnum(argv[1]) && !_check_atoll(argv[1]))
+	else if (!_isnum(argv[1]) || !_check_atoll(argv[1]))
 	{
 		ft_putstr_fd("exit\nminishell: exit: ", 2);
 		ft_putstr_fd(argv[1], 2);
