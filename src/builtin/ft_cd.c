@@ -79,6 +79,7 @@ static int	update_pwd(char *oldpwd, char *envp[])
 	if (!pwd)
 		return (1);
 	new_env = ft_strjoin("PWD=", pwd);
+	free(pwd);
 	if (!new_env)
 		return (1);
 	update_env(new_env, envp);
