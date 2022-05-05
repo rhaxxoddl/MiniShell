@@ -31,12 +31,11 @@ static void	update_status(char *envp[], int status)
 {
 	char	*exit_status;
 	char	*status_char;
-	int		status;
 
 	status_char = ft_itoa(status);
 	if (!status_char)
 		return ;
-	exit_status = ft_strjoin("$?=", status_char);
+	exit_status = ft_strjoin("?=", status_char);
 	if (!exit_status)
 	{
 		free(status_char);
@@ -51,6 +50,7 @@ void	exec_cmd_one(char *argv[], char *envp[])
 {
 	int status;
 
+	status = 0;
 	if (ft_strncmp("cd\0", argv[0], 3) == 0)
 		status = ft_cd(argv, envp);
 	else if (ft_strncmp("export\0", argv[0], 7) == 0)
@@ -66,6 +66,7 @@ void	exec_cmd(char *argv[], char *envp[], char **path)
 {
 	int status;
 
+	status = 0;
 	if (ft_strncmp("echo\0", argv[0], 5) == 0)
 		status = ft_echo(argv);
 	else if (ft_strncmp("cd\0", argv[0], 3) == 0)

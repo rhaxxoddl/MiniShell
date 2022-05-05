@@ -53,17 +53,17 @@ static int	find_env(char *str, char *envp[])
 static void	_unset(char *str, char *envp[])
 {
 	int	i;
-	int	j;
+	int	size;
 
 	i = find_env(str, envp);
 	if (i)
 	{
 		free(envp[i]);
-		j = 0;
-		while (envp[j] != 0)
-			j++;
-		envp[i] = envp[j];
-		envp[j] = 0;
+		size = -1;
+		while (envp[++size] != 0)
+			;
+		envp[i] = envp[size - 1];
+		envp[size - 1] = 0;
 	}
 }
 

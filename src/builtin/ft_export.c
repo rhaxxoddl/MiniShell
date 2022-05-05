@@ -68,11 +68,9 @@ void	update_env(char *str, char *envp[])
 	}
 	else
 	{
-		i = 0;
 		while (envp[i])
 			++i;
 		envp[i] = ft_strdup(str);
-		envp[i + 1] = 0;
 		if (!envp[i])
 			exit(EXIT_FAILURE);
 	}
