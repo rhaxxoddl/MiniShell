@@ -6,7 +6,7 @@
 /*   By: sanjeon <sanjeon@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 10:37:54 by sanjeon           #+#    #+#             */
-/*   Updated: 2022/05/04 10:00:08 by sanjeon          ###   ########.fr       */
+/*   Updated: 2022/05/05 19:59:15 by sanjeon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ t_cmd	*parsing_cmd(char **envp, char **line)
 			meet_space(line, &temp, &i, cmd);
 		else
 			i++;
+		printf("in while temp : %s\n", temp);
 	}
 	parsing_cmd_finish(line, &temp, &i, cmd);
 	return (cmd);

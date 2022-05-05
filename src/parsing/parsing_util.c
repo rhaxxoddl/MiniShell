@@ -6,7 +6,7 @@
 /*   By: sanjeon <sanjeon@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 15:33:57 by sanjeon           #+#    #+#             */
-/*   Updated: 2022/05/04 10:00:12 by sanjeon          ###   ########.fr       */
+/*   Updated: 2022/05/05 19:39:09 by sanjeon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,6 +117,7 @@ void	pro_bslash(char **temp, char **line, int *i)
 void	meet_space(char **line, char **temp, int *i, t_cmd *cmd)
 {
 	*temp = app_str(*temp, ft_substr(*line, 0, *i));
+	printf("temp : %s\n", *temp);
 	cmd->cmd_param = add_col(cmd->cmd_param, temp);
 	(*line) = (*line) + *i;
 	while (ft_isspace(**line))

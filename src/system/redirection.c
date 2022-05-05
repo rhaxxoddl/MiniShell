@@ -6,7 +6,7 @@
 /*   By: sanjeon <sanjeon@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/14 13:59:13 by sanjeon           #+#    #+#             */
-/*   Updated: 2022/05/04 16:38:21 by sanjeon          ###   ########.fr       */
+/*   Updated: 2022/05/05 08:57:19 by sanjeon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ int	redir_here(const char *limitor)
 	char	*str;
 	char	*rl;
 
-	fd = open("temp", O_WRONLY | O_CREAT | O_TRUNC,
+	fd = open("temp", O_RDWR | O_CREAT | O_TRUNC,
 			S_IRWXU | S_IRWXG | S_IRWXO);
 	if (fd < 0)
 		return (0);

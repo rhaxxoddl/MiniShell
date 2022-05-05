@@ -6,7 +6,7 @@
 /*   By: sanjeon <sanjeon@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/25 16:56:43 by sanjeon           #+#    #+#             */
-/*   Updated: 2022/05/04 20:16:21 by sanjeon          ###   ########.fr       */
+/*   Updated: 2022/05/05 08:57:12 by sanjeon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,11 +49,10 @@ int	comein_limitor(int fd, char **str, char **rl)
 		ft_error();
 	close(fd);
 	write(STDIN_FILENO, *str, ft_strlen(*str));
-	fd = open("temp", O_RDONLY);
-	if (dup2(fd, STDIN_FILENO) == -1)
-		ft_error();
-	if (unlink("temp") == -1)
-		ft_error();
+	// if (dup2(fd, STDIN_FILENO) == -1)
+	// 	ft_error();
+	// if (unlink("/tmp/temp") == -1)
+	// 	ft_error();
 	free(*str);
 	free(*rl);
 	return (1);
