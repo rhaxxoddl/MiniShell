@@ -26,7 +26,7 @@ int		ft_echo(char *argv[]);
 int		ft_env(char *argv[], char *envp[]);
 
 // ft_exit.c
-int		ft_exit(char *argv[]);
+void	ft_exit(char *argv[]);
 
 // ft_export.c
 int		ft_export(char *argv[], char *envp[]);
