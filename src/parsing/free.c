@@ -6,7 +6,7 @@
 /*   By: sanjeon <sanjeon@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 17:09:54 by sanjeon           #+#    #+#             */
-/*   Updated: 2022/05/03 19:39:30 by sanjeon          ###   ########.fr       */
+/*   Updated: 2022/05/04 09:58:56 by sanjeon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	free_reidr(t_redir *redir)
 	{
 		if (redir->filename != NULL)
 			free(redir->filename);
-		temp = redir;	
+		temp = redir;
 		redir = redir->next;
 		free(temp);
 	}
