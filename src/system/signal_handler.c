@@ -17,8 +17,8 @@
 #include <stdio.h>
 
 void	sig_handler(int signo);
-void    handle_sigint(pid_t pid);
-void    handle_sigquit(pid_t pid);
+void	handle_sigint(pid_t pid);
+void	handle_sigquit(pid_t pid);
 
 void	sig_init(void)
 {
@@ -43,7 +43,7 @@ void	sig_handler(int signo)
 		handle_sigquit(pid);
 }
 
-void    handle_sigint(pid_t pid)
+void	handle_sigint(pid_t pid)
 {
 	if (pid == -1)
 	{
@@ -58,7 +58,7 @@ void    handle_sigint(pid_t pid)
 		write(1, "\n", 1);
 }
 
-void    handle_sigquit(pid_t pid)
+void	handle_sigquit(pid_t pid)
 {
 	if (pid == -1)
 	{
