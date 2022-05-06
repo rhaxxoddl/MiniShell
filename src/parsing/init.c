@@ -23,7 +23,7 @@ static char	**copy_envp(char *envp[])
 		;
 	ret = ft_calloc(sizeof(char *), (262144 + 1));
 	if (!ret)
-		exit(1);
+		exit(EXIT_FAILURE);
 	i = -1;
 	while (++i < size)
 	{
@@ -34,7 +34,7 @@ static char	**copy_envp(char *envp[])
 			i = -1;
 			while (++i < size)
 				free(ret[i]);
-			exit(1);
+			exit(EXIT_FAILURE);
 		}
 	}
 	ret[i] = 0;
