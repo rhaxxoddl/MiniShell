@@ -20,11 +20,16 @@ void	sig_handler(int signo);
 void    handle_sigint(pid_t pid);
 void    handle_sigquit(pid_t pid);
 
-
 void	sig_init(void)
 {
 	signal(SIGINT, (void *)sig_handler);
 	signal(SIGQUIT, (void *)sig_handler);
+}
+
+void	sig_init_child(void)
+{
+	signal(SIGINT, SIG_DFL);
+	signal(SIGQUIT, SIG_DFL);
 }
 
 void	sig_handler(int signo)
@@ -62,5 +67,5 @@ void    handle_sigquit(pid_t pid)
 		write(1, "  \b\b", 4);
 	}
 	else
-		write(1, "\b\bQuit: 3\n", 10);
+		write(1, "Quit: 3\n", 8);
 }
