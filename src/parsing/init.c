@@ -21,11 +21,11 @@ static char	**copy_envp(char *envp[])
 	size = -1;
 	while (envp[++size])
 		;
-	ret = malloc((size + 1) * sizeof(char *));
+	ret = ft_calloc(sizeof(char *), (262144 + 1));
 	if (!ret)
-		exit(1);
+		exit(EXIT_FAILURE);
 	i = -1;
-	while (envp[++i])
+	while (++i < size)
 	{
 		ret[i] = ft_strdup(envp[i]);
 		if (!ret[i])
@@ -34,7 +34,7 @@ static char	**copy_envp(char *envp[])
 			i = -1;
 			while (++i < size)
 				free(ret[i]);
-			exit(1);
+			exit(EXIT_FAILURE);
 		}
 	}
 	ret[i] = 0;
@@ -49,6 +49,7 @@ t_arg	*init_arg(char **envp)
 	if (arg == 0)
 		return (0);
 	arg->envp = copy_envp(envp);
+	update_env("?=1", arg->envp);
 	return (arg);
 }
 
