@@ -117,4 +117,5 @@ void		exec_cmd_one(char *argv[], char *envp[]);
 Set a signal_handler function to SIGINT, SIGQUIT, SIGTERM.
  */
 void		sig_init(void);
+void		sig_init_child(void);
 #endif

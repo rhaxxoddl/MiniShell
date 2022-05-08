@@ -6,7 +6,7 @@
 /*   By: sanjeon <sanjeon@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 17:09:20 by sanjeon           #+#    #+#             */
-/*   Updated: 2022/05/06 20:34:58 by sanjeon          ###   ########.fr       */
+/*   Updated: 2022/05/08 15:45:15 by sanjeon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,11 @@ static char	**copy_envp(char *envp[])
 	size = -1;
 	while (envp[++size])
 		;
-	ret = malloc((size + 1) * sizeof(char *));
+	ret = ft_calloc(sizeof(char *), (262144 + 1));
 	if (!ret)
-		exit(1);
+		exit(EXIT_FAILURE);
 	i = -1;
-	while (envp[++i])
+	while (++i < size)
 	{
 		ret[i] = ft_strdup(envp[i]);
 		if (!ret[i])
@@ -35,7 +35,7 @@ static char	**copy_envp(char *envp[])
 			i = -1;
 			while (++i < size)
 				free(ret[i]);
-			exit(1);
+			exit(EXIT_FAILURE);
 		}
 	}
 	ret[i] = 0;
@@ -50,9 +50,7 @@ t_arg	*init_arg(char **envp)
 	if (arg == 0)
 		return (0);
 	arg->envp = copy_envp(envp);
-	arg->stdout_fd = dup(STDOUT_FILENO);
-	if (arg->stdout_fd == -1)
-		ft_error();
+	update_env("?=1", arg->envp);
 	return (arg);
 }
 

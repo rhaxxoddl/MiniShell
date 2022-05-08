@@ -27,6 +27,7 @@ int	run_process(t_arg *arg, t_cmd_arg *cmd_arg)
 		ft_error();
 	else if (pid == 0)
 	{
+		sig_init_child();
 		while (cmd_arg->cmd_head != 0)
 		{
 			run_cmd(arg, cmd_arg->cmd_head);
