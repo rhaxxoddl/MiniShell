@@ -6,7 +6,7 @@
 /*   By: sanjeon <sanjeon@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/11 18:56:51 by sanjeon           #+#    #+#             */
-/*   Updated: 2022/05/04 11:14:04 by sanjeon          ###   ########.fr       */
+/*   Updated: 2022/05/08 15:53:20 by sanjeon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	main(int argc, char *argv[], char *envp[])
 		if (line == NULL)
 			exit(0);
 		arg->cmd_arg = parsing(arg->envp, line);
-		print_arg(arg->cmd_arg);
+		// print_arg(arg->cmd_arg);
 		if (line != 0)
 			free(line);
 		if (arg->cmd_arg->cmd_count != 0)

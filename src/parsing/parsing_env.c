@@ -6,7 +6,7 @@
 /*   By: sanjeon <sanjeon@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 17:10:02 by sanjeon           #+#    #+#             */
-/*   Updated: 2022/05/06 16:19:39 by sanjeon          ###   ########.fr       */
+/*   Updated: 2022/05/08 15:52:37 by sanjeon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	valid_dol(char *line)
 	if (*line == '$')
 	{
 		line++;
-		if (ft_isalnum(*line) || (*line) == '_' || (*line) == '$')
+		if (ft_isalnum(*line) || (*line) == '_' || (*line) == '?')
 			return (1);
 	}
 	return (0);
@@ -45,7 +45,7 @@ char	*trans_env(char **envp, char **line)
 	int		j;
 
 	i = 0;
-	while (ft_isalnum((*line)[i]) || (*line)[i] == '_')
+	while (ft_isalnum((*line)[i]) || (*line)[i] == '_' || (*line)[i] == '?')
 		i++;
 	if (i == 0)
 	{
