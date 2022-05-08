@@ -6,7 +6,7 @@
 /*   By: sanjeon <sanjeon@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/14 11:35:32 by sanjeon           #+#    #+#             */
-/*   Updated: 2022/04/29 20:34:44 by sanjeon          ###   ########.fr       */
+/*   Updated: 2022/05/06 16:23:35 by sanjeon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ typedef struct s_arg{
 	t_cmd_arg	*cmd_arg;
 	int			status;
 	char		**envp;
+	int			stdout_fd;
 }				t_arg;
 
 #endif

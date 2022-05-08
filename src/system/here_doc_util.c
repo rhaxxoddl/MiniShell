@@ -6,7 +6,7 @@
 /*   By: sanjeon <sanjeon@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/25 16:56:43 by sanjeon           #+#    #+#             */
-/*   Updated: 2022/05/05 08:57:12 by sanjeon          ###   ########.fr       */
+/*   Updated: 2022/05/08 15:23:15 by sanjeon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,28 +15,29 @@
 #include <readline/readline.h>
 #include <readline/history.h>
 
-int	until_comein_limitor(char **str, char **rl, const char *limitor, int fd)
+int	until_comein_limitor(const char *limitor, int fd)
 {
+	char	*str;
+	char	*rl;
+
+	str = 0;
+	rl = 0;
 	while (1)
 	{
-		*rl = is_limitor(readline("> "), limitor);
-		if (*rl == 0)
-			return (comein_limitor(fd, str, rl));
+		rl = is_limitor(readline("> "), limitor);
+		if (rl == 0)
+			return (comein_limitor(fd, &str, &rl));
 		else
 		{
-			if (*str != 0)
-			{
-				*str = here_app_str(str, rl);
-				if (*str == 0)
-					ft_error();
-			}
+			if (str != 0)
+				str = here_app_str(&str, &rl);
 			else
 			{
-				*str = ft_strdup(*rl);
-				if (*str == 0)
+				str = ft_strdup(rl);
+				if (str == 0)
 					ft_error();
 			}
-			*rl = 0;
+			rl = 0;
 		}
 	}
 	return (0);
@@ -45,14 +46,14 @@ int	until_comein_limitor(char **str, char **rl, const char *limitor, int fd)
 int	comein_limitor(int fd, char **str, char **rl)
 {
 	*str = add_nl(str);
+	ft_putstr_fd(*str, fd);
+	close(fd);
+	fd = open("temp", O_RDONLY);
 	if (dup2(fd, STDIN_FILENO) == -1)
 		ft_error();
 	close(fd);
-	write(STDIN_FILENO, *str, ft_strlen(*str));
-	// if (dup2(fd, STDIN_FILENO) == -1)
-	// 	ft_error();
-	// if (unlink("/tmp/temp") == -1)
-	// 	ft_error();
+	if (unlink("temp") == -1)
+		ft_error();
 	free(*str);
 	free(*rl);
 	return (1);
