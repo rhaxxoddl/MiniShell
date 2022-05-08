@@ -6,7 +6,7 @@
 /*   By: sanjeon <sanjeon@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 15:33:57 by sanjeon           #+#    #+#             */
-/*   Updated: 2022/05/05 19:39:09 by sanjeon          ###   ########.fr       */
+/*   Updated: 2022/05/08 18:52:00 by sanjeon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,12 +81,12 @@ char	**add_col(char **cmd, char **add)
 	return (temp);
 }
 
-void	pro_before_str(char **temp, char **line, int *i)
+int	pro_before_str(char **temp, char **line, int *i)
 {
 	char	*add_temp;
 
 	if (*i <= 0)
-		return ;
+		return (1);
 	add_temp = ft_substr(*line, 0, *i);
 	if (add_temp == 0)
 		ft_error();
@@ -97,6 +97,7 @@ void	pro_before_str(char **temp, char **line, int *i)
 		free(add_temp);
 	(*line) = (*line) + *i;
 	*i = 0;
+	return (1);
 }
 
 void	pro_bslash(char **temp, char **line, int *i)
@@ -117,7 +118,6 @@ void	pro_bslash(char **temp, char **line, int *i)
 void	meet_space(char **line, char **temp, int *i, t_cmd *cmd)
 {
 	*temp = app_str(*temp, ft_substr(*line, 0, *i));
-	printf("temp : %s\n", *temp);
 	cmd->cmd_param = add_col(cmd->cmd_param, temp);
 	(*line) = (*line) + *i;
 	while (ft_isspace(**line))

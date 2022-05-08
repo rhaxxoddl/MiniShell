@@ -6,7 +6,7 @@
 /*   By: sanjeon <sanjeon@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/14 16:26:10 by sanjeon           #+#    #+#             */
-/*   Updated: 2022/05/08 16:19:19 by sanjeon          ###   ########.fr       */
+/*   Updated: 2022/05/08 18:51:23 by sanjeon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,7 @@ int	run_process(t_arg *arg, t_cmd_arg *cmd_arg)
 
 	if (arg->cmd_arg->cmd_count == 1
 		&& chk_builtin(cmd_arg->cmd_head->cmd_param))
-	{
-		exec_cmd_one(cmd_arg->cmd_head->cmd_param, arg->envp);
-		return (0);
-	}
+		return (exec_cmd_one(cmd_arg->cmd_head->cmd_param, arg->envp));
 	pid = fork();
 	if (pid == -1)
 		ft_error();
