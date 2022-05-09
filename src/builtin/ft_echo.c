@@ -10,8 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <limits.h>
-#include "libft.h"
+#include "builtin.h"
 
 int	ft_echo(char *argv[])
 {

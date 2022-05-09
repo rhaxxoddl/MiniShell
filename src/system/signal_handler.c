@@ -10,11 +10,10 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <unistd.h>
 #include <signal.h>
 #include <sys/wait.h>
 #include <readline/readline.h>
-#include <unistd.h>
-#include <stdio.h>
 
 void	sig_handler(int signo);
 void	handle_sigint(pid_t pid);

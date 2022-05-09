@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "run_cmd.h"
+#include "minishell.h"
 
 int	run_process(t_arg *arg, t_cmd_arg *cmd_arg)
 {
@@ -35,7 +35,7 @@ int	run_process(t_arg *arg, t_cmd_arg *cmd_arg)
 	else if (pid > 0)
 	{
 		waitpid(pid, &(arg->status), 0);
-		update_status(&(arg->envp), arg->status);
+		update_status(&(arg->envp), WEXITSTATUS(arg->status));
 		free_cmd_arg(cmd_arg);
 	}
 	return (0);

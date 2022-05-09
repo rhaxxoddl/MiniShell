@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "run_cmd.h"
+#include "minishell.h"
 #include <errno.h>
 #include <stdio.h>
 

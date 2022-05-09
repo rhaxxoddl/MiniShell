@@ -11,8 +11,8 @@
 /* ************************************************************************** */
 
 #include "libft.h"
-#include "run_cmd.h"
-#include "../builtin/builtin.h"
+#include "minishell.h"
+#include "../includes/builtin.h"
 
 int	chk_builtin(char *argv[])
 {

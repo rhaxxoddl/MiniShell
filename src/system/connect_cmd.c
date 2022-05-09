@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "run_cmd.h"
+#include "minishell.h"
 
 char	**get_path(char **envp)
 {
@@ -80,4 +80,22 @@ char	*cmd_connect_path(char *cmd, char **path)
 	if (access(temp, X_OK) != 0)
 		cnf_error(cmd);
 	return (temp);
+}
+
+int	**malloc_fds(int cmd_count)
+{
+	int	**fds;
+	int	i;
+
+	fds = (int **)ft_calloc(cmd_count + 1, sizeof(int *));
+	if (fds == 0)
+		return (0);
+	i = -1;
+	while (++i < cmd_count)
+	{
+		fds[i] = (int *)ft_calloc(3, sizeof(int));
+		if (fds[i] == 0)
+			perror("");
+	}
+	return (fds);
 }

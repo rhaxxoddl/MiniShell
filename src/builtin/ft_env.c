@@ -10,8 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
-#include "libft.h"
 #include "builtin.h"
 
 int	ft_env(char *argv[], char *envp[])
