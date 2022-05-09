@@ -49,13 +49,13 @@ void	handle_sigint(pid_t pid)
 	{
 		rl_on_new_line();
 		rl_redisplay();
-		write(1, "  \n", 3);
+		write(1, "\n", 1);
 		rl_on_new_line();
 		rl_replace_line("", 0);
 		rl_redisplay();
 	}
 	else
-		write(1, "\n", 1);
+		write(1, "^C\n", 3);
 }
 
 void	handle_sigquit(pid_t pid)
@@ -64,8 +64,8 @@ void	handle_sigquit(pid_t pid)
 	{
 		rl_on_new_line();
 		rl_redisplay();
-		write(1, "  \b\b", 4);
+//		write(1, "  \b\b", 4);
 	}
 	else
-		write(1, "Quit: 3\n", 8);
+		write(1, "^\\Quit: 3\n", 10);
 }
