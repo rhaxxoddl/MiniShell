@@ -49,13 +49,13 @@ void	handle_sigint(pid_t pid)
 	{
 		rl_on_new_line();
 		rl_redisplay();
-		write(1, "  A\n", 4);
+		write(1, "  \n", 3);
 		rl_on_new_line();
 		rl_replace_line("", 0);
 		rl_redisplay();
 	}
 	else
-		write(1, "t\n", 2);
+		write(1, "\n", 1);
 }
 
 void	handle_sigquit(pid_t pid)

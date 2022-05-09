@@ -52,7 +52,7 @@ static int	find_env(char *str, char *envp[])
 		if (envp[i][j] == str[j] || (!envp[i][j] && str[j] == '='))
 			return (i);
 	}
-	return (0);
+	return (-1);
 }
 
 static char **append_envp(char **envp[], char *str)
@@ -82,7 +82,7 @@ void	update_env(char *str, char **envp[])
 	int	i;
 
 	i = find_env(str, *envp);
-	if (i)
+	if (i >= 0)
 	{
 		free((*envp)[i]);
 		(*envp)[i] = ft_strdup(str);
