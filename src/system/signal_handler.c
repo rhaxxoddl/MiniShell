@@ -64,7 +64,6 @@ void	handle_sigquit(pid_t pid)
 	{
 		rl_on_new_line();
 		rl_redisplay();
-//		write(1, "  \b\b", 4);
 	}
 	else
 		write(1, "^\\Quit: 3\n", 10);
