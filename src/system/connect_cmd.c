@@ -6,11 +6,13 @@
 /*   By: sanjeon <sanjeon@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/23 14:59:20 by sanjeon           #+#    #+#             */
-/*   Updated: 2022/05/04 20:34:08 by sanjeon          ###   ########.fr       */
+/*   Updated: 2022/05/09 19:46:11 by sanjeon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include <unistd.h>
+#include <stdlib.h>
 
 char	**get_path(char **envp)
 {

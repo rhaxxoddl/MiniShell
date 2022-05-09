@@ -6,14 +6,14 @@
 /*   By: sanjeon <sanjeon@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/25 16:56:43 by sanjeon           #+#    #+#             */
-/*   Updated: 2022/05/08 15:23:15 by sanjeon          ###   ########.fr       */
+/*   Updated: 2022/05/09 19:48:18 by sanjeon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include <fcntl.h>
 #include <readline/readline.h>
-#include <readline/history.h>
+#include <stdlib.h>
 
 int	until_comein_limitor(const char *limitor, int fd)
 {

@@ -6,17 +6,15 @@
 /*   By: sanjeon <sanjeon@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/14 11:42:15 by sanjeon           #+#    #+#             */
-/*   Updated: 2022/05/03 14:51:19 by sanjeon          ###   ########.fr       */
+/*   Updated: 2022/05/09 19:46:57 by sanjeon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include <errno.h>
-#include <stdio.h>
 
 void	ft_error(void)
 {
-	printf("errno : %d\n", errno);
 	exit(errno);
 }
 

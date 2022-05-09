@@ -6,12 +6,13 @@
 /*   By: sanjeon <sanjeon@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/14 13:59:13 by sanjeon           #+#    #+#             */
-/*   Updated: 2022/05/08 15:35:39 by sanjeon          ###   ########.fr       */
+/*   Updated: 2022/05/09 19:50:16 by sanjeon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include <fcntl.h>
+#include <unistd.h>
 
 int	sellect_redir(t_redir *redir, int *out)
 {

@@ -6,7 +6,7 @@
 /*   By: sanjeon <sanjeon@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/11 18:51:05 by sanjeon           #+#    #+#             */
-/*   Updated: 2022/05/09 16:49:52 by sanjeon          ###   ########.fr       */
+/*   Updated: 2022/05/09 19:52:03 by sanjeon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,6 @@
 
 # include "libft.h"
 # include "parsing.h"
-# include "builtin.h"
-# include <stdlib.h>
-# include <stdio.h>
-# include <sys/types.h>
-# include <sys/stat.h>
-# include <unistd.h>
 
 # define R 0
 # define W 1

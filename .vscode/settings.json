@@ -4,6 +4,10 @@
 		"readline.h": "c",
 		"cstdlib": "c",
 		"errno.h": "c",
-		"libft.h": "c"
+		"libft.h": "c",
+		"unistd.h": "c",
+		"stat.h": "c",
+		"minishell.h": "c",
+		"builtin.h": "c"
 	}
 }

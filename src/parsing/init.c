@@ -6,11 +6,12 @@
 /*   By: sanjeon <sanjeon@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 17:09:20 by sanjeon           #+#    #+#             */
-/*   Updated: 2022/05/09 13:38:37 by sanjeon          ###   ########.fr       */
+/*   Updated: 2022/05/09 19:49:42 by sanjeon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
+#include "builtin.h"
 
 static char	**copy_envp(char *envp[])
 {

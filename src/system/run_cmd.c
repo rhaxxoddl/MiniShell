@@ -6,11 +6,12 @@
 /*   By: sanjeon <sanjeon@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/14 16:26:10 by sanjeon           #+#    #+#             */
-/*   Updated: 2022/05/09 14:32:07 by sanjeon          ###   ########.fr       */
+/*   Updated: 2022/05/09 19:50:42 by sanjeon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include <sys/wait.h>
 
 int	run_process(t_arg *arg, t_cmd_arg *cmd_arg)
 {

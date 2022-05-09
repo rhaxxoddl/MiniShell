@@ -6,13 +6,12 @@
 /*   By: sanjeon <sanjeon@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 18:31:19 by jinoh             #+#    #+#             */
-/*   Updated: 2022/05/09 13:26:06 by sanjeon          ###   ########.fr       */
+/*   Updated: 2022/05/09 19:47:18 by sanjeon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
 #include "minishell.h"
-#include "../includes/builtin.h"
+#include "builtin.h"
 
 int	chk_builtin(char *argv[])
 {
