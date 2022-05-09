@@ -50,12 +50,12 @@ static int	find_env(char *str, char *envp[])
 	return (0);
 }
 
-static void	_unset(char *str, char *envp[])
+static void	_unset(char *str, char **envp[])
 {
 	int	i;
 	int	size;
 
-	i = find_env(str, envp);
+	i = find_env(str, *envp);
 	if (i)
 	{
 		free(envp[i]);
@@ -67,7 +67,7 @@ static void	_unset(char *str, char *envp[])
 	}
 }
 
-int	ft_unset(char *argv[], char *envp[])
+int	ft_unset(char *argv[], char **envp[])
 {
 	int	i;
 	int	status;

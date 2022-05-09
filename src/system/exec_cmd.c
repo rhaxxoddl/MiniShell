@@ -27,26 +27,26 @@ int	chk_builtin(char *argv[])
 	return (0);
 }
 
-static void	update_status(char *envp[], int status)
+static void	update_status(char **envp[], int status)
 {
 	char	*exit_status;
 	char	*status_char;
 
 	status_char = ft_itoa(status);
 	if (!status_char)
-		return ;
+		exit(EXIT_FAILURE);
 	exit_status = ft_strjoin("?=", status_char);
 	if (!exit_status)
 	{
 		free(status_char);
-		return ;
+		exit(EXIT_FAILURE);
 	}
 	update_env(exit_status, envp);
 	free(status_char);
 	free(exit_status);
 }
 
-void	exec_cmd_one(char *argv[], char *envp[])
+void	exec_cmd_one(char *argv[], char **envp[])
 {
 	int status;
 
@@ -62,7 +62,7 @@ void	exec_cmd_one(char *argv[], char *envp[])
 	update_status(envp, status);
 }
 
-void	exec_cmd(char *argv[], char *envp[], char **path)
+void	exec_cmd(char *argv[], char **envp[], char **path)
 {
 	int status;
 
@@ -78,13 +78,13 @@ void	exec_cmd(char *argv[], char *envp[], char **path)
 	else if (ft_strncmp("unset\0", argv[0], 6) == 0)
 		status = ft_unset(argv, envp);
 	else if (ft_strncmp("env\0", argv[0], 4) == 0)
-		status = ft_env(argv, envp);
+		status = ft_env(argv, *envp);
 	else if (ft_strncmp("exit\0", argv[0], 5) == 0)
 		ft_exit(argv);
 	else
 	{
 		argv[0] = cmd_connect_path(argv[0], path);
-		execve(argv[0], argv, envp);
+		execve(argv[0], argv, *envp);
 	}
 	update_status(envp, status);
 }

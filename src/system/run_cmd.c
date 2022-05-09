@@ -19,7 +19,7 @@ int	run_process(t_arg *arg, t_cmd_arg *cmd_arg)
 	if (arg->cmd_arg->cmd_count == 1
 		&& chk_builtin(cmd_arg->cmd_head->cmd_param))
 	{
-		exec_cmd_one(cmd_arg->cmd_head->cmd_param, arg->envp);
+		exec_cmd_one(cmd_arg->cmd_head->cmd_param, &(arg->envp));
 		return (0);
 	}
 	pid = fork();
@@ -56,7 +56,7 @@ void	run_cmd(t_arg *arg, t_cmd *cmd_head)
 	{
 		connect_pipe(cmd_head->cmd_idx, arg);
 		connect_redir(cmd_head->redir);
-		exec_cmd(cmd_head->cmd_param, arg->envp, arg->cmd_arg->path);
+		exec_cmd(cmd_head->cmd_param, &(arg->envp), arg->cmd_arg->path);
 	}
 	else if (pid > 0)
 	{

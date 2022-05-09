@@ -54,36 +54,52 @@ static int	find_env(char *str, char *envp[])
 	return (0);
 }
 
-void	update_env(char *str, char *envp[])
+static char **append_envp(char **envp[], char *str)
+{
+	int size;
+	int i;
+	char **ret;
+
+	size = -1;
+	while ((*envp)[++size])
+		;
+	ret = ft_calloc(size + 2, sizeof(char *));
+	if (!ret)
+		exit(EXIT_FAILURE);
+	i = -1;
+	while (++i < size)
+		ret[i] = (*envp)[i];
+	ret[i] = ft_strdup(str);
+	if (!ret[i])
+		exit(EXIT_FAILURE);
+	free(*envp);
+	return (ret);
+}
+
+void	update_env(char *str, char **envp[])
 {
 	int	i;
 
-	i = find_env(str, envp);
+	i = find_env(str, *envp);
 	if (i)
 	{
-		free(envp[i]);
-		envp[i] = ft_strdup(str);
-		if (!envp[i])
+		free((*envp)[i]);
+		(*envp)[i] = ft_strdup(str);
+		if (!(*envp)[i])
 			exit(EXIT_FAILURE);
 	}
 	else
-	{
-		while (envp[i])
-			++i;
-		envp[i] = ft_strdup(str);
-		if (!envp[i])
-			exit(EXIT_FAILURE);
-	}
+		*envp = append_envp(envp, str);
 }
 
-int	ft_export(char *argv[], char *envp[])
+int	ft_export(char *argv[], char **envp[])
 {
 	int	i;
 	int	chk;
 	int	status;
 
 	if (!argv[1])
-		print_envp(envp);
+		print_envp(*envp);
 	i = 0;
 	status = 0;
 	while (argv[++i])
