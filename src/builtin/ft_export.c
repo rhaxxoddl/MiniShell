@@ -6,7 +6,7 @@
 /*   By: sanjeon <sanjeon@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/24 17:31:19 by jinoh             #+#    #+#             */
-/*   Updated: 2022/05/02 20:31:09 by sanjeon          ###   ########.fr       */
+/*   Updated: 2022/05/09 11:04:44 by sanjeon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 #include "libft.h"
 #include "builtin.h"
 
+#include <stdio.h>
 static int	_check_arg(char *str)
 {
 	int	i;

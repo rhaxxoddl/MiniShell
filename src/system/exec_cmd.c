@@ -6,7 +6,7 @@
 /*   By: sanjeon <sanjeon@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 18:31:19 by jinoh             #+#    #+#             */
-/*   Updated: 2022/05/08 18:51:11 by sanjeon          ###   ########.fr       */
+/*   Updated: 2022/05/09 13:26:06 by sanjeon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	chk_builtin(char *argv[])
 	return (0);
 }
 
-static void	update_status(char **envp[], int status)
+void	update_status(char **envp[], int status)
 {
 	char	*exit_status;
 	char	*status_char;
@@ -89,5 +89,5 @@ void	exec_cmd(char *argv[], char **envp[], char **path)
 		argv[0] = cmd_connect_path(argv[0], path);
 		execve(argv[0], argv, *envp);
 	}
-	update_status(envp, status);
+	exit(status);
 }

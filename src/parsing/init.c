@@ -6,7 +6,7 @@
 /*   By: sanjeon <sanjeon@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 17:09:20 by sanjeon           #+#    #+#             */
-/*   Updated: 2022/05/08 15:45:15 by sanjeon          ###   ########.fr       */
+/*   Updated: 2022/05/09 13:38:37 by sanjeon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ t_arg	*init_arg(char **envp)
 	if (arg == 0)
 		return (0);
 	arg->envp = copy_envp(envp);
-	printf("%p\n", (arg->envp));
 	update_env("?=1", &(arg->envp));
 	return (arg);
 }

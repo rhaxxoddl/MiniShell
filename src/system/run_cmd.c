@@ -6,7 +6,7 @@
 /*   By: sanjeon <sanjeon@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/14 16:26:10 by sanjeon           #+#    #+#             */
-/*   Updated: 2022/05/08 18:51:23 by sanjeon          ###   ########.fr       */
+/*   Updated: 2022/05/09 13:38:09 by sanjeon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ int	run_process(t_arg *arg, t_cmd_arg *cmd_arg)
 	else if (pid > 0)
 	{
 		waitpid(pid, &(arg->status), 0);
+		update_status(&(arg->envp), arg->status);
 		free_cmd_arg(cmd_arg);
 	}
 	return (0);

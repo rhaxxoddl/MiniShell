@@ -6,7 +6,7 @@
 /*   By: sanjeon <sanjeon@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/11 18:51:05 by sanjeon           #+#    #+#             */
-/*   Updated: 2022/05/08 18:51:40 by sanjeon          ###   ########.fr       */
+/*   Updated: 2022/05/09 13:23:19 by sanjeon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,7 @@ int			add_slash(char **path);
 void		exec_cmd(char *argv[], char **envp[], char **path);
 int			chk_builtin(char *argv[]);
 int			exec_cmd_one(char *argv[], char **envp[]);
+void		update_status(char **envp[], int status); 
 // signal_handler.c-----------------------------------
 /*
 [sig_init()]

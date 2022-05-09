@@ -6,7 +6,7 @@
 /*   By: sanjeon <sanjeon@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/24 18:31:19 by jinoh             #+#    #+#             */
-/*   Updated: 2022/04/28 22:05:00 by sanjeon          ###   ########.fr       */
+/*   Updated: 2022/05/09 11:07:09 by sanjeon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	ft_env(char *argv[], char *envp[])
 	i = -1;
 	while (envp[++i])
 	{
-		if (!ft_strchr(envp[i], '=') || envp[i][0] == '?')
+		if (!ft_strchr(envp[i], '='))// || envp[i][0] == '?')
 			continue ;
 		ft_putstrendl_fd(envp[i], 1);
 	}
