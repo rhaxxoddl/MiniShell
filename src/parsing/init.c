@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "parsing.h"
-#include "../system/run_cmd.h"
 
 static char	**copy_envp(char *envp[])
 {

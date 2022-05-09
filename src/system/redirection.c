@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "run_cmd.h"
+#include "minishell.h"
 #include <fcntl.h>
 
 int	sellect_redir(t_redir *redir, int *out)

@@ -10,11 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
 #include <stdlib.h>
-#include <errno.h>
 #include <stdio.h>
-#include "libft.h"
 #include "builtin.h"
 
 static int	chdir_home(char *envp[])

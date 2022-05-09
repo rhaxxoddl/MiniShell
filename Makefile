@@ -17,7 +17,6 @@ LDFLAGS		=	-lc -lreadline -L${HOME}/.brew/opt/readline/lib
 SRCS		=	$(SYSTEM_DIR)/main.c\
 				$(SYSTEM_DIR)/run_cmd.c\
 				$(SYSTEM_DIR)/error.c\
-				$(SYSTEM_DIR)/parsing.c\
 				$(SYSTEM_DIR)/redirection.c\
 				$(SYSTEM_DIR)/here_doc_util.c\
 				$(SYSTEM_DIR)/connect_cmd.c\

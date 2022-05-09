@@ -10,14 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
 #include <stdlib.h>
-#include <stdio.h> //나중에 삭제
-#include "libft.h"
 #include "builtin.h"
-
-//////////////////
-void	ft_putstrendl_fd(char *s, int fd);
 
 int	find_end(char *str)
 {

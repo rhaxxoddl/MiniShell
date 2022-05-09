@@ -10,12 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
 #include <stdlib.h>
-#include "libft.h"
-
-//////////////
-void	ft_putstrendl_fd(char *s, int fd);
+#include "builtin.h"
 
 static int	_check_atoll(char *str)
 {

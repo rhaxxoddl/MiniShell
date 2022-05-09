@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "run_cmd.h"
+#include "minishell.h"
 #include <fcntl.h>
 #include <readline/readline.h>
 #include <readline/history.h>

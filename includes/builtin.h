@@ -13,6 +13,8 @@
 #ifndef BUILTIN_H
 # define BUILTIN_H
 
+# include "libft.h"
+
 // builtin_utils.c
 void	ft_putstrendl_fd(char *s, int fd);
 

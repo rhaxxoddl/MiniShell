@@ -55,6 +55,7 @@ char		*add_nl(char **str);
 char		**get_path(char **envp);
 int			add_slash(char **path);
 char		*cmd_connect_path(char *cmd, char **path);
+int			**malloc_fds(int cmd_count);
 
 // exec_cmd.c-----------------------------------
 int			chk_builtin(char *argv[]);
