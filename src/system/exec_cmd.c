@@ -6,7 +6,7 @@
 /*   By: sanjeon <sanjeon@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 18:31:19 by jinoh             #+#    #+#             */
-/*   Updated: 2022/05/04 10:23:18 by sanjeon          ###   ########.fr       */
+/*   Updated: 2022/05/08 18:51:11 by sanjeon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
 
 int	chk_builtin(char *argv[])
 {
+	if (argv[0] == 0)
+		return (0);
 	if (ft_strncmp("cd\0", argv[0], 3) == 0)
 		return (1);
 	else if (ft_strncmp("exit\0", argv[0], 5) == 0)
@@ -46,9 +48,9 @@ static void	update_status(char **envp[], int status)
 	free(exit_status);
 }
 
-void	exec_cmd_one(char *argv[], char **envp[])
+int	exec_cmd_one(char *argv[], char **envp[])
 {
-	int status;
+	int	status;
 
 	status = 0;
 	if (ft_strncmp("cd\0", argv[0], 3) == 0)
@@ -60,11 +62,12 @@ void	exec_cmd_one(char *argv[], char **envp[])
 	else if (ft_strncmp("exit\0", argv[0], 5) == 0)
 		ft_exit(argv);
 	update_status(envp, status);
+	return (0);
 }
 
 void	exec_cmd(char *argv[], char **envp[], char **path)
 {
-	int status;
+	int	status;
 
 	status = 0;
 	if (ft_strncmp("echo\0", argv[0], 5) == 0)

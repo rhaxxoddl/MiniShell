@@ -6,11 +6,11 @@
 /*   By: sanjeon <sanjeon@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/23 14:59:20 by sanjeon           #+#    #+#             */
-/*   Updated: 2022/05/02 20:55:43 by sanjeon          ###   ########.fr       */
+/*   Updated: 2022/05/04 20:34:08 by sanjeon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "run_cmd.h"
+#include "run_cmd.h"
 
 char	**get_path(char **envp)
 {
