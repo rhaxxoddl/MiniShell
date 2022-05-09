@@ -6,20 +6,22 @@
 /*   By: sanjeon <sanjeon@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/11 18:56:51 by sanjeon           #+#    #+#             */
-/*   Updated: 2022/05/08 15:53:20 by sanjeon          ###   ########.fr       */
+/*   Updated: 2022/05/09 18:59:33 by sanjeon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "run_cmd.h"
+#include "minishell.h"
 #include <readline/readline.h>
 #include <readline/history.h>
 #include <termios.h>
 
-int	end_main(void)
+static int	end_main(t_arg *arg)
 {
 	ft_putstr_fd("\033[1A", 1);
 	ft_putstr_fd("\033[11C", 1);
 	ft_putstrendl_fd("exit", 1);
+	free_str_arr(arg->envp);
+	free(arg);
 	return (0);
 }
 
@@ -44,11 +46,10 @@ int	main(int argc, char *argv[], char *envp[])
 		line = readline("minishell$ ");
 		add_history(line);
 		if (line == NULL)
-			return (end_main());
+			return (end_main(arg));
 		arg->cmd_arg = parsing(arg->envp, line);
 		free(line);
 		if (arg->cmd_arg->cmd_count != 0)
 			run_process(arg, arg->cmd_arg);
-//		system("leaks minishell");
 	}
 }

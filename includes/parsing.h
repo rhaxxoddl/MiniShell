@@ -6,7 +6,7 @@
 /*   By: sanjeon <sanjeon@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 11:38:46 by sanjeon           #+#    #+#             */
-/*   Updated: 2022/05/08 16:49:09 by sanjeon          ###   ########.fr       */
+/*   Updated: 2022/05/09 16:49:11 by sanjeon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,8 @@
 # define PARSING_H
 
 # include "libft.h"
-# include "pipe_struct.h"
-# include "../system/run_cmd.h"
-# include <unistd.h>
-# include <stdio.h>
+# include "minishell_struct.h"
+# include "minishell.h"
 # include <readline/readline.h>
 
 // parsing_util.c

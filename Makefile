@@ -3,9 +3,9 @@ TARGET	=	minishell
 DEBUG	=	minishell_d
 CC		=	clang
 
-INC_DIR		=	../includes
+INC_DIR		=	./includes
 LIB_NAME	=	Libft
-LIB_DIR		=	../includes/Libft
+LIB_DIR		=	./includes/Libft
 RL_DIR		=	./readline-master
 
 AR			= 	ar rc
@@ -39,9 +39,10 @@ SRCS		=	$(SYSTEM_DIR)/main.c\
 				$(BUILTIN_DIR)/ft_export.c\
 				$(BUILTIN_DIR)/ft_pwd.c\
 				$(BUILTIN_DIR)/ft_unset.c
-PARSING_DIR	=	./parsing
-SYSTEM_DIR	=	./system
-BUILTIN_DIR	=	./builtin
+SRC_DIR		=	./src
+PARSING_DIR	=	$(SRC_DIR)/parsing
+SYSTEM_DIR	=	$(SRC_DIR)/system
+BUILTIN_DIR	=	$(SRC_DIR)/builtin
 OBJS		=	$(SRCS:.c=.o)
 ARFS		=	$(LIB_DIR)/Libft.a
 MAKEFLAGS	+=	--silent

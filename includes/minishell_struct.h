@@ -6,12 +6,12 @@
 /*   By: sanjeon <sanjeon@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/14 11:35:32 by sanjeon           #+#    #+#             */
-/*   Updated: 2022/05/06 16:23:35 by sanjeon          ###   ########.fr       */
+/*   Updated: 2022/05/09 16:45:39 by sanjeon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PIPE_STRUCT_H
-# define PIPE_STRUCT_H
+#ifndef MINISHELL_STRUCT_H
+# define MINISHELL_STRUCT_H
 
 enum e_redir_type{
 	HERE_DOC = 1,
@@ -44,7 +44,6 @@ typedef struct s_arg{
 	t_cmd_arg	*cmd_arg;
 	int			status;
 	char		**envp;
-	int			stdout_fd;
 }				t_arg;
 
 #endif

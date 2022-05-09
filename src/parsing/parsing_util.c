@@ -6,31 +6,33 @@
 /*   By: sanjeon <sanjeon@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 15:33:57 by sanjeon           #+#    #+#             */
-/*   Updated: 2022/05/08 18:52:00 by sanjeon          ###   ########.fr       */
+/*   Updated: 2022/05/09 15:53:12 by sanjeon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
 
-void	print_arg(t_cmd_arg *arg)
-{
-	t_cmd	*temp_cmd;
-	t_redir * temp_redir;
+// void	print_arg(t_cmd_arg *arg)
+// {
+// 	t_cmd	*temp_cmd;
+// 	t_redir * temp_redir;
 
-	temp_cmd = arg->cmd_head;
-	while (temp_cmd != 0)
-	{
-		temp_redir = temp_cmd->redir;
-		for (int i = 0; temp_cmd->cmd_param[i] != 0; i++)
-			printf("[%d]cmd->cmd_param[%d] : \"%s\"\n", temp_cmd->cmd_idx, i, temp_cmd->cmd_param[i]);
-		while (temp_redir != 0)
-		{
-			printf("[%p]file : %s, type : %d\n", temp_redir, temp_redir->filename, temp_redir->redir_type);
-			temp_redir = temp_redir->next;
-		}
-		temp_cmd = temp_cmd->next;
-	}
-}
+// 	temp_cmd = arg->cmd_head;
+// 	while (temp_cmd != 0)
+// 	{
+// 		temp_redir = temp_cmd->redir;
+// 		for (int i = 0; temp_cmd->cmd_param[i] != 0; i++)
+// 			printf("[%d]cmd->cmd_param[%d] : \"%s\"\n",
+// 				temp_cmd->cmd_idx, i, temp_cmd->cmd_param[i]);
+// 		while (temp_redir != 0)
+// 		{
+// 			printf("[%p]file : %s, type : %d\n", temp_redir,
+// 				temp_redir->filename, temp_redir->redir_type);
+// 			temp_redir = temp_redir->next;
+// 		}
+// 		temp_cmd = temp_cmd->next;
+// 	}
+// }
 
 char	*app_str(char *dest, char *src)
 {
