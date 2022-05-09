@@ -6,7 +6,7 @@
 /*   By: sanjeon <sanjeon@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/11 18:56:51 by sanjeon           #+#    #+#             */
-/*   Updated: 2022/05/09 19:51:59 by sanjeon          ###   ########.fr       */
+/*   Updated: 2022/05/09 21:14:14 by sanjeon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ int	main(int argc, char *argv[], char *envp[])
 	{
 		line = readline("minishell$ ");
 		add_history(line);
+		system("leaks minishell");
 		if (line == NULL)
 			return (end_main(arg));
 		arg->cmd_arg = parsing(arg->envp, line);

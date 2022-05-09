@@ -6,7 +6,7 @@
 /*   By: sanjeon <sanjeon@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/23 14:59:20 by sanjeon           #+#    #+#             */
-/*   Updated: 2022/05/09 19:46:11 by sanjeon          ###   ########.fr       */
+/*   Updated: 2022/05/09 20:43:46 by sanjeon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ char	*cmd_connect_path(char *cmd, char **path)
 
 	i = 0;
 	temp = 0;
-	while (path[i] != 0)
+	while (path != 0 && path[i] != 0)
 	{
 		temp = ft_strjoin(path[i], cmd);
 		if (temp == 0)

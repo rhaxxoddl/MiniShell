@@ -6,7 +6,7 @@
 /*   By: sanjeon <sanjeon@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 18:31:19 by jinoh             #+#    #+#             */
-/*   Updated: 2022/05/09 19:47:18 by sanjeon          ###   ########.fr       */
+/*   Updated: 2022/05/09 21:04:48 by sanjeon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	update_status(char **envp[], int status)
 	free(exit_status);
 }
 
-int	exec_cmd_one(char *argv[], char **envp[])
+int	exec_cmd_one(t_cmd_arg *cmd_arg, char *argv[], char **envp[])
 {
 	int	status;
 
@@ -61,6 +61,7 @@ int	exec_cmd_one(char *argv[], char **envp[])
 	else if (ft_strncmp("exit\0", argv[0], 5) == 0)
 		ft_exit(argv);
 	update_status(envp, status);
+	free_cmd_arg(cmd_arg);
 	return (0);
 }
 

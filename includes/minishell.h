@@ -6,7 +6,7 @@
 /*   By: sanjeon <sanjeon@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/11 18:51:05 by sanjeon           #+#    #+#             */
-/*   Updated: 2022/05/09 19:52:03 by sanjeon          ###   ########.fr       */
+/*   Updated: 2022/05/09 21:05:19 by sanjeon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int			**malloc_fds(int cmd_count);
 int			chk_builtin(char *argv[]);
 void		update_status(char **envp[], int status);
 void		exec_cmd(char *argv[], char **envp[], char **path);
-int			exec_cmd_one(char *argv[], char **envp[]);
+int			exec_cmd_one(t_cmd_arg *cmd_arg, char *argv[], char **envp[]);
 // signal_handler.c-----------------------------------
 void		sig_init(void);
 void		sig_init_child(void);
