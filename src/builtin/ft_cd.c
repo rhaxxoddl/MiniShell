@@ -65,7 +65,7 @@ static int	chdir_path(char *path)
 	return (status);
 }
 
-static int	update_pwd(char *oldpwd, char *envp[])
+static int	update_pwd(char *oldpwd, char **envp[])
 {
 	char	*new_env;
 	char	*pwd;
@@ -87,7 +87,7 @@ static int	update_pwd(char *oldpwd, char *envp[])
 	return (0);
 }
 
-int	ft_cd(char *argv[], char *envp[])
+int	ft_cd(char *argv[], char **envp[])
 {
 	int		i;
 	int		status;
@@ -105,9 +105,9 @@ int	ft_cd(char *argv[], char *envp[])
 	if (!pwd)
 		return (1);
 	if (i == 1 || ft_strncmp("~\0", argv[1], 2) == 0)
-		status = chdir_home(envp);
+		status = chdir_home(*envp);
 	else if (ft_strncmp("-\0", argv[1], 2) == 0)
-		status = chdir_oldpwd(envp);
+		status = chdir_oldpwd(*envp);
 	else
 		status = chdir_path(argv[1]);
 	if (status == 0)

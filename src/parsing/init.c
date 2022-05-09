@@ -22,7 +22,7 @@ static char	**copy_envp(char *envp[])
 	size = -1;
 	while (envp[++size])
 		;
-	ret = ft_calloc(sizeof(char *), (262144 + 1));
+	ret = ft_calloc(sizeof(char *), (size + 1));
 	if (!ret)
 		exit(EXIT_FAILURE);
 	i = -1;
@@ -50,7 +50,8 @@ t_arg	*init_arg(char **envp)
 	if (arg == 0)
 		return (0);
 	arg->envp = copy_envp(envp);
-	update_env("?=1", arg->envp);
+	printf("%p\n", (arg->envp));
+	update_env("?=1", &(arg->envp));
 	return (arg);
 }
 

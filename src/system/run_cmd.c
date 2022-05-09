@@ -18,7 +18,7 @@ int	run_process(t_arg *arg, t_cmd_arg *cmd_arg)
 
 	if (arg->cmd_arg->cmd_count == 1
 		&& chk_builtin(cmd_arg->cmd_head->cmd_param))
-		return (exec_cmd_one(cmd_arg->cmd_head->cmd_param, arg->envp));
+		return (exec_cmd_one(cmd_arg->cmd_head->cmd_param, &(arg->envp)));
 	pid = fork();
 	if (pid == -1)
 		ft_error();
@@ -53,7 +53,7 @@ void	run_cmd(t_arg *arg, t_cmd *cmd_head)
 	{
 		connect_redir(cmd_head->cmd_idx, arg->cmd_arg, cmd_head->redir);
 		if (cmd_head->cmd_param[0] != 0)
-			exec_cmd(cmd_head->cmd_param, arg->envp, arg->cmd_arg->path);
+			exec_cmd(cmd_head->cmd_param, &(arg->envp), arg->cmd_arg->path);
 	}
 	else if (pid > 0)
 	{

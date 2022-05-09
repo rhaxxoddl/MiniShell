@@ -15,6 +15,14 @@
 #include <readline/history.h>
 #include <errno.h>
 
+int	end_main(void)
+{
+	ft_putstr_fd("\033[1A", 1);
+	ft_putstr_fd("\033[11C", 1);
+	ft_putstrendl_fd("exit", 1);
+	return (0);
+}
+
 int	main(int argc, char *argv[], char *envp[])
 {
 	(void)argv;
@@ -26,20 +34,19 @@ int	main(int argc, char *argv[], char *envp[])
 	sig_init();
 	arg = init_arg(envp);
 	if (arg == 0)
-		return (0);
+		ft_error();
 	while(1)
 	{
 		line = readline("minishell$ ");
 		add_history(line);
 		if (line == NULL)
-			exit(0);
+			return (end_main());
 		arg->cmd_arg = parsing(arg->envp, line);
 		// print_arg(arg->cmd_arg);
 		if (line != 0)
 			free(line);
 		if (arg->cmd_arg->cmd_count != 0)
 			run_process(arg, arg->cmd_arg);
-		// system("leaks minishell");
+//		system("leaks minishell");
 	}
-	return (0);
 }

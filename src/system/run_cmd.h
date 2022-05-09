@@ -108,9 +108,9 @@ char		*cmd_connect_path(char *cmd, char **path);
 
 int			add_slash(char **path);
 
-void		exec_cmd(char *argv[], char *envp[], char **path);
+void		exec_cmd(char *argv[], char **envp[], char **path);
 int			chk_builtin(char *argv[]);
-int			exec_cmd_one(char *argv[], char *envp[]);
+int			exec_cmd_one(char *argv[], char **envp[]);
 // signal_handler.c-----------------------------------
 /*
 [sig_init()]
