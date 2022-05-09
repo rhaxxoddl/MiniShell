@@ -111,7 +111,7 @@ int			add_slash(char **path);
 void		exec_cmd(char *argv[], char **envp[], char **path);
 int			chk_builtin(char *argv[]);
 int			exec_cmd_one(char *argv[], char **envp[]);
-void		update_status(char **envp[], int status); 
+void		update_status(char **envp[], int status);
 // signal_handler.c-----------------------------------
 /*
 [sig_init()]

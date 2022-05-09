@@ -25,12 +25,12 @@ int	end_main(void)
 
 int	main(int argc, char *argv[], char *envp[])
 {
-	(void)argv;
-	(void)argc;
-	t_arg	*arg;
-	char    *line;
+	t_arg			*arg;
+	char			*line;
 	struct termios	set;
 
+	(void)argv;
+	(void)argc;
 	tcgetattr(STDOUT_FILENO, &set);
 	set.c_lflag &= (~ECHOCTL);
 	tcsetattr(STDOUT_FILENO, TCSANOW, &set);
@@ -39,7 +39,7 @@ int	main(int argc, char *argv[], char *envp[])
 	arg = init_arg(envp);
 	if (arg == 0)
 		ft_error();
-	while(1)
+	while (1)
 	{
 		line = readline("minishell$ ");
 		add_history(line);
