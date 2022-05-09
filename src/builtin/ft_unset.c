@@ -47,7 +47,7 @@ static int	find_env(char *str, char *envp[])
 		if (envp[i][j] == str[j] || (envp[i][j] == '=' && !str[j]))
 			return (i);
 	}
-	return (0);
+	return (-1);
 }
 
 static void	_unset(char *str, char **envp[])
@@ -56,14 +56,16 @@ static void	_unset(char *str, char **envp[])
 	int	size;
 
 	i = find_env(str, *envp);
-	if (i)
+	if (i >= 0)
 	{
-		free(envp[i]);
+		free((*envp)[i]);
 		size = -1;
-		while (envp[++size] != 0)
+		while ((*envp)[++size] != 0)
 			;
-		envp[i] = envp[size - 1];
-		envp[size - 1] = 0;
+		if (!size)
+			return ;
+		(*envp)[i] = (*envp)[size - 1];
+		(*envp)[size - 1] = 0;
 	}
 }
 
