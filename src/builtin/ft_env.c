@@ -28,7 +28,7 @@ int	ft_env(char *argv[], char *envp[])
 	i = -1;
 	while (envp[++i])
 	{
-		if (!ft_strchr(envp[i], '='))// || envp[i][0] == '?')
+		if (!ft_strchr(envp[i], '=') || envp[i][0] == '?')
 			continue ;
 		ft_putstrendl_fd(envp[i], 1);
 	}

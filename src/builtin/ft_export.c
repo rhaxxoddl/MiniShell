@@ -15,7 +15,6 @@
 #include "libft.h"
 #include "builtin.h"
 
-#include <stdio.h>
 static int	_check_arg(char *str)
 {
 	int	i;
@@ -55,11 +54,11 @@ static int	find_env(char *str, char *envp[])
 	return (-1);
 }
 
-static char **append_envp(char **envp[], char *str)
+static char	**append_envp(char **envp[], char *str)
 {
-	int size;
-	int i;
-	char **ret;
+	int		size;
+	int		i;
+	char	**ret;
 
 	size = -1;
 	while ((*envp)[++size])
