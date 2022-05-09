@@ -6,7 +6,7 @@
 /*   By: sanjeon <sanjeon@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/11 18:51:05 by sanjeon           #+#    #+#             */
-/*   Updated: 2022/05/04 10:05:20 by sanjeon          ###   ########.fr       */
+/*   Updated: 2022/05/08 18:51:40 by sanjeon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,12 +49,12 @@ void		run_cmd(t_arg *arg, t_cmd *cmd_head);
 [connect_pipe()]
 Pipe connection with the following command.
 */
-void		connect_pipe(int cmd_idx, t_arg *arg);
+void		connect_pipe(int cmd_idx, t_cmd_arg *cmd_arg);
 /*
 [connect_redir()]
 Apply redirection.
 */
-void		connect_redir(t_redir *redir);
+void		connect_redir(int cmd_idx, t_cmd_arg *cmd_arg, t_redir *redir);
 void		exit_handle(t_arg *arg);
 // redirection.c-----------------------------------
 /*
@@ -62,7 +62,7 @@ void		exit_handle(t_arg *arg);
 Choose the proper redirection function and execute it.
 In the connect_redir()
 */
-int			sellect_redir(t_redir *redir);
+int			sellect_redir(t_redir *redir, int *out);
 int			redir_in(const char *filename);
 int			redir_out(const char *filename);
 int			redir_app(const char *filename);
@@ -73,8 +73,7 @@ int			redir_here(const char *limitor);
 Read on the readline() and connect to str until the limiter comes in.
 When the limiter comes in, call the comein_limitor().
 */
-int			until_comein_limitor(char **str, char **rl,
-				const char *limitor, int fd);
+int			until_comein_limitor(const char *limitor, int fd);
 /*
 [free_return()]
 Check if the strings str and rl are null or return status after deallocation.
@@ -111,7 +110,7 @@ int			add_slash(char **path);
 
 void		exec_cmd(char *argv[], char *envp[], char **path);
 int			chk_builtin(char *argv[]);
-void		exec_cmd_one(char *argv[], char *envp[]);
+int			exec_cmd_one(char *argv[], char *envp[]);
 // signal_handler.c-----------------------------------
 /*
 [sig_init()]

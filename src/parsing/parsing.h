@@ -6,7 +6,7 @@
 /*   By: sanjeon <sanjeon@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 11:38:46 by sanjeon           #+#    #+#             */
-/*   Updated: 2022/05/04 10:00:16 by sanjeon          ###   ########.fr       */
+/*   Updated: 2022/05/08 16:49:09 by sanjeon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 void		print_arg(t_cmd_arg *arg);
 char		*app_str(char *dest, char *src);
 char		**add_col(char **cmd, char **add);
-void		pro_before_str(char **temp, char **line, int *i);
+int			pro_before_str(char **temp, char **line, int *i);
 void		pro_bslash(char **temp, char **line, int *i);
 void		meet_space(char **line, char **temp, int *i, t_cmd *cmd);
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signal_handler.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jinoh <jinoh@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: sanjeon <sanjeon@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 15:10:28 by jinoh             #+#    #+#             */
-/*   Updated: 2022/04/24 14:33:49 by                  ###   ########.fr       */
+/*   Updated: 2022/05/06 19:54:36 by sanjeon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,13 +49,13 @@ void	handle_sigint(pid_t pid)
 	{
 		rl_on_new_line();
 		rl_redisplay();
-		write(1, "  \n", 3);
+		write(1, "  A\n", 4);
 		rl_on_new_line();
 		rl_replace_line("", 0);
 		rl_redisplay();
 	}
 	else
-		write(1, "\n", 1);
+		write(1, "t\n", 2);
 }
 
 void	handle_sigquit(pid_t pid)

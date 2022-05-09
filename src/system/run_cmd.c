@@ -6,7 +6,7 @@
 /*   By: sanjeon <sanjeon@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/14 16:26:10 by sanjeon           #+#    #+#             */
-/*   Updated: 2022/05/04 10:23:51 by sanjeon          ###   ########.fr       */
+/*   Updated: 2022/05/08 18:51:23 by sanjeon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,7 @@ int	run_process(t_arg *arg, t_cmd_arg *cmd_arg)
 
 	if (arg->cmd_arg->cmd_count == 1
 		&& chk_builtin(cmd_arg->cmd_head->cmd_param))
-	{
-		exec_cmd_one(cmd_arg->cmd_head->cmd_param, arg->envp);
-		return (0);
-	}
+		return (exec_cmd_one(cmd_arg->cmd_head->cmd_param, arg->envp));
 	pid = fork();
 	if (pid == -1)
 		ft_error();
@@ -54,9 +51,9 @@ void	run_cmd(t_arg *arg, t_cmd *cmd_head)
 		ft_error();
 	else if (pid == 0)
 	{
-		connect_pipe(cmd_head->cmd_idx, arg);
-		connect_redir(cmd_head->redir);
-		exec_cmd(cmd_head->cmd_param, arg->envp, arg->cmd_arg->path);
+		connect_redir(cmd_head->cmd_idx, arg->cmd_arg, cmd_head->redir);
+		if (cmd_head->cmd_param[0] != 0)
+			exec_cmd(cmd_head->cmd_param, arg->envp, arg->cmd_arg->path);
 	}
 	else if (pid > 0)
 	{
@@ -67,28 +64,32 @@ void	run_cmd(t_arg *arg, t_cmd *cmd_head)
 	}
 }
 
-void	connect_pipe(int cmd_idx, t_arg *arg)
+void	connect_pipe(int cmd_idx, t_cmd_arg *cmd_arg)
 {
-	if (cmd_idx != arg->cmd_arg->cmd_count - 1)
+	if (cmd_idx != cmd_arg->cmd_count - 1)
 	{
-		if (dup2(arg->cmd_arg->fds[cmd_idx][W], STDOUT_FILENO) == -1)
+		if (dup2(cmd_arg->fds[cmd_idx][W], STDOUT_FILENO) == -1)
 			ft_error();
-		close(arg->cmd_arg->fds[cmd_idx][W]);
-		close(arg->cmd_arg->fds[cmd_idx][R]);
+		close(cmd_arg->fds[cmd_idx][W]);
+		close(cmd_arg->fds[cmd_idx][R]);
 	}
 }
 
-void	connect_redir(t_redir *redir)
+void	connect_redir(int cmd_idx, t_cmd_arg *cmd_arg, t_redir *redir)
 {
 	t_redir	*temp;
+	int		out;
 
+	out = 0;
 	temp = redir;
 	while (temp != 0)
 	{
-		if (sellect_redir(temp) == 0)
+		if (sellect_redir(temp, &out) == 0)
 			ft_error();
 		temp = temp->next;
 	}
+	if (out == 0)
+		connect_pipe(cmd_idx, cmd_arg);
 }
 
 void	exit_handle(t_arg *arg)

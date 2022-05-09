@@ -6,7 +6,7 @@
 /*   By: sanjeon <sanjeon@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 10:37:54 by sanjeon           #+#    #+#             */
-/*   Updated: 2022/05/04 10:00:08 by sanjeon          ###   ########.fr       */
+/*   Updated: 2022/05/08 16:56:12 by sanjeon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,10 +65,10 @@ t_cmd	*parsing_cmd(char **envp, char **line)
 		if ((*line)[i] == '\'' || (*line)[i] == '\"' ||
 				(*line)[i] == '\\' || valid_dol(&(*line)[i]))
 			parsing_cmd_routine(line, &temp, &i, envp);
-		else if (get_redir_type(&(*line)[i]))
+		else if (get_redir_type(&(*line)[i]) && pro_before_str(&temp, line, &i))
 		{
-			pro_before_str(&temp, line, &i);
-			cmd->cmd_param = add_col(cmd->cmd_param, &temp);
+			if (temp != 0)
+				cmd->cmd_param = add_col(cmd->cmd_param, &temp);
 			parsing_redir(envp, cmd, line, &i);
 		}
 		else if (ft_isspace((*line)[i]))
@@ -94,16 +94,18 @@ void	parsing_cmd_routine(char **line, char **temp, int *i, char **envp)
 
 void	parsing_cmd_finish(char **line, char **temp, int *i, t_cmd *cmd)
 {
-	if (i > 0 && !ft_isspace((*line)[(*i) - 1]))
+	if (*i > 0 && !ft_isspace((*line)[(*i) - 1]))
 	{
 		*temp = app_str(*temp, ft_substr(*line, 0, (*i)));
 		if (*temp == 0)
 			ft_error();
 	}
-	cmd->cmd_param = add_col(cmd->cmd_param, temp);
-	if (cmd->cmd_param == 0)
-		ft_error();
-	*temp = 0;
+	if (*temp != 0)
+	{
+		cmd->cmd_param = add_col(cmd->cmd_param, temp);
+		if (cmd->cmd_param == 0)
+			ft_error();
+	}
 	if ((*line)[*i] == '|')
 		(*line) = (*line) + (*i) + 1;
 	else
