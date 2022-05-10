@@ -6,7 +6,7 @@
 /*   By: sanjeon <sanjeon@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/14 16:26:10 by sanjeon           #+#    #+#             */
-/*   Updated: 2022/05/09 21:05:03 by sanjeon          ###   ########.fr       */
+/*   Updated: 2022/05/10 10:50:10 by sanjeon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@ int	run_process(t_arg *arg, t_cmd_arg *cmd_arg)
 	pid_t	pid;
 
 	if (arg->cmd_arg->cmd_count == 1
-		&& chk_builtin(cmd_arg->cmd_head->cmd_param))
-		return (exec_cmd_one(cmd_arg, cmd_arg->cmd_head->cmd_param, &(arg->envp)));
+		&& chk_builtin(cmd_arg->cmd_head->cmd_p))
+		return (exec_cmd_one(cmd_arg, cmd_arg->cmd_head->cmd_p, &(arg->envp)));
 	pid = fork();
 	if (pid == -1)
 		ft_error();
@@ -54,15 +54,14 @@ void	run_cmd(t_arg *arg, t_cmd *cmd_head)
 	else if (pid == 0)
 	{
 		connect_redir(cmd_head->cmd_idx, arg->cmd_arg, cmd_head->redir);
-		if (cmd_head->cmd_param[0] != 0)
-			exec_cmd(cmd_head->cmd_param, &(arg->envp), arg->cmd_arg->path);
+		if (cmd_head->cmd_p[0] != 0)
+			exec_cmd(cmd_head->cmd_p, &(arg->envp), arg->cmd_arg->path);
 	}
 	else if (pid > 0)
 	{
 		close(arg->cmd_arg->fds[cmd_head->cmd_idx][W]);
 		dup2(arg->cmd_arg->fds[cmd_head->cmd_idx][R], STDIN_FILENO);
 		close(arg->cmd_arg->fds[cmd_head->cmd_idx][R]);
-		wait(&(arg->status));
 	}
 }
 
@@ -96,6 +95,14 @@ void	connect_redir(int cmd_idx, t_cmd_arg *cmd_arg, t_redir *redir)
 
 void	exit_handle(t_arg *arg)
 {
+	int	p_count;
+
+	p_count = 0;
+	while (p_count <= arg->cmd_arg->cmd_count)
+	{
+		wait(&(arg->status));
+		p_count++;
+	}
 	if (WIFEXITED(arg->status))
 		exit(WEXITSTATUS(arg->status));
 	else if (WIFSIGNALED(arg->status))

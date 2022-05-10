@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipe_struct.h                                      :+:      :+:    :+:   */
+/*   minishell_struct.h                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sanjeon <sanjeon@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/14 11:35:32 by sanjeon           #+#    #+#             */
-/*   Updated: 2022/05/09 16:45:39 by sanjeon          ###   ########.fr       */
+/*   Updated: 2022/05/10 08:55:36 by sanjeon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ typedef struct s_redir{
 
 typedef struct s_cmd{
 	int				cmd_idx;
-	char			**cmd_param;
+	char			**cmd_p;
 	t_redir			*redir;
 	struct s_cmd	*next;
 }				t_cmd;

@@ -6,7 +6,7 @@
 /*   By: sanjeon <sanjeon@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 17:09:54 by sanjeon           #+#    #+#             */
-/*   Updated: 2022/05/04 09:58:56 by sanjeon          ###   ########.fr       */
+/*   Updated: 2022/05/10 08:55:36 by sanjeon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,8 @@ void	free_cmd(t_cmd *cmd)
 
 	while (cmd != NULL)
 	{
-		free_str_arr(cmd->cmd_param);
-		free(cmd->cmd_param);
+		free_str_arr(cmd->cmd_p);
+		free(cmd->cmd_p);
 		free_reidr(cmd->redir);
 		temp = cmd;
 		cmd = cmd->next;

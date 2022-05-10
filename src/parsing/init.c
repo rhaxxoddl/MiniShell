@@ -6,7 +6,7 @@
 /*   By: sanjeon <sanjeon@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 17:09:20 by sanjeon           #+#    #+#             */
-/*   Updated: 2022/05/09 19:49:42 by sanjeon          ###   ########.fr       */
+/*   Updated: 2022/05/10 08:55:36 by sanjeon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,8 +88,8 @@ t_cmd	*init_cmd(char **line)
 	if (cmd == 0)
 		ft_error();
 	cmd->redir = 0;
-	cmd->cmd_param = (char **)ft_calloc(1, sizeof(char *));
-	if (cmd->cmd_param == 0)
+	cmd->cmd_p = (char **)ft_calloc(1, sizeof(char *));
+	if (cmd->cmd_p == 0)
 		ft_error();
 	return (cmd);
 }
